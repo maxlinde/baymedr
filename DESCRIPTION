@@ -20,3 +20,6 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/maxlinde/baymedr
 BugReports: https://github.com/maxlinde/baymedr/issues
+Imports: 
+    stats (>= 3.5.2)
+RoxygenNote: 6.1.1
