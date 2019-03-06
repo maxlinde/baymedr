@@ -15,7 +15,7 @@ Description: Convenience functions for the computation of Bayes factors for
     the equivalence (equiv_bf), non-inferiority (infer_bf), and superiority 
     (super_bf) of an intervention group compared to some form of control 
     group.
-License: What license it uses
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/maxlinde/baymedr
