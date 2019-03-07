@@ -1,7 +1,33 @@
-super_bf <- function(formula,
-                     x,
-                     y,
-                     data) {
+#' Bla
+#'
+#' @param formula Bla
+#' @param x Bla
+#' @param y Bla
+#' @param data Bla
+#'
+#' @return Bla
+#' @export
+#' @import rlang tibble
+#'
+#' @examples
+#' Bla
+super_bf <- function(formula = NULL,
+                     x = NULL,
+                     y = NULL,
+                     data = NULL) {
+  if (!is.null(formula) && !is.null(x)) {
+    abort("You must define only one of 'formula' or 'x'.")
+  }
+  if (xor(is.null(x), is.null(y))) {
+    abort("Both 'x' and 'y' must be defined.")
+  }
+  if (!is.null(data)) {
+    if (inherits(x = data,
+                 what = c("tbl_df", "tbl", "data.frame"))) {
+      data <- as_tibble(data)
+      warn("The 'data' are converted to tibble.")
+    }
+  }
   n_x <- length(x)
   n_y <- length(y)
   mean_x <- mean(x)
@@ -23,4 +49,5 @@ super_bf <- function(formula,
   bf_sup2 = res[[1]]
   names(bf_sup1) = "BFsup1"
   names(bf_sup2) = "BFsup2"
+  return(c(bf_sup1, bf_sup2))
 }
