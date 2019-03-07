@@ -1,19 +1,4 @@
-#' Bla
-#'
-#' @param delta A number
-#' @param t A number
-#' @param n A number
-#' @param nu A number
-#' @param mu_delta A number
-#' @param gamma A number
-#' @param kappa A number
-#'
-#' @return A number
-#' @export
 #' @import stats
-#'
-#' @examples
-#' integrand_t(1, 2, 3, 4, 5, 6, 7)
 integrand_t <- function(delta,
                         t,
                         n,
