@@ -21,5 +21,7 @@ LazyData: true
 URL: https://github.com/maxlinde/baymedr
 BugReports: https://github.com/maxlinde/baymedr/issues
 Imports: 
-    stats (>= 3.5.2)
+    stats (>= 3.5.2),
+    rlang (>= 0.3.1),
+    tibble (>= 2.0.1)
 RoxygenNote: 6.1.1
