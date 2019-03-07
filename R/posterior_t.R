@@ -1,3 +1,4 @@
+#' @import stats
 posterior_t <- function(delta,
                         t,
                         n1,
