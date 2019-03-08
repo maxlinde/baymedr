@@ -2,13 +2,59 @@
 % Please edit documentation in R/super_bf.R
 \name{super_bf}
 \alias{super_bf}
-\title{Title}
+\title{Bayes factors for superiority designs}
 \usage{
-super_bf(formula = NULL, x = NULL, y = NULL, data = NULL)
+super_bf(x = NULL, y = NULL, formula = NULL, data = NULL,
+  prior_scale = 1/sqrt(2), ind_samples = TRUE)
 }
 \arguments{
-\item{data}{}
+\item{x}{A vector of numeric observations for the control group.}
+
+\item{y}{A vector of numeric observations for the experimental group.}
+
+\item{formula}{A formula specifying the desired model.}
+
+\item{data}{A \code{data.frame} containing all the data (used in combination
+with \code{formula}).}
+
+\item{prior_scale}{A scalar, specifying the scale of the prior distribution
+(see \link{Details}).}
+
+\item{ind_samples}{A logical value, indicating whether the groups are
+independent (TRUE) or dependent (FALSE).}
+}
+\value{
+Two Bayes factors are obtained from \code{super_bf}. The first one
+corresponds to a one-sided alternative hypothesis (i.e.,
+\eqn{\mu_control < \mu_experimental}); the second one corresponds to a
+two-sided alternative hypothesis. Importantly, both Bayes factors refer to
+the evidence in favour of the alternative hypothesis.
 }
 \description{
-Title
+This function computes Bayes factors for superiority designs.
+}
+\details{
+The Bayes factor resulting from \code{super_bf} tests the null hypothesis
+that the experimental group (e.g., a new medication) is not better than the
+control group (e.g., a placebo or existing medication). In other words, the
+null hypothesis of \code{super_bf} states that the true population effect
+size is exactly zero, whereas the alternative hypothesis of \code{super_bf}
+states that the true population effect size is larger than zero (i.e.,
+\eqn{\mu_control < \mu_experimental}).
+}
+\examples{
+# super_bf using x and y:
+super_bf(x = rnorm(100, 10, 15), y = rnorm(130, 13, 10))
+}
+\references{
+Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed bayesian
+t-tests. Manuscript submitted for publication.
+
+Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
+tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
+Bulletin & Review}, \emph{16}(2), 225-237.
+
+van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
+(2019). Bayes factors for superiority, non-inferiority, and equivalence
+designs. Manuscript submitted for publication.
 }
