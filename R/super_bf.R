@@ -1,4 +1,12 @@
-#' Bla
+#' Bayes factors for superiority designs
+#'
+#' This function computes Bayes factors for superiority designs.
+#'
+#' The Bayes factor resulting from \code{super_bf} tests the null hypothesis
+#' that the experimental group (e.g., a new medication) is not better than the
+#' control group (e.g., a placebo or existing medication). In other words, the
+#' null hypothesis states that the true population effect size is exactly zero.
+#'
 #'
 #' @param formula Bla
 #' @param x Bla
@@ -8,6 +16,14 @@
 #' @return Bla
 #' @export
 #' @import rlang tibble
+#'
+#' @references
+#' van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
+#' (2019). Bayes factors for superiority, non-inferiority, and equivalence
+#' designs. Manuscript submitted for publication.
+#'
+#' Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed bayesian
+#' t-tests. Manuscript submitted for publication.
 #'
 #' @examples
 #' Bla
@@ -25,7 +41,26 @@ super_bf <- function(formula = NULL,
     if (inherits(x = data,
                  what = c("tbl_df", "tbl", "data.frame"))) {
       data <- as_tibble(data)
-      warn("The 'data' are converted to tibble.")
+      warn("'data' is converted to tibble.")
+    }
+  }
+  if (!is.null(formula) && is.null(data)) {
+    abort("'data' must be defined when 'formula' is used.")
+  }
+  if (!is.null(x)) {
+    if (any(is.na(x))) {
+      abort("'x' must not contain any missing values.")
+    }
+    if (any(!is.finite(x))) {
+      abort("'x' must not contain any infinite values.")
+    }
+  }
+  if (!is.null(y)) {
+    if (any(is.na(y))) {
+      abort("'y' must not contain any missing values.")
+    }
+    if (any(!is.finite(y))) {
+      abort("'y' must not contain any infinite values.")
     }
   }
   n_x <- length(x)
