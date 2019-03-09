@@ -13,34 +13,30 @@
 #' To cover both research practices, \code{super_bf} calculates two Bayes
 #' factors, one for each alternative hypothesis (see Value).
 #'
-#'    whereas the alternative hypothesis of \code{super_bf}
-#' states that the true population effect size is larger than zero (i.e.,
-#' \eqn{\mu_control < \mu_experimental}).
-#'
 #' @param x A vector of numeric observations for the control group.
 #' @param y A vector of numeric observations for the experimental group.
 #' @param formula A formula specifying the desired model.
 #' @param data A \code{data.frame} containing all the data (used in combination
-#' with \code{formula}).
+#'   with \code{formula}).
 #' @param prior_scale A scalar, specifying the scale of the prior distribution
-#' (see Details).
+#'   (see Details).
 #' @param ind_samples A logical value, indicating whether the groups are
-#' independent (TRUE) or dependent (FALSE).
+#'   independent (TRUE; the default) or dependent (FALSE).
 #'
 #' @return Two Bayes factors are obtained from \code{super_bf}. The first one
-#' corresponds to a one-tailed alternative hypothesis (i.e.,
-#' \eqn{\mu_control < \mu_experimental}), whereas the second one corresponds to
-#' a two-tailed alternative hypothesis. This is done to accomodate different
-#' research practices, with some researchers employing a one-tailed and some a
-#' two-tailed test. Importantly, both Bayes factors refer to the evidence in
-#' favour of the alternative hypothesis.
+#'   corresponds to a one-tailed alternative hypothesis (i.e., \eqn{\mu_control
+#'   < \mu_experimental}), whereas the second one corresponds to a two-tailed
+#'   alternative hypothesis. This is done to accomodate different research
+#'   practices, with some researchers employing a one-tailed and some a
+#'   two-tailed test. Importantly, both Bayes factors refer to the evidence in
+#'   favour of the alternative hypothesis.
 #'
 #' @export
 #' @import rlang stats tibble
 #'
 #' @references
-#' Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed bayesian
-#' t-tests. Manuscript submitted for publication.
+#' Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
+#' bayesian t-tests. Manuscript submitted for publication.
 #'
 #' Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
 #' tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
@@ -65,32 +61,38 @@ super_bf <- function(x = NULL,
   if (xor(is.null(x), is.null(y))) {
     abort("Both 'x' and 'y' must be defined.")
   }
+  if (!is.null(x)) {
+    if (any(is.na(x)) || any(!is.finite(x))) {
+      abort("'x' must not contain any missing or infinite values.")
+    }
+  }
+  if (!is.null(y)) {
+    if (any(is.na(y)) || any(!is.finite(y))) {
+      abort("'y' must not contain any missing or infinite values.")
+    }
+  }
+  if (isFALSE(ind_samples) && (length(x) != length(y))) {
+    abort("If 'ind_samples' is FALSE, 'x' and 'y' must have the same length.")
+  }
+  if (!is.numeric(x) || !is.numeric(y)) {
+    abort("'x' and 'y' must be numeric.")
+  }
   if (!is.null(data)) {
     if (inherits(x = data,
                  what = c("tbl_df", "tbl", "data.frame"))) {
       data <- as_tibble(data)
-      #warn("'data' is converted to tibble.")
+      message("'data' is converted to tibble.")
+    } else {
+      abort("'data' must be a data.frame or a tibble.")
     }
   }
   if (!is.null(formula) && is.null(data)) {
     abort("'data' must be defined when 'formula' is used.")
   }
-  if (!is.null(x)) {
-    if (any(is.na(x))) {
-      abort("'x' must not contain any missing values.")
-    }
-    if (any(!is.finite(x))) {
-      abort("'x' must not contain any infinite values.")
-    }
-  }
-  if (!is.null(y)) {
-    if (any(is.na(y))) {
-      abort("'y' must not contain any missing values.")
-    }
-    if (any(!is.finite(y))) {
-      abort("'y' must not contain any infinite values.")
-    }
-  }
+
+
+
+
   n_x <- length(x)
   n_y <- length(y)
   mean_x <- mean(x)
@@ -108,9 +110,9 @@ super_bf <- function(x = NULL,
                prior_loc = 0,
                prior_scale = prior_scale,
                prior_df = 1)
-  bf_sup1 = res[[3]]
-  bf_sup2 = res[[1]]
-  names(bf_sup1) = "BFsup1"
-  names(bf_sup2) = "BFsup2"
-  c(bf_sup1, bf_sup2)
+  bf_onetailed = res[[3]]
+  bf_twotailed = res[[1]]
+  names(bf_onetailed) = "BF one-tailed"
+  names(bf_twotailed) = "BF two-tailed"
+  c(bf_onetailed, bf_twotailed)
 }
