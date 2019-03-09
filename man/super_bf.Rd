@@ -18,17 +18,19 @@ super_bf(x = NULL, y = NULL, formula = NULL, data = NULL,
 with \code{formula}).}
 
 \item{prior_scale}{A scalar, specifying the scale of the prior distribution
-(see \link{Details}).}
+(see Details).}
 
 \item{ind_samples}{A logical value, indicating whether the groups are
-independent (TRUE) or dependent (FALSE).}
+independent (TRUE; the default) or dependent (FALSE).}
 }
 \value{
 Two Bayes factors are obtained from \code{super_bf}. The first one
-corresponds to a one-sided alternative hypothesis (i.e.,
-\eqn{\mu_control < \mu_experimental}); the second one corresponds to a
-two-sided alternative hypothesis. Importantly, both Bayes factors refer to
-the evidence in favour of the alternative hypothesis.
+  corresponds to a one-tailed alternative hypothesis (i.e., \eqn{\mu_control
+  < \mu_experimental}), whereas the second one corresponds to a two-tailed
+  alternative hypothesis. This is done to accomodate different research
+  practices, with some researchers employing a one-tailed and some a
+  two-tailed test. Importantly, both Bayes factors refer to the evidence in
+  favour of the alternative hypothesis.
 }
 \description{
 This function computes Bayes factors for superiority designs.
@@ -38,17 +40,20 @@ The Bayes factor resulting from \code{super_bf} tests the null hypothesis
 that the experimental group (e.g., a new medication) is not better than the
 control group (e.g., a placebo or existing medication). In other words, the
 null hypothesis of \code{super_bf} states that the true population effect
-size is exactly zero, whereas the alternative hypothesis of \code{super_bf}
-states that the true population effect size is larger than zero (i.e.,
-\eqn{\mu_control < \mu_experimental}).
+size is exactly zero.
+
+As the name 'superiority' implies, the test is typically understood as a
+one-tailed test. In practice, however, a two-tailed test is often employed.
+To cover both research practices, \code{super_bf} calculates two Bayes
+factors, one for each alternative hypothesis (see Value).
 }
 \examples{
 # super_bf using x and y:
 super_bf(x = rnorm(100, 10, 15), y = rnorm(130, 13, 10))
 }
 \references{
-Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed bayesian
-t-tests. Manuscript submitted for publication.
+Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
+bayesian t-tests. Manuscript submitted for publication.
 
 Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
 tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
