@@ -29,21 +29,20 @@ bf10_t <- function(t,
   denominator <- dt(x = t,
                     df = nu)
   bf10 <- numerator / denominator
-  prior_area_smaller0 <- pt(q = -mu_delta / gamma,
-                            df = kappa)
-  post_area_smaller0 <- cdf_t(x = 0,
-                              t = t,
-                              n1 = n1,
-                              n2 = n2,
-                              ind_samples = ind_samples,
-                              prior_loc = prior_loc,
-                              prior_scale = prior_scale,
-                              prior_df = prior_df)
-  bfmin1 <- post_area_smaller0 / prior_area_smaller0
-  bfplus1 <- (1 - post_area_smaller0) / (1 - prior_area_smaller0)
-  bfmin0 <- bfmin1 * bf10
-  bfplus0 <- bfplus1 * bf10
-  return(list(bf10 = bf10,
-              bfplus0 = bfplus0,
-              bfmin0 = bfmin0))
+  prior_area_smaller_0 <- pt(q = -mu_delta / gamma,
+                             df = kappa)
+  post_area_smaller_0 <- cdf_t(x = 0,
+                               t = t,
+                               n1 = n1,
+                               n2 = n2,
+                               ind_samples = ind_samples,
+                               prior_loc = prior_loc,
+                               prior_scale = prior_scale,
+                               prior_df = prior_df,
+                               rel_tol = rel_tol)
+  bf_min1 <- post_area_smaller_0 / prior_area_smaller_0
+  bf_plus1 <- (1 - post_area_smaller_0) / (1 - prior_area_smaller_0)
+  bf_min0 <- bf_min1 * bf10
+  bf_plus0 <- bf_plus1 * bf10
+  return(list(bf_10 = bf10, bf_plus0 = bf_plus0, bf_min0 = bf_min0))
 }

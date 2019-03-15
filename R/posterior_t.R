@@ -17,12 +17,14 @@ posterior_t <- function(delta,
   mu_delta <- prior_loc
   gamma <- prior_scale
   kappa <- prior_df
-  numerator <- dt(x = t,
-                  df = nu,
-                  ncp = sqrt(neff) * delta) * 1 / gamma * dt(
-                    x = (delta - mu_delta) / gamma,
-                    df = kappa)
-  denominator <- integrate(f = integrand_t,
+  numerator <- suppressWarnings(
+    dt(
+      x = t,
+      df = nu,
+      ncp = sqrt(neff) * delta) * 1 / gamma * dt(
+        (delta - mu_delta) / gamma,
+        df = kappa))
+  denominator <- integrate(integrand_t,
                            lower = -Inf,
                            upper = Inf,
                            t = t,
