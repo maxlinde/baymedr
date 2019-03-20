@@ -9,7 +9,11 @@ Authors@R: c(
     person(given = "Don",
            family = "van Ravenzwaaij",
            role= "aut",
-           email = "d.van.ravenzwaaij@rug.nl"))
+           email = "d.van.ravenzwaaij@rug.nl"),
+    person(given = "Quentin F.",
+           family = "Gronau",
+           role = "ctb",
+           email = "q.f.gronau@uva.nl"))
 Description: Convenience functions for the computation of Bayes factors for 
     common biomedical research designs. Implemented are functions to test 
     the equivalence (equiv_bf), non-inferiority (infer_bf), and superiority 
