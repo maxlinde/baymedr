@@ -4,21 +4,22 @@
 \alias{super_bf}
 \title{Bayes factors for superiority designs}
 \usage{
-super_bf(x = NULL, y = NULL, formula = NULL, data = NULL,
-  prior_scale = 1/sqrt(2), ind_samples = TRUE)
+super_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
+  mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
+  ci_margin = NULL, prior_scale = 1/sqrt(2))
 }
 \arguments{
 \item{x}{A vector of numeric observations for the control group.}
 
 \item{y}{A vector of numeric observations for the experimental group.}
 
+\item{prior_scale}{A scalar, specifying the scale of the prior distribution
+(see Details).}
+
 \item{formula}{A formula specifying the desired model.}
 
 \item{data}{A \code{data.frame} containing all the data (used in combination
 with \code{formula}).}
-
-\item{prior_scale}{A scalar, specifying the scale of the prior distribution
-(see Details).}
 
 \item{ind_samples}{A logical value, indicating whether the groups are
 independent (TRUE; the default) or dependent (FALSE).}

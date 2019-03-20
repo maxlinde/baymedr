@@ -15,19 +15,30 @@
 #'
 #' @param x A vector of numeric observations for the control group.
 #' @param y A vector of numeric observations for the experimental group.
-#' @param formula A formula specifying the desired model.
-#' @param data A \code{data.frame} containing all the data (used in combination
-#'   with \code{formula}).
+#' @param n_x A scalar, specifying the sample size of the control group.
+#' @param n_y A scalar, specifying the sample size of the experimental group.
+#' @param mean_x A scalar, specifying the mean of the dependent variable in the
+#' control group.
+#' @param mean_y A scalar, specifying the mean of the dependent variable in the
+#' experimental group.
+#' @param sd_x A scalar, specifying the standard deviation of the dependent
+#' variable in the control group. Only sd_x and sd_y OR ci_margin should be
+#' defined (see Details).
+#' @param sd_y A scalar, specifying the standard deviation of the dependent
+#' variable in the experimental group. Only sd_x and sd_y OR ci_margin should be
+#' defined (see Details).
+#' @param ci_margin A scalar, specifying the width of the confidence interval
+#' of the difference on the dependent variable between the control and
+#' experimental groups. Only sd_x and sd_y OR ci_margin should be defined
+#' (see Details).
 #' @param prior_scale A scalar, specifying the scale of the prior distribution
 #'   (see Details).
-#' @param ind_samples A logical value, indicating whether the groups are
-#'   independent (TRUE; the default) or dependent (FALSE).
 #'
 #' @return Two Bayes factors are obtained from \code{super_bf}. The first one
 #'   corresponds to a one-tailed alternative hypothesis (i.e., \eqn{\mu_control
 #'   < \mu_experimental}), whereas the second one corresponds to a two-tailed
 #'   alternative hypothesis. This is done to accomodate different research
-#'   practices, with some researchers employing a one-tailed and some a
+#'   practices, with some researchers employing a one-tailed and others a
 #'   two-tailed test. Importantly, both Bayes factors refer to the evidence in
 #'   favour of the alternative hypothesis.
 #'
