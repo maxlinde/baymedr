@@ -93,8 +93,8 @@ super_bf <- function(x = NULL,
     if (any(is.null(n_x),
             is.null(n_y),
             is.null(mean_x),
-            is.null(mean_y)) &&
-        ((is.null(sd_x) || is.null(sd_y)) & is.null(ci_margin))) {
+            is.null(mean_y)) ||
+        ((is.null(sd_x) || is.null(sd_y)) && is.null(ci_margin))) {
       abort("All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and 'sd_y' (or
             'ci_margin' instead of 'sd_x' and 'sd_y') must be defined.")
     }
