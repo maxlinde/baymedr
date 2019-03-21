@@ -13,6 +13,15 @@
 #' To cover both research practices, \code{super_bf} calculates two Bayes
 #' factors, one for each alternative hypothesis (see Value).
 #'
+#' Importantly, \code{super_bf} can be utilized to calculate Bayes factors
+#' based on raw data (i.e., if arguments x and y are defined) or summary
+#' statistics (i.e., if arguments n_x, n_y, mean_x, and mean_y are defined). In
+#' the latter case, the user has the freedom to supply values either for the
+#' arguments sd_x and sd_y OR ci_margin. The choice should depend on the
+#' information that is available to the user.
+#'
+#'
+#'
 #' @param x A vector of numeric observations for the control group.
 #' @param y A vector of numeric observations for the experimental group.
 #' @param n_x A scalar, specifying the sample size of the control group.
@@ -58,8 +67,19 @@
 #' designs. Manuscript submitted for publication.
 #'
 #' @examples
-#' # super_bf using x and y:
+#' # super_bf using raw data:
 #' super_bf(x = rnorm(100, 10, 15), y = rnorm(130, 13, 10))
+#'
+#' # super_bf using summary statistics. The case where sd_x and sd_y are known:
+#' super_bf(n_x = 100, n_y = 130,
+#'          mean_x = 10, mean_y = 13,
+#'          sd_x = 15, sd_y = 10)
+#'
+#' # super_bf using summary statistics. The case where sd_x and sd_y are not
+#' # known:
+#' super_bf(n_x = 100, n_y = 130,
+#'          mean_x = 10, mean_y = 13,
+#'          ci_margin = 4)
 super_bf <- function(x = NULL,
                      y = NULL,
                      n_x = NULL,
