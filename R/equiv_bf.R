@@ -1,3 +1,61 @@
+#' Bayes factor for equivalence designs
+#'
+#' This function computes a Bayes factor for equivalence designs.
+#'
+#' ##TODO##
+#'
+#' @param x A vector of numeric observations for the control group.
+#' @param y A vector of numeric observations for the experimental group.
+#' @param n_x A scalar, specifying the sample size of the control group.
+#' @param n_y A scalar, specifying the sample size of the experimental group.
+#' @param mean_x A scalar, specifying the mean of the dependent variable in the
+#' control group.
+#' @param mean_y A scalar, specifying the mean of the dependent variable in the
+#' experimental group.
+#' @param sd_x A scalar, specifying the standard deviation of the dependent
+#' variable in the control group. Only sd_x and sd_y OR ci_margin should be
+#' defined (see Details).
+#' @param sd_y A scalar, specifying the standard deviation of the dependent
+#' variable in the experimental group. Only sd_x and sd_y OR ci_margin should be
+#' defined (see Details).
+#' @param ci_margin A scalar, specifying the margin of the confidence interval
+#' (i.e., the width of the confidence interval divided by 2) of the difference
+#' on the dependent variable between the control and experimental groups. Only
+#' sd_x and sd_y OR ci_margin should be defined (see Details).
+#' @param interval ##TODO##
+#' @param prior_scale A scalar, specifying the scale of the prior distribution
+#'   (see Details).
+#'
+#' @return ##TODO##
+#' @export
+#' @import rlang stats
+#'
+#' @references
+#' Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
+#' bayesian t-tests. Manuscript submitted for publication.
+#'
+#' Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
+#' tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
+#' Bulletin & Review}, \emph{16}(2), 225-237.
+#'
+#' van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
+#' (2019). Bayes factors for superiority, non-inferiority, and equivalence
+#' designs. Manuscript submitted for publication.
+#'
+#' @examples
+#' # equiv_bf using raw data:
+#' equiv_bf(x = rnorm(100, 10, 15), y = rnorm(130, 13, 10))
+#'
+#' # equiv_bf using summary statistics. The case where sd_x and sd_y are known:
+#' equiv_bf(n_x = 100, n_y = 130,
+#'          mean_x = 10, mean_y = 13,
+#'          sd_x = 15, sd_y = 10)
+#'
+#' # equiv_bf using summary statistics. The case where sd_x and sd_y are not
+#' # known:
+#' equiv_bf(n_x = 100, n_y = 130,
+#'          mean_x = 10, mean_y = 13,
+#'          ci_margin = 4)
 equiv_bf = function(x = NULL,
                     y = NULL,
                     n_x = NULL,
