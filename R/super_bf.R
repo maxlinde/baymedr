@@ -14,13 +14,11 @@
 #' factors, one for each alternative hypothesis (see Value).
 #'
 #' Importantly, \code{super_bf} can be utilized to calculate Bayes factors
-#' based on raw data (i.e., if arguments x and y are defined) or summary
-#' statistics (i.e., if arguments n_x, n_y, mean_x, and mean_y are defined). In
-#' the latter case, the user has the freedom to supply values either for the
-#' arguments sd_x and sd_y OR ci_margin. The choice should depend on the
-#' information that is available to the user.
-#'
-#'
+#' based on raw data (i.e., if arguments 'x' and 'y' are defined) or summary
+#' statistics (i.e., if arguments 'n_x', 'n_y', 'mean_x', and 'mean_y' are
+#' defined). In the latter case, the user has the freedom to supply values
+#' either for the arguments 'sd_x' and 'sd_y' \strong{OR} 'ci_margin'. The
+#' choice should depend on the information that is available to the user.
 #'
 #' @param x A vector of numeric observations for the control group.
 #' @param y A vector of numeric observations for the experimental group.
@@ -31,15 +29,15 @@
 #' @param mean_y A scalar, specifying the mean of the dependent variable in the
 #' experimental group.
 #' @param sd_x A scalar, specifying the standard deviation of the dependent
-#' variable in the control group. Only \code{sd_x} and \code{sd_y} OR
+#' variable in the control group. Only \code{sd_x} and \code{sd_y} \strong{OR}
 #' \code{ci_margin} should be defined (see Details).
 #' @param sd_y A scalar, specifying the standard deviation of the dependent
-#' variable in the experimental group. Only \code{sd_x} and \code{sd_y} OR
-#' \code{ci_margin} should be defined (see Details).
+#' variable in the experimental group. Only \code{sd_x} and \code{sd_y}
+#' \strong{OR} \code{ci_margin} should be defined (see Details).
 #' @param ci_margin A scalar, specifying the margin of the confidence interval
 #' (i.e., the width of the confidence interval divided by 2) of the difference
 #' on the dependent variable between the control and experimental groups. Only
-#' \code{sd_x} and \code{sd_y} OR \code{ci_margin} should be defined
+#' \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
 #' (see Details).
 #' @param prior_scale A scalar, specifying the scale of the prior distribution
 #'   (see Details). The default value is \eqn{1 / \sqrt{2}}
