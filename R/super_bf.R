@@ -41,7 +41,7 @@
 #' on the dependent variable between the control and experimental groups. Only
 #' sd_x and sd_y OR ci_margin should be defined (see Details).
 #' @param prior_scale A scalar, specifying the scale of the prior distribution
-#'   (see Details).
+#'   (see Details). The default value is 1 / sqrt(2) (see Rouder et al., 2009).
 #'
 #' @return Two Bayes factors are obtained from \code{super_bf}. The first one
 #'   corresponds to a one-tailed alternative hypothesis (i.e., \eqn{\mu_control
