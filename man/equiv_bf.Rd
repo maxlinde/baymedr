@@ -39,7 +39,8 @@ sd_x and sd_y OR ci_margin should be defined (see Details).}
 \item{interval}{##TODO##}
 
 \item{prior_scale}{A scalar, specifying the scale of the prior distribution
-(see Details).}
+(see Details). The default value is \eqn{1 / \sqrt{2}}
+(see Rouder et al., 2009).}
 }
 \value{
 ##TODO##

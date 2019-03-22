@@ -13,18 +13,20 @@
 #' @param mean_y A scalar, specifying the mean of the dependent variable in the
 #' experimental group.
 #' @param sd_x A scalar, specifying the standard deviation of the dependent
-#' variable in the control group. Only sd_x and sd_y OR ci_margin should be
-#' defined (see Details).
+#' variable in the control group. Only \code{sd_x} and \code{sd_y} OR
+#' \code{ci_margin} should be defined (see Details).
 #' @param sd_y A scalar, specifying the standard deviation of the dependent
-#' variable in the experimental group. Only sd_x and sd_y OR ci_margin should be
-#' defined (see Details).
+#' variable in the experimental group. Only \code{sd_x} and \code{sd_y} OR
+#' \code{ci_margin} should be defined (see Details).
 #' @param ci_margin A scalar, specifying the margin of the confidence interval
 #' (i.e., the width of the confidence interval divided by 2) of the difference
 #' on the dependent variable between the control and experimental groups. Only
-#' sd_x and sd_y OR ci_margin should be defined (see Details).
+#' \code{sd_x} and \code{sd_y} OR \code{ci_margin} should be defined
+#' (see Details).
 #' @param interval ##TODO##
 #' @param prior_scale A scalar, specifying the scale of the prior distribution
-#'   (see Details).
+#'   (see Details). The default value is \eqn{1 / \sqrt{2}}
+#'   (see Rouder et al., 2009).
 #'
 #' @return ##TODO##
 #' @export

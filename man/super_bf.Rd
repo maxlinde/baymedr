@@ -24,7 +24,7 @@ control group.}
 experimental group.}
 
 \item{sd_x}{A scalar, specifying the standard deviation of the dependent
-variable in the control group. Only sd_x and sd_y OR ci_margin should be
+variable in the control group. Only \code{sd_x} and sd_y OR ci_margin should be
 defined (see Details).}
 
 \item{sd_y}{A scalar, specifying the standard deviation of the dependent
@@ -37,7 +37,8 @@ on the dependent variable between the control and experimental groups. Only
 sd_x and sd_y OR ci_margin should be defined (see Details).}
 
 \item{prior_scale}{A scalar, specifying the scale of the prior distribution
-(see Details).}
+(see Details). The default value is \eqn{1 / \sqrt{2}}
+(see Rouder et al., 2009).}
 }
 \value{
 Two Bayes factors are obtained from \code{super_bf}. The first one
