@@ -24,17 +24,18 @@ control group.}
 experimental group.}
 
 \item{sd_x}{A scalar, specifying the standard deviation of the dependent
-variable in the control group. Only \code{sd_x} and sd_y OR ci_margin should be
-defined (see Details).}
+variable in the control group. Only \code{sd_x} and \code{sd_y} \strong{OR}
+\code{ci_margin} should be defined (see Details).}
 
 \item{sd_y}{A scalar, specifying the standard deviation of the dependent
-variable in the experimental group. Only sd_x and sd_y OR ci_margin should be
-defined (see Details).}
+variable in the experimental group. Only \code{sd_x} and \code{sd_y}
+\strong{OR} \code{ci_margin} should be defined (see Details).}
 
 \item{ci_margin}{A scalar, specifying the margin of the confidence interval
 (i.e., the width of the confidence interval divided by 2) of the difference
 on the dependent variable between the control and experimental groups. Only
-sd_x and sd_y OR ci_margin should be defined (see Details).}
+\code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
+(see Details).}
 
 \item{prior_scale}{A scalar, specifying the scale of the prior distribution
 (see Details). The default value is \eqn{1 / \sqrt{2}}
@@ -65,11 +66,11 @@ To cover both research practices, \code{super_bf} calculates two Bayes
 factors, one for each alternative hypothesis (see Value).
 
 Importantly, \code{super_bf} can be utilized to calculate Bayes factors
-based on raw data (i.e., if arguments x and y are defined) or summary
-statistics (i.e., if arguments n_x, n_y, mean_x, and mean_y are defined). In
-the latter case, the user has the freedom to supply values either for the
-arguments sd_x and sd_y OR ci_margin. The choice should depend on the
-information that is available to the user.
+based on raw data (i.e., if arguments 'x' and 'y' are defined) or summary
+statistics (i.e., if arguments 'n_x', 'n_y', 'mean_x', and 'mean_y' are
+defined). In the latter case, the user has the freedom to supply values
+either for the arguments 'sd_x' and 'sd_y' \strong{OR} 'ci_margin'. The
+choice should depend on the information that is available to the user.
 }
 \examples{
 # super_bf using raw data:
