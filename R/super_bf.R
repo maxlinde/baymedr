@@ -52,7 +52,7 @@
 #'   favour of the alternative hypothesis.
 #'
 #' @export
-#' @import rlang stats tibble
+#' @import rlang stats
 #'
 #' @references
 #' Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
