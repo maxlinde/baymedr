@@ -79,17 +79,17 @@
 #' equiv_bf(n_x = 100, n_y = 130,
 #'          mean_x = 10, mean_y = 13,
 #'          ci_margin = 4)
-equiv_bf = function(x = NULL,
-                    y = NULL,
-                    n_x = NULL,
-                    n_y = NULL,
-                    mean_x = NULL,
-                    mean_y = NULL,
-                    sd_x = NULL,
-                    sd_y = NULL,
-                    ci_margin = NULL,
-                    interval = 0,
-                    prior_scale = 1 / sqrt(2)) {
+equiv_bf <- function(x = NULL,
+                     y = NULL,
+                     n_x = NULL,
+                     n_y = NULL,
+                     mean_x = NULL,
+                     mean_y = NULL,
+                     sd_x = NULL,
+                     sd_y = NULL,
+                     ci_margin = NULL,
+                     interval = 0,
+                     prior_scale = 1 / sqrt(2)) {
   if (any(!is.null(x),
           !is.null(y)) && any(!is.null(n_x),
                               !is.null(n_y),
@@ -160,8 +160,8 @@ equiv_bf = function(x = NULL,
     bf_eq = 1 / res[[1]]
     names(bf_eq) = "BF equivalence"
     cat("  Two-sided M1 equal to M2;   BF =",
-        round(bf_eq,
-              2),
+        round(x = bf_eq,
+              digits = 2),
         "\n")
     return(bf_eq)
   } else {
@@ -187,8 +187,8 @@ equiv_bf = function(x = NULL,
       ((1 - post_dens) / (1 - prior_dens))
     names(interval_bf) = "BF interval"
     cat("  Interval equivalence between M1 and M2;   BF =",
-        round(interval_bf,
-              2),
+        round(x = interval_bf,
+              digits = 2),
         "\n")
     return(interval_bf)
   }
