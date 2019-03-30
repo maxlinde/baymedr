@@ -160,5 +160,15 @@ super_bf <- function(x = NULL,
   bf_twotailed = res[[1]]
   names(bf_onetailed) = "BF one-tailed"
   names(bf_twotailed) = "BF two-tailed"
-  c(bf_onetailed, bf_twotailed)
+  cat("  One-sided M1 lower than M2 BF =",
+      round(x = bf_onetailed,
+            digits = 2),
+      "\n",
+       " Two-sided M1 not equal to M2 BF =",
+      round
+      (x = bf_twotailed,
+        digits = 2),
+      "\n")
+  c(bf_onetailed,
+    bf_twotailed)
 }
