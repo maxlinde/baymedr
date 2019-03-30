@@ -37,7 +37,10 @@ on the dependent variable between the control and experimental groups. Only
 \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
 (see Details).}
 
-\item{interval}{##TODO##}
+\item{interval}{A scalar, specifying the upper bound of the equivalence
+interval in unstandardized units (see van Ravenzwaaij et al., 2019). The
+default is 0, indicating a point null hypothesis rather than an interval
+(see Details).}
 
 \item{prior_scale}{A scalar, specifying the scale of the prior distribution
 (see Details). The default value is \eqn{1 / \sqrt{2}}
@@ -50,7 +53,25 @@ on the dependent variable between the control and experimental groups. Only
 This function computes a Bayes factor for equivalence designs.
 }
 \details{
-##TODO##
+The Bayes factor resulting from \code{equiv_bf} tests the null hypothesis
+that the control group (e.g., a placebo or existing medication) and the
+experimental group (e.g., a new medication) are equivalent. The alternative
+hypothesis is that the two groups are not equivalent.
+
+In contrast to null hypothesis significance testing (NHST), \code{equiv_bf}
+has the advantage that it is not compulsory to specify an equivalence
+interval (see van Ravenzwaaij et al., 2019). Therefore, the default value of
+the argument \code{interval} is 0, indicating a point null hypothesis.
+However, if the user prefers to have a equivalence interval, the argument
+\code{interval} can be set with a positive number, specifying the upper
+bound of a symmetric equivalence interval.
+
+Importantly, \code{equiv_bf} can be utilized to calculate Bayes factors
+based on raw data (i.e., if arguments 'x' and 'y' are defined) or summary
+statistics (i.e., if arguments 'n_x', 'n_y', 'mean_x', and 'mean_y' are
+defined). In the latter case, the user has the freedom to supply values
+either for the arguments 'sd_x' and 'sd_y' \strong{OR} 'ci_margin'. The
+choice should depend on the information that is available to the user.
 }
 \examples{
 # equiv_bf using raw data:
