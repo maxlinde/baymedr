@@ -10,7 +10,7 @@ baymedr: BAYesian inference for MEDical designs in R
 Installation
 ------------
 
-You can install the latest development version from [GitHub](https://github.com/) with:
+You can install the latest development version of `baymedr` from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -63,10 +63,11 @@ library(baymedr)
 
 super_bf(x = data$dv[data$condition == "con"],
          y = data$dv[data$condition == "exp"])
-#>   One-sided M1 lower than M2 BF = 46514.41 
-#>   Two-sided M1 not equal to M2 BF = 23257.21
-#> BF one-tailed BF two-tailed 
-#>      46514.41      23257.21
+#> $`One-tailed`
+#> [1] 46514.41
+#> 
+#> $`Two-tailed`
+#> [1] 23257.21
 ```
 
 Alternatively, if the raw data are not available, we can use summary statistics to compute Bayes factors:
@@ -80,10 +81,11 @@ super_bf(n_x = 138,
          mean_y = 21.9,
          sd_x = 3.3,
          sd_y = 4.0)
-#>   One-sided M1 lower than M2 BF = 2.041406e+13 
-#>   Two-sided M1 not equal to M2 BF = 1.020703e+13
-#> BF one-tailed BF two-tailed 
-#>  2.041406e+13  1.020703e+13
+#> $`One-tailed`
+#> [1] 2.041406e+13
+#> 
+#> $`Two-tailed`
+#> [1] 1.020703e+13
 ```
 
 The equivalence test (`equiv_bf`)
@@ -98,9 +100,7 @@ library(baymedr)
 
 equiv_bf(x = data$dv[data$condition == "con"],
          y = data$dv[data$condition == "exp"])
-#>   Two-sided M1 equal to M2;   BF = 0
-#> BF equivalence 
-#>   4.299741e-05
+#> [1] 4.299741e-05
 ```
 
 Alternatively, if the raw data are not available, we can use summary statistics to compute the Bayes factor:
@@ -114,9 +114,7 @@ equiv_bf(n_x = 138,
          mean_y = 21.9,
          sd_x = 3.3,
          sd_y = 4.0)
-#>   Two-sided M1 equal to M2;   BF = 0
-#> BF equivalence 
-#>   9.797167e-14
+#> [1] 9.797167e-14
 ```
 
 The non-inferiority test (`infer_bf`)
@@ -132,9 +130,7 @@ library(baymedr)
 infer_bf(x = data$dv[data$condition == "con"],
          y = data$dv[data$condition == "exp"],
          ni_margin = 2)
-#>   Mean group 2 at least as high as (mean group 1 - ni_margin) BF = 42943307886
-#> non-inferiority BF 
-#>        42943307886
+#> [1] 42943307886
 ```
 
 Alternatively, if the raw data are not available, we can use summary statistics to compute the Bayes factor:
@@ -149,7 +145,5 @@ infer_bf(n_x = 138,
          sd_x = 3.3,
          sd_y = 4.0,
          ni_margin = 2)
-#>   Mean group 2 at least as high as (mean group 1 - ni_margin) BF = 7033902416
-#> non-inferiority BF 
-#>         7033902416
+#> [1] 7033902416
 ```

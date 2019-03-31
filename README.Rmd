@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the latest development version from [GitHub](https://github.com/) with:
+You can install the latest development version of `baymedr` from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
