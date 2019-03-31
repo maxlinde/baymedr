@@ -156,10 +156,8 @@ super_bf <- function(x = NULL,
                prior_loc = 0,
                prior_scale = prior_scale,
                prior_df = 1)
-  bf_onetailed = res[[3]]
-  bf_twotailed = res[[1]]
-  names(bf_onetailed) = "BF superiority (one-tailed)"
-  names(bf_twotailed) = "BF superiority (two-tailed)"
-  c(bf_onetailed,
-    bf_twotailed)
+  bf_super_onetailed = res[[3]]
+  bf_super_twotailed = res[[1]]
+  list("One-tailed" = bf_super_onetailed,
+       "Two-tailed" = bf_super_twotailed)
 }

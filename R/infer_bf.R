@@ -130,6 +130,5 @@ infer_bf <- function(x = NULL,
                 prior_scale = prior_scale,
                 prior_df = 1)
   ni_bf <- res[[3]] * (1 / res[[2]])
-  names(ni_bf) <- "BF non-inferiority"
   return(ni_bf)
 }

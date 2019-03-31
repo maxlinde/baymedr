@@ -157,9 +157,8 @@ equiv_bf <- function(x = NULL,
                  prior_loc = 0,
                  prior_scale = prior_scale,
                  prior_df = 1)
-    bf_eq = 1 / res[[1]]
-    names(bf_eq) = "BF equivalence"
-    return(bf_eq)
+    bf_equiv = 1 / res[[1]]
+    bf_equiv
   } else {
     post_dens = cdf_t(x = interval,
                       t = t_stat,
@@ -179,9 +178,8 @@ equiv_bf <- function(x = NULL,
     prior_dens = pcauchy(q = interval,
                          scale = prior_scale) - pcauchy(q = -interval,
                                                         scale = prior_scale)
-    interval_bf = (post_dens / prior_dens) /
+    bf_interval = (post_dens / prior_dens) /
       ((1 - post_dens) / (1 - prior_dens))
-    names(interval_bf) = "BF interval"
-    return(interval_bf)
+    bf_interval
   }
 }
