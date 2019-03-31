@@ -159,10 +159,6 @@ equiv_bf <- function(x = NULL,
                  prior_df = 1)
     bf_eq = 1 / res[[1]]
     names(bf_eq) = "BF equivalence"
-    cat("  Two-sided M1 equal to M2;   BF =",
-        round(x = bf_eq,
-              digits = 2),
-        "\n")
     return(bf_eq)
   } else {
     post_dens = cdf_t(x = interval,
@@ -186,10 +182,6 @@ equiv_bf <- function(x = NULL,
     interval_bf = (post_dens / prior_dens) /
       ((1 - post_dens) / (1 - prior_dens))
     names(interval_bf) = "BF interval"
-    cat("  Interval equivalence between M1 and M2;   BF =",
-        round(x = interval_bf,
-              digits = 2),
-        "\n")
     return(interval_bf)
   }
 }

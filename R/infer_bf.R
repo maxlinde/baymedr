@@ -130,10 +130,6 @@ infer_bf <- function(x = NULL,
                 prior_scale = prior_scale,
                 prior_df = 1)
   ni_bf <- res[[3]] * (1 / res[[2]])
-  names(ni_bf) <- "non-inferiority BF"
-  cat("  Mean group 2 at least as high as (mean group 1 - ni_margin) BF =",
-      round(x = ni_bf,
-            digits = 2),
-      "\n")
+  names(ni_bf) <- "BF non-inferiority"
   return(ni_bf)
 }
