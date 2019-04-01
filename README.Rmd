@@ -30,7 +30,7 @@ devtools::install_github("maxlinde/baymedr")
 
 ## Random example data
 
-In order to demonstrate the three functions from `baymedr`, we create an example dataset (data). We need a control group "con" and an experimental group "exp" (condition). Further, random numbers, sampled from the normal distribution, within each group are created, serving as the dependent variable of interest (dv):
+In order to demonstrate the three functions from `baymedr`, we create an example dataset (data). There is a control group "con" and an experimental group "exp" (condition). Further, random numbers, sampled from the normal distribution, within each group are created, serving as the dependent variable of interest (dv):
 
 ``` {r}
 set.seed(1)
