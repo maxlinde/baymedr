@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the latest development version of `baymedr` from [GitHub](https://github.com/) with:
+You can install the latest development version of `baymedr` using the `devtools` package from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -76,6 +76,8 @@ super_bf(n_x = 138,
          sd_y = 4.0)
 ```
 
+Importantly, we can also specify ci_margin instead of sd_x and sd_y, depending on which information is given. Furthermore, it is possible to adjust the default width of 1 / sqrt(2) of the prior scale with prior_scale.
+
 ## The equivalence test (`equiv_bf`)
 
 With `equiv_bf` we can test the null hypothesis that the control group (e.g., a placebo or existing medication) and the experimental group (e.g., a new medication) are equivalent. The alternative hypothesis is that the two groups are not equivalent.
@@ -101,6 +103,8 @@ equiv_bf(n_x = 138,
          sd_x = 3.3,
          sd_y = 4.0)
 ```
+
+Importantly, we can also specify ci_margin instead of sd_x and sd_y, depending on which information is given. Furthermore, it is possible to adjust the default width of 1 / sqrt(2) of the prior scale with prior_scale. Lastly, if we desire a null interval instead of a point null (the default), we can specify that with interval.
 
 ## The non-inferiority test (`infer_bf`)
 
@@ -129,3 +133,5 @@ infer_bf(n_x = 138,
          sd_y = 4.0,
          ni_margin = 2)
 ```
+
+It is possible to adjust the default width of 1 / sqrt(2) of the prior scale with prior_scale.
