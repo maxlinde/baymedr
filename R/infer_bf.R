@@ -117,6 +117,9 @@ infer_bf <- function(x = NULL,
     sd_x <- sd(x)
     sd_y <- sd(y)
   }
+  if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
+    abort("'prior_scale' must be a single numeric value.")
+  }
   sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
                       (n_x + n_y - 2))
   se <- sd_pooled * sqrt(1 / n_x + 1 / n_y)
@@ -129,6 +132,6 @@ infer_bf <- function(x = NULL,
                 prior_loc = cohen_d,
                 prior_scale = prior_scale,
                 prior_df = 1)
-  ni_bf <- res[[3]] * (1 / res[[2]])
-  return(ni_bf)
+  bf <- res[[3]] * (1 / res[[2]])
+  bf
 }
