@@ -41,10 +41,14 @@
 #' on the dependent variable between the control and experimental groups. Only
 #' \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
 #' (see Details).
-#' @param interval A scalar, specifying the upper bound of the equivalence
-#' interval in unstandardized units (see van Ravenzwaaij et al., 2019). The
-#' default is 0, indicating a point null hypothesis rather than an interval
-#' (see Details).
+#' @param interval A numeric vector of length 1 or 2, specifying the upper
+#' bound of the equivalence interval in unstandardized units
+#' (see van Ravenzwaaij et al., 2019). If a numeric vector of length 1 is
+#' specified, a symmetric equivalence interval will be used
+#' (e.g., a 0.5 is equivalent to c(-0.5, 0.5)). A numeric vector of length 2
+#' provides the possibility to specify a asymmetric equivalence interval
+#' (e.g., c(-0.3, 0.7)). The default is 0, indicating a point null hypothesis
+#' rather than an interval (see Details).
 #' @param prior_scale A scalar, specifying the scale of the prior distribution
 #' (see Details). The default value is \eqn{1 / \sqrt{2}}
 #' (see Rouder et al., 2009).
@@ -140,6 +144,12 @@ equiv_bf <- function(x = NULL,
     sd_x <- sd(x)
     sd_y <- sd(y)
   }
+  if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
+    abort("'prior_scale' must be a single numeric value.")
+  }
+  if (!is.numeric(interval) || length(interval) > 2) {
+    abort("'interval' must be a numeric vector of length one or two.")
+  }
   if (!is.null(sd_x) && !is.null(sd_y)) {
     sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
                         (n_x + n_y - 2))
@@ -148,38 +158,41 @@ equiv_bf <- function(x = NULL,
     se <- ci_margin / qt(p = 0.975,
                          df = n_x + n_y - 2)
   }
-  t_stat = (mean_x - mean_y) / se
-  if (interval == 0) {
-    res = bf10_t(t = t_stat,
-                 n1 = n_x,
-                 n2 = n_y,
-                 ind_samples = TRUE,
-                 prior_loc = 0,
-                 prior_scale = prior_scale,
-                 prior_df = 1)
-    bf_equiv = 1 / res[[1]]
-    bf_equiv
+  t_stat <- (mean_x - mean_y) / se
+  if (length(interval) == 1) {
+    interval <- c(-interval, interval)
+  }
+  if (identical(interval, c(0, 0))) {
+    res <- bf10_t(t = t_stat,
+                  n1 = n_x,
+                  n2 = n_y,
+                  ind_samples = TRUE,
+                  prior_loc = 0,
+                  prior_scale = prior_scale,
+                  prior_df = 1)
+    bf <- 1 / res[[1]]
+    bf
   } else {
-    post_dens = cdf_t(x = interval,
-                      t = t_stat,
-                      n1 = n_x,
-                      n2 = n_y,
-                      ind_samples = TRUE,
-                      prior_loc = 0,
-                      prior_scale = prior_scale,
-                      prior_df = 1) - cdf_t(x = -interval,
-                                            t = t_stat,
-                                            n1 = n_x,
-                                            n2 = n_y,
-                                            ind_samples = TRUE,
-                                            prior_loc = 0,
-                                            prior_scale = prior_scale,
-                                            prior_df = 1)
-    prior_dens = pcauchy(q = interval,
-                         scale = prior_scale) - pcauchy(q = -interval,
-                                                        scale = prior_scale)
-    bf_interval = (post_dens / prior_dens) /
+    post_dens <- cdf_t(x = interval[[2]],
+                       t = t_stat,
+                       n1 = n_x,
+                       n2 = n_y,
+                       ind_samples = TRUE,
+                       prior_loc = 0,
+                       prior_scale = prior_scale,
+                       prior_df = 1) - cdf_t(x = interval[[1]],
+                                             t = t_stat,
+                                             n1 = n_x,
+                                             n2 = n_y,
+                                             ind_samples = TRUE,
+                                             prior_loc = 0,
+                                             prior_scale = prior_scale,
+                                             prior_df = 1)
+    prior_dens <- pcauchy(q = interval[[2]],
+                          scale = prior_scale) - pcauchy(q = interval[[1]],
+                                                         scale = prior_scale)
+    bf <- (post_dens / prior_dens) /
       ((1 - post_dens) / (1 - prior_dens))
-    bf_interval
+    bf
   }
 }

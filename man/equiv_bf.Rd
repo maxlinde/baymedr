@@ -37,7 +37,7 @@ on the dependent variable between the control and experimental groups. Only
 \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
 (see Details).}
 
-\item{interval}{A scalar, specifying the upper bound of the equivalence
+\item{interval}{##TODO## A scalar, specifying the upper bound of the equivalence
 interval in unstandardized units (see van Ravenzwaaij et al., 2019). The
 default is 0, indicating a point null hypothesis rather than an interval
 (see Details).}
