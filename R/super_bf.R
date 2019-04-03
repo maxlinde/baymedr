@@ -42,6 +42,8 @@
 #' @param prior_scale A scalar, specifying the scale of the prior distribution
 #'   (see Details). The default value is \eqn{1 / \sqrt{2}}
 #'   (see Rouder et al., 2009).
+#' @param one_sided A logical value specifying whether a one-sided alternative
+#' (TRUE, the default) or a two-sided alternative (FALSE) is employed.
 #'
 #' @return Two Bayes factors are obtained from \code{super_bf}. The first one
 #'   corresponds to a one-tailed alternative hypothesis (i.e., \eqn{\mu_control
@@ -89,7 +91,8 @@ super_bf <- function(x = NULL,
                      sd_x = NULL,
                      sd_y = NULL,
                      ci_margin = NULL,
-                     prior_scale = 1 / sqrt(2)) {
+                     prior_scale = 1 / sqrt(2),
+                     one_sided = TRUE) {
   if (any(!is.null(x),
           !is.null(y)) && any(!is.null(n_x),
                               !is.null(n_y),
@@ -140,6 +143,12 @@ super_bf <- function(x = NULL,
     sd_x <- sd(x)
     sd_y <- sd(y)
   }
+  if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
+    abort("'prior_scale' must be a single numeric value.")
+  }
+  if (!is.logical(one_sided)) {
+    abort("'one_sided' must be a logical value.")
+  }
   if (!is.null(sd_x) && !is.null(sd_y)) {
     sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
                         (n_x + n_y - 2))
@@ -149,15 +158,17 @@ super_bf <- function(x = NULL,
                          df = n_x + n_y - 2)
   }
   t_stat <- (mean_x - mean_y) / se
-  res = bf10_t(t = t_stat,
-               n1 = n_x,
-               n2 = n_y,
-               ind_samples = TRUE,
-               prior_loc = 0,
-               prior_scale = prior_scale,
-               prior_df = 1)
-  bf_super_onetailed = res[[3]]
-  bf_super_twotailed = res[[1]]
-  list("One-tailed" = bf_super_onetailed,
-       "Two-tailed" = bf_super_twotailed)
+  res <- bf10_t(t = t_stat,
+                n1 = n_x,
+                n2 = n_y,
+                ind_samples = TRUE,
+                prior_loc = 0,
+                prior_scale = prior_scale,
+                prior_df = 1)
+  if (one_sided == TRUE) {
+    bf <- res[[3]]
+  } else {
+    bf <- res[[1]]
+  }
+  bf
 }

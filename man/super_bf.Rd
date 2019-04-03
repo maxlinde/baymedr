@@ -6,7 +6,7 @@
 \usage{
 super_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
-  ci_margin = NULL, prior_scale = 1/sqrt(2))
+  ci_margin = NULL, prior_scale = 1/sqrt(2), one_sided = TRUE)
 }
 \arguments{
 \item{x}{A vector of numeric observations for the control group.}
@@ -40,6 +40,8 @@ on the dependent variable between the control and experimental groups. Only
 \item{prior_scale}{A scalar, specifying the scale of the prior distribution
 (see Details). The default value is \eqn{1 / \sqrt{2}}
 (see Rouder et al., 2009).}
+
+\item{one_sided}{##TODO##}
 }
 \value{
 Two Bayes factors are obtained from \code{super_bf}. The first one
