@@ -122,10 +122,25 @@ equiv_bf <- function(x = NULL,
       abort("All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and 'sd_y' (or
             'ci_margin' instead of 'sd_x' and 'sd_y') must be defined.")
     }
+
     if (!xor(!is.null(sd_x) && !is.null(sd_y),
              !is.null(ci_margin))) {
       abort("Only 'sd_x' and 'sd_y' OR 'ci_margin' must be defined.")
     }
+  }
+  if (all(!is.null(n_x),
+          !is.null(n_y),
+          !is.null(mean_x),
+          !is.null(mean_y)) && (xor(!is.null(sd_x) && !is.null(sd_y),
+                                    !is.null(ci_margin)))) {
+    data <- list(type = "summary data",
+                 data = list(n_x = n_x,
+                             n_y = n_y,
+                             mean_x = mean_x,
+                             mean_y = mean_y,
+                             sd_x = sd_x,
+                             sd_y = sd_y,
+                             ci_margin = ci_margin))
   }
   if (!is.null(x) && !is.null(y)) {
     if (any(is.na(x)) || any(is.na(y))) {
@@ -143,6 +158,9 @@ equiv_bf <- function(x = NULL,
     mean_y <- mean(y)
     sd_x <- sd(x)
     sd_y <- sd(y)
+    data <- list(type = "raw data",
+                 data = list(x = x,
+                             y = y))
   }
   if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
     abort("'prior_scale' must be a single numeric value.")
@@ -171,7 +189,8 @@ equiv_bf <- function(x = NULL,
                   prior_scale = prior_scale,
                   prior_df = 1)
     bf <- 1 / res[[1]]
-    bf
+    h0 <- "mu2 = mu1"
+    ha <- "mu2 != mu1"
   } else {
     post_dens <- cdf_t(x = interval[[2]],
                        t = t_stat,
@@ -193,6 +212,18 @@ equiv_bf <- function(x = NULL,
                                                          scale = prior_scale)
     bf <- (post_dens / prior_dens) /
       ((1 - post_dens) / (1 - prior_dens))
-    bf
+    h0 <- "c_low < mu2 - mu1 < c_high"
+    ha <- "c_low !< mu2 - mu1 !< c_high"
   }
+  test <- "Equivalence analysis"
+  hypotheses <- list(h0 = h0,
+                     ha = ha)
+  interval <- list(lower = interval[[1]],
+                   upper = interval[[2]])
+  baymedrEquivalence(test = test,
+                     hypotheses = hypotheses,
+                     interval = interval,
+                     data = data,
+                     prior_scale = prior_scale,
+                     bf = bf)
 }
