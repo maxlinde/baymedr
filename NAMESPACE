@@ -3,5 +3,6 @@
 export(equiv_bf)
 export(infer_bf)
 export(super_bf)
+import(methods)
 import(rlang)
 import(stats)
