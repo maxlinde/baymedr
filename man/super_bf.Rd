@@ -41,10 +41,11 @@ on the dependent variable between the control and experimental groups. Only
 (see Details). The default value is \eqn{1 / \sqrt{2}}
 (see Rouder et al., 2009).}
 
-\item{one_sided}{##TODO##}
+\item{one_sided}{A logical value specifying whether a one-sided alternative
+(TRUE, the default) or a two-sided alternative (FALSE) is employed.}
 }
 \value{
-Two Bayes factors are obtained from \code{super_bf}. The first one
+##TODO## Two Bayes factors are obtained from \code{super_bf}. The first one
   corresponds to a one-tailed alternative hypothesis (i.e., \eqn{\mu_control
   < \mu_experimental}), whereas the second one corresponds to a two-tailed
   alternative hypothesis. This is done to accomodate different research
