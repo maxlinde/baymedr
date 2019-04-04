@@ -90,15 +90,33 @@ infer_bf <- function(x = NULL,
   if (any(!is.null(n_x),
           !is.null(n_y),
           !is.null(mean_x),
-          !is.null(mean_y))) {
+          !is.null(mean_y),
+          !is.null(sd_x),
+          !is.null(sd_y))) {
     if (any(is.null(n_x),
             is.null(n_y),
             is.null(mean_x),
             is.null(mean_y),
+            is.null(sd_x),
+            is.null(sd_y),
             is.null(ni_margin))) {
       abort("All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', 'sd_y', and
             'ni_margin' must be defined.")
     }
+  }
+  if (all(!is.null(n_x),
+          !is.null(n_y),
+          !is.null(mean_x),
+          !is.null(mean_y),
+          !is.null(sd_x),
+          !is.null(sd_y))) {
+    data <- list(type = "summary data",
+                 data = list(n_x = n_x,
+                             n_y = n_y,
+                             mean_x = mean_x,
+                             mean_y = mean_y,
+                             sd_x = sd_x,
+                             sd_y = sd_y))
   }
   if (!is.null(x) && !is.null(y)) {
     if (any(is.na(x)) || any(is.na(y))) {
@@ -116,6 +134,9 @@ infer_bf <- function(x = NULL,
     mean_y <- mean(y)
     sd_x <- sd(x)
     sd_y <- sd(y)
+    data <- list(type = "raw data",
+                 data = list(x = x,
+                             y = y))
   }
   if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
     abort("'prior_scale' must be a single numeric value.")
@@ -133,5 +154,15 @@ infer_bf <- function(x = NULL,
                 prior_scale = prior_scale,
                 prior_df = 1)
   bf <- res[[3]] * (1 / res[[2]])
-  bf
+  test <- "Non-inferiority analysis"
+  h0 <- "mu2 - mu1 = ni_margin"
+  ha <- "mu2 - mu1 > ni_margin"
+  hypotheses <- list(h0 = h0,
+                     ha = ha)
+  baymedrNonInferiority(test = test,
+                        hypotheses = hypotheses,
+                        ni_margin = ni_margin,
+                        data = data,
+                        prior_scale = prior_scale,
+                        bf = bf)
 }
