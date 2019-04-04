@@ -37,10 +37,14 @@ on the dependent variable between the control and experimental groups. Only
 \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
 (see Details).}
 
-\item{interval}{##TODO## A scalar, specifying the upper bound of the equivalence
-interval in unstandardized units (see van Ravenzwaaij et al., 2019). The
-default is 0, indicating a point null hypothesis rather than an interval
-(see Details).}
+\item{interval}{A numeric vector of length 1 or 2, specifying the upper
+bound of the equivalence interval in unstandardized units
+(see van Ravenzwaaij et al., 2019). If a numeric vector of length 1 is
+specified, a symmetric equivalence interval will be used
+(e.g., a 0.5 is equivalent to c(-0.5, 0.5)). A numeric vector of length 2
+provides the possibility to specify a asymmetric equivalence interval
+(e.g., c(-0.3, 0.7)). The default is 0, indicating a point null hypothesis
+rather than an interval (see Details).}
 
 \item{prior_scale}{A scalar, specifying the scale of the prior distribution
 (see Details). The default value is \eqn{1 / \sqrt{2}}
