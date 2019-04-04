@@ -45,7 +45,7 @@
 #' @param one_sided A logical value specifying whether a one-sided alternative
 #' (TRUE, the default) or a two-sided alternative (FALSE) is employed.
 #'
-#' @return Two Bayes factors are obtained from \code{super_bf}. The first one
+#' @return ##TODO## Two Bayes factors are obtained from \code{super_bf}. The first one
 #'   corresponds to a one-tailed alternative hypothesis (i.e., \eqn{\mu_control
 #'   < \mu_experimental}), whereas the second one corresponds to a two-tailed
 #'   alternative hypothesis. This is done to accomodate different research
@@ -126,6 +126,20 @@ super_bf <- function(x = NULL,
       abort("Only 'sd_x' and 'sd_y' OR 'ci_margin' must be defined.")
     }
   }
+  if (all(!is.null(n_x),
+          !is.null(n_y),
+          !is.null(mean_x),
+          !is.null(mean_y)) && (xor(!is.null(sd_x) && !is.null(sd_y),
+                                    !is.null(ci_margin)))) {
+    data <- list(type = "summary data",
+                 data = list(n_x = n_x,
+                             n_y = n_y,
+                             mean_x = mean_x,
+                             mean_y = mean_y,
+                             sd_x = sd_x,
+                             sd_y = sd_y,
+                             ci_margin = ci_margin))
+  }
   if (!is.null(x) && !is.null(y)) {
     if (any(is.na(x)) || any(is.na(y))) {
       abort("'x' and 'y' must not contain missing values.")
@@ -142,6 +156,9 @@ super_bf <- function(x = NULL,
     mean_y <- mean(y)
     sd_x <- sd(x)
     sd_y <- sd(y)
+    data <- list(type = "raw data",
+                 data = list(x = x,
+                             y = y))
   }
   if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
     abort("'prior_scale' must be a single numeric value.")
@@ -167,8 +184,18 @@ super_bf <- function(x = NULL,
                 prior_df = 1)
   if (one_sided == TRUE) {
     bf <- res[[3]]
+    ha <- "mu2 > mu1"
   } else {
     bf <- res[[1]]
+    ha <- "mu2 != mu1"
   }
-  bf
+  test <- "Superiority analysis"
+  h0 <- "mu2 = mu1"
+  hypotheses <- list(h0 = h0,
+                     ha = ha)
+  baymedrSuperiority(test = test,
+                     data = data,
+                     hypotheses = hypotheses,
+                     prior_scale = prior_scale,
+                     bf = bf)
 }
