@@ -52,13 +52,18 @@
 #'
 #' @examples
 #' # infer_bf using raw data:
-#' infer_bf(x = rnorm(100, 10, 15), y = rnorm(130, 13, 10), ni_margin = 2)
+#' infer_bf(x = rnorm(100, 10, 15),
+#'          y = rnorm(130, 13, 10),
+#'          ni_margin = -1)
 #'
 #' # infer_bf using summary statistics:
-#' infer_bf(n_x = 100, n_y = 130,
-#'          mean_x = 10, mean_y = 13,
-#'          sd_x = 15, sd_y = 10,
-#'          ni_margin = 2)
+#' infer_bf(n_x = 100,
+#'          n_y = 130,
+#'          mean_x = 10,
+#'          mean_y = 13,
+#'          sd_x = 15,
+#'          sd_y = 10,
+#'          ni_margin = -1)
 infer_bf <- function(x = NULL,
                      y = NULL,
                      n_x = NULL,

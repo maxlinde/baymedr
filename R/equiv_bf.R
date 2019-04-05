@@ -71,17 +71,23 @@
 #'
 #' @examples
 #' # equiv_bf using raw data:
-#' equiv_bf(x = rnorm(100, 10, 15), y = rnorm(130, 13, 10))
+#' equiv_bf(x = rnorm(100, 10, 15),
+#'          y = rnorm(130, 13, 10))
 #'
 #' # equiv_bf using summary statistics. The case where sd_x and sd_y are known:
-#' equiv_bf(n_x = 100, n_y = 130,
-#'          mean_x = 10, mean_y = 13,
-#'          sd_x = 15, sd_y = 10)
+#' equiv_bf(n_x = 100,
+#'          n_y = 130,
+#'          mean_x = 10,
+#'          mean_y = 13,
+#'          sd_x = 15,
+#'          sd_y = 10)
 #'
 #' # equiv_bf using summary statistics. The case where sd_x and sd_y are not
 #' # known:
-#' equiv_bf(n_x = 100, n_y = 130,
-#'          mean_x = 10, mean_y = 13,
+#' equiv_bf(n_x = 100,
+#'          n_y = 130,
+#'          mean_x = 10,
+#'          mean_y = 13,
 #'          ci_margin = 4)
 equiv_bf <- function(x = NULL,
                      y = NULL,

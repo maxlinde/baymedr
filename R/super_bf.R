@@ -40,8 +40,8 @@
 #' \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
 #' (see Details).
 #' @param prior_scale A scalar, specifying the scale of the prior distribution
-#'   (see Details). The default value is \eqn{1 / \sqrt{2}}
-#'   (see Rouder et al., 2009).
+#' (see Details). The default value is \eqn{1 / \sqrt{2}}
+#' (see Rouder et al., 2009).
 #' @param one_sided A logical value specifying whether a one-sided alternative
 #' (TRUE, the default) or a two-sided alternative (FALSE) is employed.
 #'
@@ -70,17 +70,23 @@
 #'
 #' @examples
 #' # super_bf using raw data:
-#' super_bf(x = rnorm(100, 10, 15), y = rnorm(130, 13, 10))
+#' super_bf(x = rnorm(100, 10, 15),
+#'          y = rnorm(130, 13, 10))
 #'
 #' # super_bf using summary statistics. The case where sd_x and sd_y are known:
-#' super_bf(n_x = 100, n_y = 130,
-#'          mean_x = 10, mean_y = 13,
-#'          sd_x = 15, sd_y = 10)
+#' super_bf(n_x = 100,
+#'          n_y = 130,
+#'          mean_x = 10,
+#'          mean_y = 13,
+#'          sd_x = 15,
+#'          sd_y = 10)
 #'
 #' # super_bf using summary statistics. The case where sd_x and sd_y are not
 #' # known:
-#' super_bf(n_x = 100, n_y = 130,
-#'          mean_x = 10, mean_y = 13,
+#' super_bf(n_x = 100,
+#'          n_y = 130,
+#'          mean_x = 10,
+#'          mean_y = 13,
 #'          ci_margin = 4)
 super_bf <- function(x = NULL,
                      y = NULL,
