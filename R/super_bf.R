@@ -1,6 +1,6 @@
 #' Bayes factors for superiority designs
 #'
-#' This function computes Bayes factors for superiority designs.
+#' This function computes a Bayes factor for superiority designs.
 #'
 #' The Bayes factor resulting from \code{super_bf} tests the null hypothesis
 #' that the experimental group (e.g., a new medication) is not better than the
@@ -10,48 +10,47 @@
 #'
 #' As the name 'superiority' implies, the test is typically understood as a
 #' one-tailed test. In practice, however, a two-tailed test is often employed.
-#' To cover both research practices, \code{super_bf} calculates two Bayes
-#' factors, one for each alternative hypothesis (see Value).
+#' To cover both research practices, the user has the possibility to specify
+#' which of these two alternatives should be employed through the argument
+#' \code{one-sided}.
 #'
-#' Importantly, \code{super_bf} can be utilized to calculate Bayes factors
-#' based on raw data (i.e., if arguments 'x' and 'y' are defined) or summary
-#' statistics (i.e., if arguments 'n_x', 'n_y', 'mean_x', and 'mean_y' are
-#' defined). In the latter case, the user has the freedom to supply values
-#' either for the arguments 'sd_x' and 'sd_y' \strong{OR} 'ci_margin'. The
-#' choice should depend on the information that is available to the user.
+#' Importantly, \code{super_bf} can be utilized to calculate a Bayes factor
+#' based on raw data (i.e., if arguments \code{x} and \code{y} are defined) or
+#' summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
+#' \code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
+#' has the freedom to supply values either for the arguments \code{sd_x} and
+#' \code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
+#' information that is available to the user.
 #'
-#' @param x A vector of numeric observations for the control group.
-#' @param y A vector of numeric observations for the experimental group.
-#' @param n_x A scalar, specifying the sample size of the control group.
-#' @param n_y A scalar, specifying the sample size of the experimental group.
-#' @param mean_x A scalar, specifying the mean of the dependent variable in the
-#' control group.
-#' @param mean_y A scalar, specifying the mean of the dependent variable in the
-#' experimental group.
-#' @param sd_x A scalar, specifying the standard deviation of the dependent
-#' variable in the control group. Only \code{sd_x} and \code{sd_y} \strong{OR}
-#' \code{ci_margin} should be defined (see Details).
-#' @param sd_y A scalar, specifying the standard deviation of the dependent
-#' variable in the experimental group. Only \code{sd_x} and \code{sd_y}
+#' ##TODO## prior_scale
+#'
+#' @param x A numeric vector of observations for the control group.
+#' @param y A numeric vector of observations for the experimental group.
+#' @param n_x A numeric scalar, specifying the sample size of the control group.
+#' @param n_y A numeric scalar, specifying the sample size of the experimental
+#' group.
+#' @param mean_x A numeric scalar, specifying the mean of the dependent
+#' variable in the control group.
+#' @param mean_y A numeric scalar, specifying the mean of the dependent
+#' variable in the experimental group.
+#' @param sd_x A numeric scalar, specifying the standard deviation of the
+#' dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
 #' \strong{OR} \code{ci_margin} should be defined (see Details).
-#' @param ci_margin A scalar, specifying the margin of the confidence interval
-#' (i.e., the width of the confidence interval divided by 2) of the difference
-#' on the dependent variable between the control and experimental groups. Only
-#' \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
-#' (see Details).
-#' @param prior_scale A scalar, specifying the scale of the prior distribution
-#' (see Details). The default value is \eqn{1 / \sqrt{2}}
-#' (see Rouder et al., 2009).
-#' @param one_sided A logical value specifying whether a one-sided alternative
-#' (TRUE, the default) or a two-sided alternative (FALSE) is employed.
+#' @param sd_y A numeric scalar, specifying the standard deviation of the
+#' dependent variable in the experimental group. Only \code{sd_x} and
+#' \code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).
+#' @param ci_margin A numeric scalar, specifying the margin of the confidence
+#' interval (i.e., the width of the confidence interval divided by 2) of the
+#' difference on the dependent variable between the control and experimental
+#' groups. Only \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should
+#' be defined (see Details).
+#' @param prior_scale A numeric scalar, specifying the scale of the prior
+#' distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
+#' Rouder et al., 2009).
+#' @param one_sided A logical scalar, specifying whether a one-sided alternative
+#' (TRUE; the default) or a two-sided alternative (FALSE) should be employed.
 #'
-#' @return ##TODO## Two Bayes factors are obtained from \code{super_bf}. The first one
-#'   corresponds to a one-tailed alternative hypothesis (i.e., \eqn{\mu_control
-#'   < \mu_experimental}), whereas the second one corresponds to a two-tailed
-#'   alternative hypothesis. This is done to accomodate different research
-#'   practices, with some researchers employing a one-tailed and others a
-#'   two-tailed test. Importantly, both Bayes factors refer to the evidence in
-#'   favour of the alternative hypothesis.
+#' @return ##TODO##
 #'
 #' @export
 #' @import rlang stats

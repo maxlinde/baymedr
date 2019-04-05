@@ -9,23 +9,24 @@ equiv_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   ci_margin = NULL, interval = 0, prior_scale = 1/sqrt(2))
 }
 \arguments{
-\item{x}{A vector of numeric observations for the control group.}
+\item{x}{A numeric vector of observations for the control group.}
 
-\item{y}{A vector of numeric observations for the experimental group.}
+\item{y}{A numeric vector of observations for the experimental group.}
 
-\item{n_x}{A scalar, specifying the sample size of the control group.}
+\item{n_x}{A numeric scalar, specifying the sample size of the control group.}
 
-\item{n_y}{A scalar, specifying the sample size of the experimental group.}
+\item{n_y}{A numeric scalar, specifying the sample size of the experimental
+group.}
 
-\item{mean_x}{A scalar, specifying the mean of the dependent variable in the
-control group.}
+\item{mean_x}{A numeric scalar, specifying the mean of the dependent
+variable in the control group.}
 
-\item{mean_y}{A scalar, specifying the mean of the dependent variable in the
-experimental group.}
+\item{mean_y}{A numeric scalar, specifying the mean of the dependent
+variable in the experimental group.}
 
-\item{sd_x}{A scalar, specifying the standard deviation of the dependent
-variable in the control group. Only \code{sd_x} and \code{sd_y} \strong{OR}
-\code{ci_margin} should be defined (see Details).}
+\item{sd_x}{A numeric scalar, specifying the standard deviation of the
+dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
+\strong{OR} \code{ci_margin} should be defined (see Details).}
 
 \item{sd_y}{A scalar, specifying the standard deviation of the dependent
 variable in the experimental group. Only \code{sd_x} and \code{sd_y}
@@ -37,18 +38,18 @@ on the dependent variable between the control and experimental groups. Only
 \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
 (see Details).}
 
-\item{interval}{A numeric vector of length 1 or 2, specifying the upper
-bound of the equivalence interval in unstandardized units
-(see van Ravenzwaaij et al., 2019). If a numeric vector of length 1 is
-specified, a symmetric equivalence interval will be used
-(e.g., a 0.5 is equivalent to c(-0.5, 0.5)). A numeric vector of length 2
-provides the possibility to specify a asymmetric equivalence interval
-(e.g., c(-0.3, 0.7)). The default is 0, indicating a point null hypothesis
-rather than an interval (see Details).}
+\item{interval}{A numeric vector of length one or two, specifying the
+boundaries of the equivalence interval in unstandardized units
+(see van Ravenzwaaij et al., 2019). If a numeric scalar is specified, a
+symmetric equivalence interval will be used (e.g., a 0.1 is equivalent to
+c(-0.1, 0.1)). A numeric vector of length two provides the possibility to
+specify a asymmetric equivalence interval (e.g., c(-0.1, 0.2)). The default
+is 0, indicating a point null hypothesis rather than an interval (see
+Details).}
 
-\item{prior_scale}{A scalar, specifying the scale of the prior distribution
-(see Details). The default value is \eqn{1 / \sqrt{2}}
-(see Rouder et al., 2009).}
+\item{prior_scale}{A numeric scalar, specifying the scale of the prior
+distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
+Rouder et al., 2009).}
 }
 \value{
 ##TODO##
@@ -66,16 +67,22 @@ In contrast to null hypothesis significance testing (NHST), \code{equiv_bf}
 has the advantage that it is not compulsory to specify an equivalence
 interval (see van Ravenzwaaij et al., 2019). Therefore, the default value of
 the argument \code{interval} is 0, indicating a point null hypothesis.
-However, if the user prefers to have a equivalence interval, the argument
-\code{interval} can be set with a positive number, specifying the upper
-bound of a symmetric equivalence interval.
+However, if the user prefers to have an equivalence interval, the argument
+\code{interval} can be set in two ways: If a \emph{symmetric} interval is
+desired, the user can either specify a numeric scalar (e.g., 0.1, which is
+converted to c(-0.1, 0.1)) or a numeric vector of length two (e.g.,
+c(-0.1, 0.1)); if an \emph{asymmetric} interval is desired, the user can
+specify a numeric vector of length two (e.g., c(-0.1, 0.2)).
 
-Importantly, \code{equiv_bf} can be utilized to calculate Bayes factors
-based on raw data (i.e., if arguments 'x' and 'y' are defined) or summary
-statistics (i.e., if arguments 'n_x', 'n_y', 'mean_x', and 'mean_y' are
-defined). In the latter case, the user has the freedom to supply values
-either for the arguments 'sd_x' and 'sd_y' \strong{OR} 'ci_margin'. The
-choice should depend on the information that is available to the user.
+Importantly, \code{equiv_bf} can be utilized to calculate a Bayes factor
+based on raw data (i.e., if arguments \code{x} and \code{y} are defined) or
+summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
+\code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
+has the freedom to supply values either for the arguments \code{sd_x} and
+\code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
+information that is available to the user.
+
+##TODO## prior_scale
 }
 \examples{
 # equiv_bf using raw data:

@@ -9,31 +9,32 @@ infer_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   ni_margin = NULL, prior_scale = 1/sqrt(2))
 }
 \arguments{
-\item{x}{A vector of numeric observations for the control group.}
+\item{x}{A numeric vector of observations for the control group.}
 
-\item{y}{A vector of numeric observations for the experimental group.}
+\item{y}{A numeric vector of observations for the experimental group.}
 
-\item{n_x}{A scalar, specifying the sample size of the control group.}
+\item{n_x}{A numeric scalar, specifying the sample size of the control group.}
 
-\item{n_y}{A scalar, specifying the sample size of the experimental group.}
+\item{n_y}{A numeric scalar, specifying the sample size of the experimental
+group.}
 
-\item{mean_x}{A scalar, specifying the mean of the dependent variable in the
-control group.}
-
-\item{mean_y}{A scalar, specifying the mean of the dependent variable in the
-experimental group.}
-
-\item{sd_x}{A scalar, specifying the standard deviation of the dependent
+\item{mean_x}{A numeric scalar, specifying the mean of the dependent
 variable in the control group.}
 
-\item{sd_y}{A scalar, specifying the standard deviation of the dependent
+\item{mean_y}{A numeric scalar, specifying the mean of the dependent
 variable in the experimental group.}
+
+\item{sd_x}{A numeric scalar, specifying the standard deviation of the
+dependent variable in the control group.}
+
+\item{sd_y}{A numeric scalar, specifying the standard deviation of the
+dependent variable in the experimental group.}
 
 \item{ni_margin}{##TODO##}
 
-\item{prior_scale}{A scalar, specifying the scale of the prior distribution
-(see Details). The default value is \eqn{1 / \sqrt{2}}
-(see Rouder et al., 2009).}
+\item{prior_scale}{A numeric scalar, specifying the scale of the prior
+distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
+Rouder et al., 2009).}
 }
 \value{
 ##TODO##
@@ -52,10 +53,14 @@ resulting in the point null hypothesis that the true population effect size
 = -c against the one-sided alternative hypothesis that the true population
 effect size > -c.
 
-Importantly, \code{infer_bf} can be utilized to calculate Bayes factors
-based on raw data (i.e., if arguments 'x' and 'y' are defined) or summary
-statistics (i.e., if arguments 'n_x', 'n_y', 'mean_x', and 'mean_y' are
-defined).
+Importantly, \code{infer_bf} can be utilized to calculate a Bayes factor
+based on raw data (i.e., if arguments \code{x} and \code{y} are defined) or
+summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
+\code{mean_x}, and \code{mean_y} are defined).
+
+##TODO## ni_margin
+
+##TODO## prior_scale
 }
 \examples{
 # infer_bf using raw data:
