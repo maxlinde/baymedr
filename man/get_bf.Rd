@@ -14,7 +14,8 @@ get_bf(object)
 A numeric scalar, providing the Bayes factor from an S4 object.
 }
 \description{
-This function extracts the Bayes factor from S4 objects.
+This function extracts the Bayes factor from S4 objects, created from the
+functions \code{super_bf}, \code{equiv_bf}, or \code{infer_bf}.
 }
 \examples{
 # Extract Bayes factor from super_bf using raw data:
