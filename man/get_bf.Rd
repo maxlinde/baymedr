@@ -11,8 +11,7 @@ get_bf(object)
 'baymedrEquivalence', or 'baymedrNonInferiority'.}
 }
 \value{
-A numeric scalar of length 1, providing the Bayes factor from an S4
-object.
+A numeric scalar, providing the Bayes factor from an S4 object.
 }
 \description{
 This function extracts the Bayes factor from S4 objects.

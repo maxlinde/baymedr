@@ -5,8 +5,8 @@
 #' @param object An S4 object of class 'baymedrSuperiority',
 #' 'baymedrEquivalence', or 'baymedrNonInferiority'.
 #'
-#' @return A numeric scalar of length 1, providing the Bayes factor from an S4
-#' object.
+#' @return A numeric scalar, providing the Bayes factor from an S4 object.
+#'
 #' @export
 #'
 #' @examples

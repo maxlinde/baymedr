@@ -12,29 +12,35 @@
 #' = -c against the one-sided alternative hypothesis that the true population
 #' effect size > -c.
 #'
-#' Importantly, \code{infer_bf} can be utilized to calculate Bayes factors
-#' based on raw data (i.e., if arguments 'x' and 'y' are defined) or summary
-#' statistics (i.e., if arguments 'n_x', 'n_y', 'mean_x', and 'mean_y' are
-#' defined).
+#' Importantly, \code{infer_bf} can be utilized to calculate a Bayes factor
+#' based on raw data (i.e., if arguments \code{x} and \code{y} are defined) or
+#' summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
+#' \code{mean_x}, and \code{mean_y} are defined).
 #'
-#' @param x A vector of numeric observations for the control group.
-#' @param y A vector of numeric observations for the experimental group.
-#' @param n_x A scalar, specifying the sample size of the control group.
-#' @param n_y A scalar, specifying the sample size of the experimental group.
-#' @param mean_x A scalar, specifying the mean of the dependent variable in the
-#' control group.
-#' @param mean_y A scalar, specifying the mean of the dependent variable in the
-#' experimental group.
-#' @param sd_x A scalar, specifying the standard deviation of the dependent
+#' ##TODO## ni_margin
+#'
+#' ##TODO## prior_scale
+#'
+#' @param x A numeric vector of observations for the control group.
+#' @param y A numeric vector of observations for the experimental group.
+#' @param n_x A numeric scalar, specifying the sample size of the control group.
+#' @param n_y A numeric scalar, specifying the sample size of the experimental
+#' group.
+#' @param mean_x A numeric scalar, specifying the mean of the dependent
 #' variable in the control group.
-#' @param sd_y A scalar, specifying the standard deviation of the dependent
+#' @param mean_y A numeric scalar, specifying the mean of the dependent
 #' variable in the experimental group.
+#' @param sd_x A numeric scalar, specifying the standard deviation of the
+#' dependent variable in the control group.
+#' @param sd_y A numeric scalar, specifying the standard deviation of the
+#' dependent variable in the experimental group.
 #' @param ni_margin ##TODO##
-#' @param prior_scale A scalar, specifying the scale of the prior distribution
-#' (see Details). The default value is \eqn{1 / \sqrt{2}}
-#' (see Rouder et al., 2009).
+#' @param prior_scale A numeric scalar, specifying the scale of the prior
+#' distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
+#' Rouder et al., 2009).
 #'
 #' @return ##TODO##
+#'
 #' @export
 #' @import rlang stats
 #'
