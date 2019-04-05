@@ -77,17 +77,23 @@ choice should depend on the information that is available to the user.
 }
 \examples{
 # super_bf using raw data:
-super_bf(x = rnorm(100, 10, 15), y = rnorm(130, 13, 10))
+super_bf(x = rnorm(100, 10, 15),
+         y = rnorm(130, 13, 10))
 
 # super_bf using summary statistics. The case where sd_x and sd_y are known:
-super_bf(n_x = 100, n_y = 130,
-         mean_x = 10, mean_y = 13,
-         sd_x = 15, sd_y = 10)
+super_bf(n_x = 100,
+         n_y = 130,
+         mean_x = 10,
+         mean_y = 13,
+         sd_x = 15,
+         sd_y = 10)
 
 # super_bf using summary statistics. The case where sd_x and sd_y are not
 # known:
-super_bf(n_x = 100, n_y = 130,
-         mean_x = 10, mean_y = 13,
+super_bf(n_x = 100,
+         n_y = 130,
+         mean_x = 10,
+         mean_y = 13,
          ci_margin = 4)
 }
 \references{
