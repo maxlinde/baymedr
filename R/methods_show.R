@@ -57,8 +57,7 @@ setMethod(
               digits = 3),
         "\n\n",
         "    BF = ",
-        round(x = object@bf,
-              digits = 3),
+        object@bf,
         "\n",
         "******************************\n",
         sep = "")
@@ -90,8 +89,7 @@ setMethod(
               digits = 3),
         "\n\n",
         "    BF = ",
-        round(x = object@bf,
-              digits = 3),
+        object@bf,
         "\n",
         "******************************\n",
         sep = "")
