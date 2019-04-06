@@ -65,7 +65,7 @@ head(x = data,
 The superiority test (`super_bf()`)
 -----------------------------------
 
-With `super_bf()` we can test the null hypothesis that the experimental group (e.g., a new medication) is not better than the control group (e.g., a placebo or existing medication). Research practices diverge on whether to conduct a superiority test as a one- or two-sided test. Here we use a one-sided test (the default; `one-sided` = TRUE)
+With `super_bf()` we can test the null hypothesis that the experimental group (e.g., a new medication) is not better than the control group (e.g., a placebo or an already existing medication). Research practices diverge on whether to conduct a superiority test as a one- or two-sided test. Here we use a one-sided test (the default; `one-sided` = TRUE)
 
 We can use the raw data to compute a Bayes factor:
 
@@ -120,7 +120,7 @@ get_bf(object = mod_super_sum)
 The equivalence test (`equiv_bf()`)
 -----------------------------------
 
-With `equiv_bf()` we can test the null hypothesis that the control group (e.g., a placebo or existing medication) and the experimental group (e.g., a new medication) are equivalent. The alternative hypothesis is that the two groups are not equivalent.
+With `equiv_bf()` we can test the null hypothesis that the control group (e.g., a placebo or an already existing medication) and the experimental group (e.g., a new medication) are equivalent. The alternative hypothesis is that the two groups are not equivalent.
 
 We can use the raw data to compute a Bayes factor:
 
@@ -177,7 +177,7 @@ get_bf(object = mod_equiv_sum)
 The non-inferiority test (`infer_bf()`)
 ---------------------------------------
 
-With `infer_bf()` we can test the null hypothesis that the experimental group (e.g., a new medication) is not better than the control group (e.g., a placebo or existing medication) minus a constant value (c). The alternative hypothesis is that the experimental group is better than the control group minus a constant value (c). Put more formally, the null hypothesis states that the true population effect size &lt; -c, resulting in the point null hypothesis that the true population effect size = -c against the one-sided alternative hypothesis that the true population effect size &gt; -c.
+With `infer_bf()` we can test the null hypothesis that the experimental group (e.g., a new medication) is not better than the control group (e.g., a placebo or an already existing medication) minus a constant value (c). The alternative hypothesis is that the experimental group is better than the control group minus a constant value (c). Put more formally, the null hypothesis states that the true population effect size &lt; -c, resulting in the point null hypothesis that the true population effect size = -c against the one-sided alternative hypothesis that the true population effect size &gt; -c.
 
 We can use the raw data to compute a Bayes factor:
 
