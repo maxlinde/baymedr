@@ -30,6 +30,14 @@ You can install the latest development version of `baymedr` from [GitHub](https:
 devtools::install_github("maxlinde/baymedr")
 ```
 
+If you want to access vignettes and install the additional packages listed in "Suggests", use:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("maxlinde/baymedr",
+                         build_vignettes = TRUE)
+```
+
 ## General usage
 
 All three functions for the three research designs (i.e., equivalence, non-inferiority, and superiority) allow the user to compute Bayes factors based on raw data (if arguments `x` and `y` are defined) or summary statistics (if arguments `n_x`, `n_y`, `mean_x`, `mean_y`, `sd_x`, and `sd_y` are defined). If summary statistics are used, the user has the option to specify `ci_margin` instead of `sd_x` and `sd_y` if tests for equivalence and superiority are employed but not if the non-inferiority test is used.

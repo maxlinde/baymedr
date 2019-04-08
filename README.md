@@ -19,6 +19,14 @@ You can install the latest development version of `baymedr` from [GitHub](https:
 devtools::install_github("maxlinde/baymedr")
 ```
 
+If you want to access vignettes and install the additional packages listed in "Suggests", use:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("maxlinde/baymedr",
+                         build_vignettes = TRUE)
+```
+
 General usage
 -------------
 
@@ -139,7 +147,7 @@ mod_equiv_raw
 #> Equivalence interval: Lower = 0; Upper = 0
 #> Prior scale: 0.707
 #> 
-#>     BF = 0
+#>     BF = 2.032684e-06
 #> ******************************
 
 get_bf(object = mod_equiv_raw)
@@ -167,7 +175,7 @@ mod_equiv_sum
 #> Equivalence interval: Lower = 0; Upper = 0
 #> Prior scale: 0.707
 #> 
-#>     BF = 0
+#>     BF = 9.797167e-14
 #> ******************************
 
 get_bf(object = mod_equiv_sum)
