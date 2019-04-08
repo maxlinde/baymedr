@@ -25,15 +25,6 @@ knitr::opts_chunk$set(
 
 It can be argued that the Bayesian approach to data analysis is superior to the frequentist approach. For example, the frequentist approach requires the data analyst to specify an equivalence interval in order to be able to execute an equivalence test. Moreover, Bayesian statistics, allows to quantify evidence in favour of the null hypothesis, which is impossible with the frequentist approach. Using Bayesian data analysis, it is also possible to test sequentially. That is, it is fully legitimate to sample a certain number of participants, analyse the data, sample new participants, and repeat this cycle as desired. In contrast, using frequentist statistics, this optional stopping rule, although not uncommon, is considered a bad practice because it inflates the Type I error rate (e.g., Schönbrodt et al. (2017). For a more thorough discussion of Bayesian advantages, see van Ravenzwaaij et al. (2019) and Wagenmakers et al. (2018).
 
-## Installation
-
-You can install the latest development version of `baymedr` from [GitHub](https://github.com/), using the `devtools` package, with:
-
-``` r
-# install.packages("devtools")
-devtools::install_github("maxlinde/baymedr")
-```
-
 ## General usage
 
 All three functions for the three research designs (i.e., equivalence, non-inferiority, and superiority) allow the user to compute Bayes factors based on raw data (if arguments `x` and `y` are defined) or summary statistics (if arguments `n_x`, `n_y`, `mean_x`, `mean_y`, `sd_x`, and `sd_y` are defined). If summary statistics are used, the user has the option to specify `ci_margin` instead of `sd_x` and `sd_y` if tests for equivalence and superiority are employed but not if the non-inferiority test is used.
