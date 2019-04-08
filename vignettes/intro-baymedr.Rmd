@@ -1,6 +1,6 @@
 ---
 title: "Introduction to baymedr"
-author: Maximilian Linde
+author: "Maximilian Linde"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
