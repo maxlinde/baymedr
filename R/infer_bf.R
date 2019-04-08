@@ -2,19 +2,19 @@
 #'
 #' This function computes a Bayes factor for non-inferiority designs.
 #'
-#' The Bayes factor resulting from \code{infer_bf} tests the null hypothesis
-#' that the experimental group (e.g., a new medication) is not better than the
-#' control group (e.g., a placebo or existing medication) minus a constant
-#' value (c). The alternative hypothesis is that the experimental group is
-#' better than the control group minus a constant value (c). Put more formally,
-#' the null hypothesis states that the true population effect size < -c,
-#' resulting in the point null hypothesis that the true population effect size
-#' = -c against the one-sided alternative hypothesis that the true population
-#' effect size > -c.
+#' The Bayes factor resulting from \code{\link{infer_bf}} tests the null
+#' hypothesis that the experimental group (e.g., a new medication) is not better
+#' than the control group (e.g., a placebo or existing medication) minus a
+#' constant value (c). The alternative hypothesis is that the experimental group
+#' is better than the control group minus a constant value (c). Put more
+#' formally, the null hypothesis states that the true population effect size <
+#' -c, resulting in the point null hypothesis that the true population effect
+#' size = -c against the one-sided alternative hypothesis that the true
+#' population effect size > -c.
 #'
-#' Importantly, \code{infer_bf} can be utilized to calculate a Bayes factor
-#' based on raw data (i.e., if arguments \code{x} and \code{y} are defined) or
-#' summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
+#' Importantly, \code{\link{infer_bf}} can be utilized to calculate a Bayes
+#' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
+#' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 #' \code{mean_x}, and \code{mean_y} are defined).
 #'
 #' ##TODO## ni_margin
@@ -25,36 +25,35 @@
 #' @param y A numeric vector of observations for the experimental group.
 #' @param n_x A numeric scalar, specifying the sample size of the control group.
 #' @param n_y A numeric scalar, specifying the sample size of the experimental
-#' group.
-#' @param mean_x A numeric scalar, specifying the mean of the dependent
-#' variable in the control group.
-#' @param mean_y A numeric scalar, specifying the mean of the dependent
-#' variable in the experimental group.
+#'   group.
+#' @param mean_x A numeric scalar, specifying the mean of the dependent variable
+#'   in the control group.
+#' @param mean_y A numeric scalar, specifying the mean of the dependent variable
+#'   in the experimental group.
 #' @param sd_x A numeric scalar, specifying the standard deviation of the
-#' dependent variable in the control group.
+#'   dependent variable in the control group.
 #' @param sd_y A numeric scalar, specifying the standard deviation of the
-#' dependent variable in the experimental group.
+#'   dependent variable in the experimental group.
 #' @param ni_margin ##TODO##
 #' @param prior_scale A numeric scalar, specifying the scale of the prior
-#' distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
-#' Rouder et al., 2009).
+#'   distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
+#'   Rouder et al., 2009).
 #'
 #' @return ##TODO##
 #'
 #' @export
 #' @import rlang stats
 #'
-#' @references
-#' Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
-#' bayesian t-tests. Manuscript submitted for publication.
+#' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
+#'   bayesian t-tests. Manuscript submitted for publication.
 #'
-#' Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
-#' tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
-#' Bulletin & Review}, \emph{16}(2), 225-237.
+#'   Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
+#'   tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
+#'   Bulletin & Review}, \emph{16}(2), 225-237.
 #'
-#' van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
-#' (2019). Bayes factors for superiority, non-inferiority, and equivalence
-#' designs. Manuscript submitted for publication.
+#'   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
+#'   (2019). Bayes factors for superiority, non-inferiority, and equivalence
+#'   designs. Manuscript submitted for publication.
 #'
 #' @examples
 #' # infer_bf using raw data:

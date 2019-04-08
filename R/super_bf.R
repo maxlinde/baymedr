@@ -1,12 +1,12 @@
-#' Bayes factors for superiority designs
+#' Bayes factor for superiority designs
 #'
 #' This function computes a Bayes factor for superiority designs.
 #'
-#' The Bayes factor resulting from \code{super_bf} tests the null hypothesis
-#' that the experimental group (e.g., a new medication) is not better than the
-#' control group (e.g., a placebo or existing medication). In other words, the
-#' null hypothesis of \code{super_bf} states that the true population effect
-#' size is exactly zero.
+#' The Bayes factor resulting from \code{\link{super_bf}} tests the null
+#' hypothesis that the experimental group (e.g., a new medication) is not better
+#' than the control group (e.g., a placebo or existing medication). In other
+#' words, the null hypothesis of \code{\link{super_bf}} states that the true
+#' population effect size is exactly zero.
 #'
 #' As the name 'superiority' implies, the test is typically understood as a
 #' one-tailed test. In practice, however, a two-tailed test is often employed.
@@ -14,9 +14,9 @@
 #' which of these two alternatives should be employed through the argument
 #' \code{one-sided}.
 #'
-#' Importantly, \code{super_bf} can be utilized to calculate a Bayes factor
-#' based on raw data (i.e., if arguments \code{x} and \code{y} are defined) or
-#' summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
+#' Importantly, \code{\link{super_bf}} can be utilized to calculate a Bayes
+#' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
+#' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 #' \code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
 #' has the freedom to supply values either for the arguments \code{sd_x} and
 #' \code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
@@ -28,44 +28,43 @@
 #' @param y A numeric vector of observations for the experimental group.
 #' @param n_x A numeric scalar, specifying the sample size of the control group.
 #' @param n_y A numeric scalar, specifying the sample size of the experimental
-#' group.
-#' @param mean_x A numeric scalar, specifying the mean of the dependent
-#' variable in the control group.
-#' @param mean_y A numeric scalar, specifying the mean of the dependent
-#' variable in the experimental group.
+#'   group.
+#' @param mean_x A numeric scalar, specifying the mean of the dependent variable
+#'   in the control group.
+#' @param mean_y A numeric scalar, specifying the mean of the dependent variable
+#'   in the experimental group.
 #' @param sd_x A numeric scalar, specifying the standard deviation of the
-#' dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
-#' \strong{OR} \code{ci_margin} should be defined (see Details).
+#'   dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
+#'   \strong{OR} \code{ci_margin} should be defined (see Details).
 #' @param sd_y A numeric scalar, specifying the standard deviation of the
-#' dependent variable in the experimental group. Only \code{sd_x} and
-#' \code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).
+#'   dependent variable in the experimental group. Only \code{sd_x} and
+#'   \code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).
 #' @param ci_margin A numeric scalar, specifying the margin of the confidence
-#' interval (i.e., the width of the confidence interval divided by 2) of the
-#' difference on the dependent variable between the control and experimental
-#' groups. Only \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should
-#' be defined (see Details).
+#'   interval (i.e., the width of the confidence interval divided by 2) of the
+#'   difference on the dependent variable between the control and experimental
+#'   groups. Only \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin}
+#'   should be defined (see Details).
 #' @param prior_scale A numeric scalar, specifying the scale of the prior
-#' distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
-#' Rouder et al., 2009).
+#'   distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
+#'   Rouder et al., 2009).
 #' @param one_sided A logical scalar, specifying whether a one-sided alternative
-#' (TRUE; the default) or a two-sided alternative (FALSE) should be employed.
+#'   (TRUE; the default) or a two-sided alternative (FALSE) should be employed.
 #'
 #' @return ##TODO##
 #'
 #' @export
 #' @import rlang stats
 #'
-#' @references
-#' Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
-#' bayesian t-tests. Manuscript submitted for publication.
+#' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
+#'   bayesian t-tests. Manuscript submitted for publication.
 #'
-#' Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
-#' tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
-#' Bulletin & Review}, \emph{16}(2), 225-237.
+#'   Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
+#'   tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
+#'   Bulletin & Review}, \emph{16}(2), 225-237.
 #'
-#' van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
-#' (2019). Bayes factors for superiority, non-inferiority, and equivalence
-#' designs. Manuscript submitted for publication.
+#'   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
+#'   (2019). Bayes factors for superiority, non-inferiority, and equivalence
+#'   designs. Manuscript submitted for publication.
 #'
 #' @examples
 #' # super_bf using raw data:

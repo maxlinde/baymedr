@@ -1,10 +1,11 @@
 #' Extract Bayes factor from S4 object
 #'
 #' This function extracts the Bayes factor from S4 objects, created from the
-#' functions \code{super_bf}, \code{equiv_bf}, or \code{infer_bf}.
+#' functions \code{\link{super_bf}}, \code{\link{equiv_bf}}, or
+#' \code{\link{infer_bf}}.
 #'
 #' @param object An S4 object of class 'baymedrSuperiority',
-#' 'baymedrEquivalence', or 'baymedrNonInferiority'.
+#'   'baymedrEquivalence', or 'baymedrNonInferiority'.
 #'
 #' @return A numeric scalar, providing the Bayes factor from an S4 object.
 #'

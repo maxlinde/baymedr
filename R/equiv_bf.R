@@ -2,25 +2,25 @@
 #'
 #' This function computes a Bayes factor for equivalence designs.
 #'
-#' The Bayes factor resulting from \code{equiv_bf} tests the null hypothesis
-#' that the control group (e.g., a placebo or existing medication) and the
-#' experimental group (e.g., a new medication) are equivalent. The alternative
-#' hypothesis is that the two groups are not equivalent.
+#' The Bayes factor resulting from \code{\link{equiv_bf}} tests the null
+#' hypothesis that the control group (e.g., a placebo or existing medication)
+#' and the experimental group (e.g., a new medication) are equivalent. The
+#' alternative hypothesis is that the two groups are not equivalent.
 #'
-#' In contrast to null hypothesis significance testing (NHST), \code{equiv_bf}
-#' has the advantage that it is not compulsory to specify an equivalence
-#' interval (see van Ravenzwaaij et al., 2019). Therefore, the default value of
-#' the argument \code{interval} is 0, indicating a point null hypothesis.
-#' However, if the user prefers to have an equivalence interval, the argument
-#' \code{interval} can be set in two ways: If a \emph{symmetric} interval is
-#' desired, the user can either specify a numeric scalar (e.g., 0.1, which is
-#' converted to c(-0.1, 0.1)) or a numeric vector of length two (e.g.,
+#' In contrast to null hypothesis significance testing (NHST),
+#' \code{\link{equiv_bf}} has the advantage that it is not compulsory to specify
+#' an equivalence interval (see van Ravenzwaaij et al., 2019). Therefore, the
+#' default value of the argument \code{interval} is 0, indicating a point null
+#' hypothesis. However, if the user prefers to have an equivalence interval, the
+#' argument \code{interval} can be set in two ways: If a \emph{symmetric}
+#' interval is desired, the user can either specify a numeric scalar (e.g., 0.1,
+#' which is converted to c(-0.1, 0.1)) or a numeric vector of length two (e.g.,
 #' c(-0.1, 0.1)); if an \emph{asymmetric} interval is desired, the user can
 #' specify a numeric vector of length two (e.g., c(-0.1, 0.2)).
 #'
-#' Importantly, \code{equiv_bf} can be utilized to calculate a Bayes factor
-#' based on raw data (i.e., if arguments \code{x} and \code{y} are defined) or
-#' summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
+#' Importantly, \code{\link{equiv_bf}} can be utilized to calculate a Bayes
+#' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
+#' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 #' \code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
 #' has the freedom to supply values either for the arguments \code{sd_x} and
 #' \code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
@@ -32,50 +32,48 @@
 #' @param y A numeric vector of observations for the experimental group.
 #' @param n_x A numeric scalar, specifying the sample size of the control group.
 #' @param n_y A numeric scalar, specifying the sample size of the experimental
-#' group.
-#' @param mean_x A numeric scalar, specifying the mean of the dependent
-#' variable in the control group.
-#' @param mean_y A numeric scalar, specifying the mean of the dependent
-#' variable in the experimental group.
+#'   group.
+#' @param mean_x A numeric scalar, specifying the mean of the dependent variable
+#'   in the control group.
+#' @param mean_y A numeric scalar, specifying the mean of the dependent variable
+#'   in the experimental group.
 #' @param sd_x A numeric scalar, specifying the standard deviation of the
-#' dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
-#' \strong{OR} \code{ci_margin} should be defined (see Details).
+#'   dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
+#'   \strong{OR} \code{ci_margin} should be defined (see Details).
 #' @param sd_y A scalar, specifying the standard deviation of the dependent
-#' variable in the experimental group. Only \code{sd_x} and \code{sd_y}
-#' \strong{OR} \code{ci_margin} should be defined (see Details).
+#'   variable in the experimental group. Only \code{sd_x} and \code{sd_y}
+#'   \strong{OR} \code{ci_margin} should be defined (see Details).
 #' @param ci_margin A scalar, specifying the margin of the confidence interval
-#' (i.e., the width of the confidence interval divided by 2) of the difference
-#' on the dependent variable between the control and experimental groups. Only
-#' \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
-#' (see Details).
+#'   (i.e., the width of the confidence interval divided by 2) of the difference
+#'   on the dependent variable between the control and experimental groups. Only
+#'   \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
+#'   (see Details).
 #' @param interval A numeric vector of length one or two, specifying the
-#' boundaries of the equivalence interval in unstandardized units
-#' (see van Ravenzwaaij et al., 2019). If a numeric scalar is specified, a
-#' symmetric equivalence interval will be used (e.g., a 0.1 is equivalent to
-#' c(-0.1, 0.1)). A numeric vector of length two provides the possibility to
-#' specify a asymmetric equivalence interval (e.g., c(-0.1, 0.2)). The default
-#' is 0, indicating a point null hypothesis rather than an interval (see
-#' Details).
+#'   boundaries of the equivalence interval in unstandardized units (see van
+#'   Ravenzwaaij et al., 2019). If a numeric scalar is specified, a symmetric
+#'   equivalence interval will be used (e.g., a 0.1 is equivalent to c(-0.1,
+#'   0.1)). A numeric vector of length two provides the possibility to specify a
+#'   asymmetric equivalence interval (e.g., c(-0.1, 0.2)). The default is 0,
+#'   indicating a point null hypothesis rather than an interval (see Details).
 #' @param prior_scale A numeric scalar, specifying the scale of the prior
-#' distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
-#' Rouder et al., 2009).
+#'   distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
+#'   Rouder et al., 2009).
 #'
 #' @return ##TODO##
 #'
 #' @export
 #' @import rlang stats
 #'
-#' @references
-#' Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
-#' bayesian t-tests. Manuscript submitted for publication.
+#' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
+#'   bayesian t-tests. Manuscript submitted for publication.
 #'
-#' Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
-#' tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
-#' Bulletin & Review}, \emph{16}(2), 225-237.
+#'   Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
+#'   tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
+#'   Bulletin & Review}, \emph{16}(2), 225-237.
 #'
-#' van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
-#' (2019). Bayes factors for superiority, non-inferiority, and equivalence
-#' designs. Manuscript submitted for publication.
+#'   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
+#'   (2019). Bayes factors for superiority, non-inferiority, and equivalence
+#'   designs. Manuscript submitted for publication.
 #'
 #' @examples
 #' # equiv_bf using raw data:
