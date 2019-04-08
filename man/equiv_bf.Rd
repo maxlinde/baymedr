@@ -28,15 +28,15 @@ in the experimental group.}
 dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
 \strong{OR} \code{ci_margin} should be defined (see Details).}
 
-\item{sd_y}{A scalar, specifying the standard deviation of the dependent
-variable in the experimental group. Only \code{sd_x} and \code{sd_y}
-\strong{OR} \code{ci_margin} should be defined (see Details).}
+\item{sd_y}{A numeric scalar, specifying the standard deviation of the
+dependent variable in the experimental group. Only \code{sd_x} and
+\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
 
-\item{ci_margin}{A scalar, specifying the margin of the confidence interval
-(i.e., the width of the confidence interval divided by 2) of the difference
-on the dependent variable between the control and experimental groups. Only
-\code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
-(see Details).}
+\item{ci_margin}{A numeric scalar, specifying the margin of the confidence
+interval (i.e., the width of the confidence interval divided by 2) of the
+difference on the dependent variable between the control and experimental
+groups. Only \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin}
+should be defined (see Details).}
 
 \item{interval}{A numeric vector of length one or two, specifying the
 boundaries of the equivalence interval in unstandardized units (see van

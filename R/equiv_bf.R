@@ -28,26 +28,6 @@
 #'
 #' ##TODO## prior_scale
 #'
-#' @param x A numeric vector of observations for the control group.
-#' @param y A numeric vector of observations for the experimental group.
-#' @param n_x A numeric scalar, specifying the sample size of the control group.
-#' @param n_y A numeric scalar, specifying the sample size of the experimental
-#'   group.
-#' @param mean_x A numeric scalar, specifying the mean of the dependent variable
-#'   in the control group.
-#' @param mean_y A numeric scalar, specifying the mean of the dependent variable
-#'   in the experimental group.
-#' @param sd_x A numeric scalar, specifying the standard deviation of the
-#'   dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
-#'   \strong{OR} \code{ci_margin} should be defined (see Details).
-#' @param sd_y A scalar, specifying the standard deviation of the dependent
-#'   variable in the experimental group. Only \code{sd_x} and \code{sd_y}
-#'   \strong{OR} \code{ci_margin} should be defined (see Details).
-#' @param ci_margin A scalar, specifying the margin of the confidence interval
-#'   (i.e., the width of the confidence interval divided by 2) of the difference
-#'   on the dependent variable between the control and experimental groups. Only
-#'   \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} should be defined
-#'   (see Details).
 #' @param interval A numeric vector of length one or two, specifying the
 #'   boundaries of the equivalence interval in unstandardized units (see van
 #'   Ravenzwaaij et al., 2019). If a numeric scalar is specified, a symmetric
@@ -55,9 +35,7 @@
 #'   0.1)). A numeric vector of length two provides the possibility to specify a
 #'   asymmetric equivalence interval (e.g., c(-0.1, 0.2)). The default is 0,
 #'   indicating a point null hypothesis rather than an interval (see Details).
-#' @param prior_scale A numeric scalar, specifying the scale of the prior
-#'   distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
-#'   Rouder et al., 2009).
+#' @inheritParams super_bf
 #'
 #' @return ##TODO##
 #'

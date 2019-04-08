@@ -25,10 +25,12 @@ in the control group.}
 in the experimental group.}
 
 \item{sd_x}{A numeric scalar, specifying the standard deviation of the
-dependent variable in the control group.}
+dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
+\strong{OR} \code{ci_margin} should be defined (see Details).}
 
 \item{sd_y}{A numeric scalar, specifying the standard deviation of the
-dependent variable in the experimental group.}
+dependent variable in the experimental group. Only \code{sd_x} and
+\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
 
 \item{ni_margin}{##TODO##}
 

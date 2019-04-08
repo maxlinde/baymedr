@@ -21,23 +21,8 @@
 #'
 #' ##TODO## prior_scale
 #'
-#' @param x A numeric vector of observations for the control group.
-#' @param y A numeric vector of observations for the experimental group.
-#' @param n_x A numeric scalar, specifying the sample size of the control group.
-#' @param n_y A numeric scalar, specifying the sample size of the experimental
-#'   group.
-#' @param mean_x A numeric scalar, specifying the mean of the dependent variable
-#'   in the control group.
-#' @param mean_y A numeric scalar, specifying the mean of the dependent variable
-#'   in the experimental group.
-#' @param sd_x A numeric scalar, specifying the standard deviation of the
-#'   dependent variable in the control group.
-#' @param sd_y A numeric scalar, specifying the standard deviation of the
-#'   dependent variable in the experimental group.
 #' @param ni_margin ##TODO##
-#' @param prior_scale A numeric scalar, specifying the scale of the prior
-#'   distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
-#'   Rouder et al., 2009).
+#' @inheritParams super_bf
 #'
 #' @return ##TODO##
 #'
