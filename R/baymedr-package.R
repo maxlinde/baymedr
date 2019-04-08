@@ -14,12 +14,12 @@
 #'
 #' @docType package
 #' @name baymedr-package
-#' @author \strong{Maintainer}: Maximilian Linde
-#'   (maximilian.linde.92@@gmail.com)
+#' @author \strong{Maintainer}: Maximilian Linde --
+#'   \email{maximilian.linde.92@@gmail.com}
 #'
 #'   Authors: \itemize{ \item Maximilian Linde (aut, cre) \item Don van
 #'   Ravenzwaaij (aut) \item Quentin F. Gronau (ctb) }
 #' @seealso Useful links: \itemize{ \item
-#'   \code{\link{httpss//github.com/maxlinde/baymedr}} \item Report bugs at
-#'   \code{\link{httpss//github.com/maxlinde/baymedr/issues}}}
+#'   \url{httpss//github.com/maxlinde/baymedr} \item Report bugs at
+#'   \url{httpss//github.com/maxlinde/baymedr/issues}}
 NULL
