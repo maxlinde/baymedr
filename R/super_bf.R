@@ -53,7 +53,7 @@
 #' @return ##TODO##
 #'
 #' @export
-#' @import rlang stats
+#' @import rlang stats stringr
 #'
 #' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
 #'   bayesian t-tests. Manuscript submitted for publication.
@@ -105,9 +105,10 @@ super_bf <- function(x = NULL,
                               !is.null(sd_x),
                               !is.null(sd_y),
                               !is.null(ci_margin))) {
-    abort("Only 'x', and 'y' OR 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and
-          'sd_y' (or 'ci_margin' instead of 'sd_x' and 'sd_y') must be
-          defined.")
+    abort(str_c(
+      "Only 'x' and 'y' OR 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and ",
+      "'sd_y' (or 'ci_margin' instead of 'sd_x' and 'sd_y') must be defined."
+    ))
   }
   if (xor(!is.null(x),
           !is.null(y))) {
@@ -122,8 +123,10 @@ super_bf <- function(x = NULL,
             is.null(mean_x),
             is.null(mean_y)) ||
         ((is.null(sd_x) || is.null(sd_y)) && is.null(ci_margin))) {
-      abort("All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and 'sd_y' (or
-            'ci_margin' instead of 'sd_x' and 'sd_y') must be defined.")
+      abort(str_c(
+        "All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and 'sd_y' (or ",
+        "'ci_margin' instead of 'sd_x' and 'sd_y') must be defined."
+      ))
     }
     if (!xor(!is.null(sd_x) && !is.null(sd_y),
              !is.null(ci_margin))) {

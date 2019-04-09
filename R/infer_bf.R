@@ -27,7 +27,7 @@
 #' @return ##TODO##
 #'
 #' @export
-#' @import rlang stats
+#' @import rlang stats stringr
 #'
 #' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
 #'   bayesian t-tests. Manuscript submitted for publication.
@@ -71,8 +71,10 @@ infer_bf <- function(x = NULL,
                               !is.null(mean_y),
                               !is.null(sd_x),
                               !is.null(sd_y))) {
-    abort("Only 'x', 'y', and 'ni_margin' OR 'n_x', 'n_y', 'mean_x', 'mean_y',
-          'sd_x', 'sd_y', and 'ni_margin' must be defined.")
+    abort(str_c(
+      "Only 'x', 'y', and 'ni_margin' OR 'n_x', 'n_y', 'mean_x', 'mean_y', ",
+      "'sd_x', 'sd_y', and 'ni_margin' must be defined."
+    ))
   }
   if (any(!is.null(x),
           !is.null(y))) {
@@ -95,8 +97,10 @@ infer_bf <- function(x = NULL,
             is.null(sd_x),
             is.null(sd_y),
             is.null(ni_margin))) {
-      abort("All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', 'sd_y', and
-            'ni_margin' must be defined.")
+      abort(str_c(
+        "All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', 'sd_y', and ",
+        "'ni_margin' must be defined."
+      ))
     }
   }
   if (all(!is.null(n_x),
