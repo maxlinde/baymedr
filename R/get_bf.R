@@ -31,5 +31,18 @@
 #'
 #' get_bf(object = mod_infer)
 get_bf <- function(object) {
+  if (all(!sapply(c("baymedrSuperiority",
+                    "baymedrEquivalence",
+                    "baymedrNonInferiority"),
+                  function(x) {
+                    is(object = object,
+                       class2 = x)
+                  }))) {
+    abort(str_c(
+      "Bayes factors can only be extracted from S4 objects of classes ",
+      "'baymedrEquivalence', 'baymedrNonInferiority', and ",
+      "'baymedrSuperiority'."
+    ))
+  }
   object@bf
 }
