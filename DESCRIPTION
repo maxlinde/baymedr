@@ -23,11 +23,6 @@ Description: BAYesian inference for MEDical designs in R. Convenience functions
     tests can be computed based on raw data (x, y) or summary statistics (n_x, 
     n_y, mean_x, mean_y, sd_x, sd_y), making it possible to reanalyze findings 
     (e.g., from publications) without the need to obtain the raw data.
-License: GPL-3
-Encoding: UTF-8
-LazyData: true
-URL: https://github.com/maxlinde/baymedr
-BugReports: https://github.com/maxlinde/baymedr/issues
 Depends:
     R (>= 3.5.0)
 Imports: 
@@ -35,9 +30,14 @@ Imports:
     rlang (>= 0.3.1),
     stats (>= 3.5.2),
     stringr (>= 1.4.0)
-RoxygenNote: 6.1.1
 Suggests: 
     knitr,
     rmarkdown,
     testthat
 VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/maxlinde/baymedr
+BugReports: https://github.com/maxlinde/baymedr/issues
