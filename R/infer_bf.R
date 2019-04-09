@@ -136,6 +136,9 @@ infer_bf <- function(x = NULL,
   if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
     abort("'prior_scale' must be a single numeric value.")
   }
+  if (!is.numeric(ni_margin) || length(ni_margin) > 1) {
+    abort("'ni_margin' must be a single numeric value.")
+  }
   sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
                       (n_x + n_y - 2))
   se <- sd_pooled * sqrt(1 / n_x + 1 / n_y)
