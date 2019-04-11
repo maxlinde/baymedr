@@ -119,4 +119,28 @@ test_that("infer_bf gives correct error messages", {
     "'ni_margin' must be a single numeric value.",
     fixed = TRUE
   )
+  expect_error(
+    infer_bf(x = con,
+             y = exp,
+             ni_margin = -0.5,
+             alternative = 5),
+    "'alternative' must be a single character value.",
+    fixed = TRUE
+  )
+  expect_error(
+    infer_bf(x = con,
+             y = exp,
+             ni_margin = -0.5,
+             alternative = c("greater", "less")),
+    "'alternative' must be a single character value.",
+    fixed = TRUE
+  )
+  expect_error(
+    infer_bf(x = con,
+             y = exp,
+             ni_margin = -0.5,
+             alternative = "abc"),
+    "'alternative' must be one of 'greater' or 'less'.",
+    fixed = TRUE
+  )
 })

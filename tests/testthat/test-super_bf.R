@@ -124,8 +124,22 @@ test_that("super_bf gives correct error messages", {
   expect_error(
     super_bf(x = con,
              y = exp,
-             one_sided = "Yes"),
-    "'one_sided' must be a logical value.",
+             alternative = 5),
+    "'alternative' must be a single character value.",
+    fixed = TRUE
+  )
+  expect_error(
+    super_bf(x = con,
+             y = exp,
+             alternative = c("greater", "less")),
+    "'alternative' must be a single character value.",
+    fixed = TRUE
+  )
+  expect_error(
+    super_bf(x = con,
+             y = exp,
+             alternative = "abc"),
+    "'alternative' must be one of 'greater', 'two_sided', or 'less'.",
     fixed = TRUE
   )
 })
