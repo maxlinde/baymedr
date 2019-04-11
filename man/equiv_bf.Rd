@@ -105,8 +105,8 @@ equiv_bf(n_x = 100,
          ci_margin = 4)
 }
 \references{
-Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
-  bayesian t-tests. Manuscript submitted for publication.
+Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
+  bayesian t-tests. \emph{The American Statistician}, 1-13.
 
   Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
   tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
@@ -114,5 +114,5 @@ Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
 
   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
   (2019). Bayes factors for superiority, non-inferiority, and equivalence
-  designs. Manuscript submitted for publication.
+  designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
 }
