@@ -185,21 +185,37 @@ equiv_bf <- function(x = NULL,
     h0 <- "mu2 = mu1"
     ha <- "mu2 != mu1"
   } else {
-    post_dens <- cdf_t(x = interval[[2]],
-                       t = t_stat,
-                       n1 = n_x,
-                       n2 = n_y,
-                       ind_samples = TRUE,
-                       prior_loc = 0,
-                       prior_scale = prior_scale,
-                       prior_df = 1) - cdf_t(x = interval[[1]],
-                                             t = t_stat,
-                                             n1 = n_x,
-                                             n2 = n_y,
-                                             ind_samples = TRUE,
-                                             prior_loc = 0,
-                                             prior_scale = prior_scale,
-                                             prior_df = 1)
+    cdf_t_upper <- cdf_t(x = interval[[2]],
+                         t = t_stat,
+                         n1 = n_x,
+                         n2 = n_y,
+                         ind_samples = TRUE,
+                         prior_loc = 0,
+                         prior_scale = prior_scale,
+                         prior_df = 1)
+    cdf_t_lower <- cdf_t(x = interval[[1]],
+                         t = t_stat,
+                         n1 = n_x,
+                         n2 = n_y,
+                         ind_samples = TRUE,
+                         prior_loc = 0,
+                         prior_scale = prior_scale,
+                         prior_df = 1)
+    if (cdf_t_upper >= 1) {
+      cdf_t_upper <- 0.99999999999999999999
+      warn(str_c(
+        "Caution: An approximation for the integral is invoked. The resulting ",
+        "Bayes factor might not be entirely accurate."
+      ))
+    }
+    if (cdf_t_lower <= 0) {
+      cdf_t_lower <- 0.00000000000000000001
+      warn(str_c(
+        "Caution: An approximation for the integral is invoked. The resulting ",
+        "Bayes factor might not be entirely accurate."
+      ))
+    }
+    post_dens <- cdf_t_upper - cdf_t_lower
     prior_dens <- pcauchy(q = interval[[2]],
                           scale = prior_scale) - pcauchy(q = interval[[1]],
                                                          scale = prior_scale)
