@@ -12,7 +12,7 @@
 #' one-tailed test. In practice, however, a two-tailed test is often employed.
 #' To cover both research practices, the user has the possibility to specify
 #' which of these two alternatives should be employed through the argument
-#' \code{one-sided}.
+#' \code{alternative}.
 #'
 #' Importantly, \code{\link{super_bf}} can be utilized to calculate a Bayes
 #' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
@@ -47,8 +47,7 @@
 #' @param prior_scale A numeric scalar, specifying the scale of the prior
 #'   distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
 #'   Rouder et al., 2009).
-#' @param one_sided A logical scalar, specifying whether a one-sided alternative
-#'   (TRUE; the default) or a two-sided alternative (FALSE) should be employed.
+#' @param alternative ##TODO##
 #'
 #' @return ##TODO##
 #'
@@ -96,7 +95,7 @@ super_bf <- function(x = NULL,
                      sd_y = NULL,
                      ci_margin = NULL,
                      prior_scale = 1 / sqrt(2),
-                     one_sided = TRUE) {
+                     alternative = "greater") {
   if (any(!is.null(x),
           !is.null(y)) && any(!is.null(n_x),
                               !is.null(n_y),
@@ -170,8 +169,8 @@ super_bf <- function(x = NULL,
   if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
     abort("'prior_scale' must be a single numeric value.")
   }
-  if (!is.logical(one_sided)) {
-    abort("'one_sided' must be a logical value.")
+  if (!is.character(alternative) || length(alternative) > 1) {
+    abort("'alternative' must be a single character value.")
   }
   if (!is.null(sd_x) && !is.null(sd_y)) {
     sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
@@ -189,15 +188,23 @@ super_bf <- function(x = NULL,
                 prior_loc = 0,
                 prior_scale = prior_scale,
                 prior_df = 1)
-  if (one_sided == TRUE) {
+  if (str_detect(alternative,
+                 "greater")) {
     bf <- res[[3]]
-    ha <- "mu2 > mu1"
-  } else {
+    ha <- "mu_y - mu_x > 0"
+  } else if (str_detect(alternative,
+                        "two_sided")) {
     bf <- res[[1]]
-    ha <- "mu2 != mu1"
+    ha <- "mu_y - mu_x != 0"
+  } else if (str_detect(alternative,
+                        "less")) {
+    bf <- res[[2]]
+    ha <- "mu_y - mu_x < 0"
+  } else {
+    abort("'alternative' must be one of 'greater', 'two_sided', or 'less'.")
   }
   test <- "Superiority analysis"
-  h0 <- "mu2 = mu1"
+  h0 <- "mu_y - mu_x == 0"
   hypotheses <- list(h0 = h0,
                      ha = ha)
   baymedrSuperiority(test = test,
