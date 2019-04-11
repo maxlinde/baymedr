@@ -182,8 +182,8 @@ equiv_bf <- function(x = NULL,
                   prior_scale = prior_scale,
                   prior_df = 1)
     bf <- 1 / res[[1]]
-    h0 <- "mu2 = mu1"
-    ha <- "mu2 != mu1"
+    h0 <- "mu_y - mu_x == 0"
+    ha <- "mu_y - mu_x != 0"
   } else {
     cdf_t_upper <- cdf_t(x = interval[[2]],
                          t = t_stat,
@@ -201,15 +201,15 @@ equiv_bf <- function(x = NULL,
                          prior_loc = 0,
                          prior_scale = prior_scale,
                          prior_df = 1)
-    if (cdf_t_upper >= 1) {
-      cdf_t_upper <- 0.99999999999999999999
+    if (cdf_t_upper > 1) {
+      cdf_t_upper <- 1
       warn(str_c(
         "Caution: An approximation for the integral is invoked. The resulting ",
         "Bayes factor might not be entirely accurate."
       ))
     }
-    if (cdf_t_lower <= 0) {
-      cdf_t_lower <- 0.00000000000000000001
+    if (cdf_t_lower < 0) {
+      cdf_t_lower <- 0
       warn(str_c(
         "Caution: An approximation for the integral is invoked. The resulting ",
         "Bayes factor might not be entirely accurate."
@@ -221,8 +221,8 @@ equiv_bf <- function(x = NULL,
                                                          scale = prior_scale)
     bf <- (post_dens / prior_dens) /
       ((1 - post_dens) / (1 - prior_dens))
-    h0 <- "c_low < mu2 - mu1 < c_high"
-    ha <- "c_low !< mu2 - mu1 !< c_high"
+    h0 <- "c_low < mu_y - mu_x < c_high"
+    ha <- "c_low !< mu_y - mu_x !< c_high"
   }
   test <- "Equivalence analysis"
   hypotheses <- list(h0 = h0,
