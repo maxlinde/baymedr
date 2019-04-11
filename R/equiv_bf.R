@@ -205,14 +205,14 @@ equiv_bf <- function(x = NULL,
       cdf_t_upper <- 1
       warn(str_c(
         "Caution: An approximation for the integral is invoked. The resulting ",
-        "Bayes factor might not be entirely accurate."
+        "Bayes factor is very large and is thus set to Inf."
       ))
     }
     if (cdf_t_lower < 0) {
       cdf_t_lower <- 0
       warn(str_c(
         "Caution: An approximation for the integral is invoked. The resulting ",
-        "Bayes factor might not be entirely accurate."
+        "Bayes factor is very large and is thus set to Inf."
       ))
     }
     post_dens <- cdf_t_upper - cdf_t_lower
