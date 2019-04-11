@@ -22,6 +22,7 @@
 #' ##TODO## prior_scale
 #'
 #' @param ni_margin ##TODO##
+#' @param alternative ##TODO##
 #' @inheritParams super_bf
 #'
 #' @return ##TODO##
@@ -63,7 +64,8 @@ infer_bf <- function(x = NULL,
                      sd_x = NULL,
                      sd_y = NULL,
                      ni_margin = NULL,
-                     prior_scale = 1 / sqrt(2)) {
+                     prior_scale = 1 / sqrt(2),
+                     alternative = "greater") {
   if (any(!is.null(x),
           !is.null(y)) && any(!is.null(n_x),
                               !is.null(n_y),
@@ -143,6 +145,9 @@ infer_bf <- function(x = NULL,
   if (!is.numeric(ni_margin) || length(ni_margin) > 1) {
     abort("'ni_margin' must be a single numeric value.")
   }
+  if (!is.character(alternative) || length(alternative) > 1) {
+    abort("'alternative' must be a single character value.")
+  }
   sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
                       (n_x + n_y - 2))
   se <- sd_pooled * sqrt(1 / n_x + 1 / n_y)
@@ -155,10 +160,19 @@ infer_bf <- function(x = NULL,
                 prior_loc = cohen_d,
                 prior_scale = prior_scale,
                 prior_df = 1)
-  bf <- res[[3]] * (1 / res[[2]])
+  if (str_detect(alternative,
+                 "greater")) {
+    bf <- res[[3]] / res[[2]]
+    ha <- "mu_y - mu_x > ni_margin"
+  } else if (str_detect(alternative,
+                        "less")) {
+    bf <- res[[2]] / res[[3]]
+    ha <- "mu_y - mu_x < ni_margin"
+  } else {
+    abort("'alternative' must be one of 'greater' or 'less'.")
+  }
   test <- "Non-inferiority analysis"
   h0 <- "mu2 - mu1 = ni_margin"
-  ha <- "mu2 - mu1 > ni_margin"
   hypotheses <- list(h0 = h0,
                      ha = ha)
   baymedrNonInferiority(test = test,
