@@ -6,7 +6,7 @@
 \usage{
 infer_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
-  ni_margin = NULL, prior_scale = 1/sqrt(2))
+  ni_margin = NULL, prior_scale = 1/sqrt(2), alternative = "greater")
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}
@@ -37,6 +37,8 @@ dependent variable in the experimental group. Only \code{sd_x} and
 \item{prior_scale}{A numeric scalar, specifying the scale of the prior
 distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
 Rouder et al., 2009).}
+
+\item{alternative}{##TODO##}
 }
 \value{
 ##TODO##
@@ -80,8 +82,8 @@ infer_bf(n_x = 100,
          ni_margin = -1)
 }
 \references{
-Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
-  bayesian t-tests. Manuscript submitted for publication.
+Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
+  bayesian t-tests. \emph{The American Statistician}, 1-13.
 
   Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
   tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
@@ -89,5 +91,5 @@ Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
 
   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
   (2019). Bayes factors for superiority, non-inferiority, and equivalence
-  designs. Manuscript submitted for publication.
+  designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
 }

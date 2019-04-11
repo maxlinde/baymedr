@@ -6,7 +6,7 @@
 \usage{
 super_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
-  ci_margin = NULL, prior_scale = 1/sqrt(2), one_sided = TRUE)
+  ci_margin = NULL, prior_scale = 1/sqrt(2), alternative = "greater")
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}
@@ -42,8 +42,7 @@ should be defined (see Details).}
 distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
 Rouder et al., 2009).}
 
-\item{one_sided}{A logical scalar, specifying whether a one-sided alternative
-(TRUE; the default) or a two-sided alternative (FALSE) should be employed.}
+\item{alternative}{##TODO##}
 }
 \value{
 ##TODO##
@@ -62,7 +61,7 @@ As the name 'superiority' implies, the test is typically understood as a
 one-tailed test. In practice, however, a two-tailed test is often employed.
 To cover both research practices, the user has the possibility to specify
 which of these two alternatives should be employed through the argument
-\code{one-sided}.
+\code{alternative}.
 
 Importantly, \code{\link{super_bf}} can be utilized to calculate a Bayes
 factor based on raw data (i.e., if arguments \code{x} and \code{y} are
@@ -96,8 +95,8 @@ super_bf(n_x = 100,
          ci_margin = 4)
 }
 \references{
-Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
-  bayesian t-tests. Manuscript submitted for publication.
+Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
+  bayesian t-tests. \emph{The American Statistician}, 1-13.
 
   Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
   tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
@@ -105,5 +104,5 @@ Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2018). Informed
 
   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
   (2019). Bayes factors for superiority, non-inferiority, and equivalence
-  designs. Manuscript submitted for publication.
+  designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
 }
