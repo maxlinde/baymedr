@@ -161,6 +161,8 @@ get_bf(object = mod_infer_sum)
 
 ## References
 
+Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed bayesian t-tests. *The American Statistician*, 1-13.
+
 Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t tests for accepting and rejecting the null hypothesis. *Psychonomic Bulletin & Review*, *16*(2), 225-237.
 
 Schönbrodt, F. D., Wagenmaker, E.-J., Zehetleitner, M., & Perugini, M. (2017). Sequential hypothesis testing with bayes factors: Efficiently testing mean differences. *Psychological Methods*, *22*(2), 322-339.

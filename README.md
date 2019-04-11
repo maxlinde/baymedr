@@ -91,7 +91,7 @@ mod_super_raw
 #> Data: raw data
 #> Prior scale: 0.707
 #> 
-#>     BF = 983920.9
+#>     BF10 = 983920.9
 #> ******************************
 
 get_bf(object = mod_super_raw)
@@ -118,7 +118,7 @@ mod_super_sum
 #> Data: summary data
 #> Prior scale: 0.707
 #> 
-#>     BF = 2.041406e+13
+#>     BF10 = 2.041406e+13
 #> ******************************
 
 get_bf(object = mod_super_sum)
@@ -147,7 +147,7 @@ mod_equiv_raw
 #> Equivalence interval: Lower = 0; Upper = 0
 #> Prior scale: 0.707
 #> 
-#>     BF = 2.032684e-06
+#>     BF01 = 2.032684e-06
 #> ******************************
 
 get_bf(object = mod_equiv_raw)
@@ -175,7 +175,7 @@ mod_equiv_sum
 #> Equivalence interval: Lower = 0; Upper = 0
 #> Prior scale: 0.707
 #> 
-#>     BF = 9.797167e-14
+#>     BF01 = 9.797167e-14
 #> ******************************
 
 get_bf(object = mod_equiv_sum)
@@ -205,7 +205,7 @@ mod_infer_raw
 #> Non-inferiority margin: -0.5
 #> Prior scale: 0.707
 #> 
-#>     BF = 55487.31
+#>     BF10 = 55487.31
 #> ******************************
 
 get_bf(object = mod_infer_raw)
@@ -234,7 +234,7 @@ mod_infer_sum
 #> Non-inferiority margin: 2
 #> Prior scale: 0.707
 #> 
-#>     BF = 7033902416
+#>     BF10 = 7033902416
 #> ******************************
 
 get_bf(object = mod_infer_sum)
@@ -243,6 +243,8 @@ get_bf(object = mod_infer_sum)
 
 References
 ----------
+
+Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed bayesian t-tests. *The American Statistician*, 1-13.
 
 Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t tests for accepting and rejecting the null hypothesis. *Psychonomic Bulletin & Review*, *16*(2), 225-237.
 
