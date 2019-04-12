@@ -24,12 +24,12 @@ Description: BAYesian inference for MEDical designs in R. Convenience functions
     n_y, mean_x, mean_y, sd_x, sd_y), making it possible to reanalyze findings 
     (e.g., from publications) without the need to obtain the raw data.
 Depends:
-    R (>= 3.5.0)
+    R (>= 3.2.0)
 Imports: 
-    methods (>= 3.5.2),
-    rlang (>= 0.3.1),
-    stats (>= 3.5.2),
-    stringr (>= 1.4.0)
+    methods,
+    rlang,
+    stats,
+    stringr
 Suggests: 
     knitr,
     rmarkdown,
