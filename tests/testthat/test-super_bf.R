@@ -139,7 +139,7 @@ test_that("super_bf gives correct error messages", {
     super_bf(x = con,
              y = exp,
              alternative = "abc"),
-    "'alternative' must be one of 'greater', 'two_sided', or 'less'.",
+    "'alternative' must be one of 'greater', 'two.sided', or 'less'.",
     fixed = TRUE
   )
 })
