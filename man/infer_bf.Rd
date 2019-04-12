@@ -13,30 +13,31 @@ infer_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
 
 \item{y}{A numeric vector of observations for the experimental group.}
 
-\item{n_x}{A numeric scalar, specifying the sample size of the control group.}
+\item{n_x}{A numeric vector of length one, specifying the sample size of the
+control group.}
 
-\item{n_y}{A numeric scalar, specifying the sample size of the experimental
-group.}
+\item{n_y}{A numeric vector of length one, specifying the sample size of the
+experimental group.}
 
-\item{mean_x}{A numeric scalar, specifying the mean of the dependent variable
-in the control group.}
+\item{mean_x}{A numeric vector of length one, specifying the mean of the
+dependent variable in the control group.}
 
-\item{mean_y}{A numeric scalar, specifying the mean of the dependent variable
-in the experimental group.}
+\item{mean_y}{A numeric vector of length one, specifying the mean of the
+dependent variable in the experimental group.}
 
-\item{sd_x}{A numeric scalar, specifying the standard deviation of the
-dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
-\strong{OR} \code{ci_margin} should be defined (see Details).}
+\item{sd_x}{A numeric vector of length one, specifying the standard deviation
+of the dependent variable in the control group. Only \code{sd_x} and
+\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
 
-\item{sd_y}{A numeric scalar, specifying the standard deviation of the
-dependent variable in the experimental group. Only \code{sd_x} and
+\item{sd_y}{A numeric vector of length one, specifying the standard deviation
+of the dependent variable in the experimental group. Only \code{sd_x} and
 \code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
 
 \item{ni_margin}{##TODO##}
 
-\item{prior_scale}{A numeric scalar, specifying the scale of the prior
-distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
-Rouder et al., 2009).}
+\item{prior_scale}{A numeric vector of length one, specifying the scale of
+the prior distribution (see Details). The default value is
+\eqn{1 / \sqrt{2}}.}
 
 \item{alternative}{##TODO##}
 }
@@ -67,19 +68,49 @@ defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 ##TODO## prior_scale
 }
 \examples{
-# infer_bf using raw data:
-infer_bf(x = rnorm(100, 10, 15),
-         y = rnorm(130, 13, 10),
-         ni_margin = -1)
+## infer_bf using raw data:
 
-# infer_bf using summary statistics:
-infer_bf(n_x = 100,
-         n_y = 130,
-         mean_x = 10,
-         mean_y = 13,
-         sd_x = 15,
-         sd_y = 10,
-         ni_margin = -1)
+# Assign model to variable.
+mod_infer_raw <- infer_bf(x = rnorm(100, 10, 15),
+                          y = rnorm(130, 13, 10),
+                          ni_margin = -1)
+
+# Extract Bayes factor from model.
+get_bf(mod_infer_raw)
+
+# ----------
+
+## infer_bf using summary statistics with data from Andersson et al. (2013).
+## Test at timepoint 1:
+
+# Assign model to variable.
+mod_infer_sum_t1 <- infer_bf(n_x = 32,
+                             n_y = 33,
+                             mean_x = 13.6,
+                             mean_y = 17.1,
+                             sd_x = 9.8,
+                             sd_y = 8,
+                             ni_margin = 2)
+
+# Extract Bayes factor from model
+get_bf(mod_infer_sum_t1)
+
+# ----------
+
+## infer_bf using summary statistics with data from Andersson et al. (2013).
+## Test at timepoint 2:
+
+# Assign model to variable.
+mod_infer_sum_t2 <- infer_bf(n_x = 32,
+                             n_y = 30,
+                             mean_x = 9.2,
+                             mean_y = 13.5,
+                             sd_x = 7.6,
+                             sd_y = 8.7,
+                             ni_margin = 2)
+
+# Extract Bayes factor from model
+get_bf(mod_infer_sum_t2)
 }
 \references{
 Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
