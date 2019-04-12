@@ -13,42 +13,44 @@ equiv_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
 
 \item{y}{A numeric vector of observations for the experimental group.}
 
-\item{n_x}{A numeric scalar, specifying the sample size of the control group.}
+\item{n_x}{A numeric vector of length one, specifying the sample size of the
+control group.}
 
-\item{n_y}{A numeric scalar, specifying the sample size of the experimental
-group.}
+\item{n_y}{A numeric vector of length one, specifying the sample size of the
+experimental group.}
 
-\item{mean_x}{A numeric scalar, specifying the mean of the dependent variable
-in the control group.}
+\item{mean_x}{A numeric vector of length one, specifying the mean of the
+dependent variable in the control group.}
 
-\item{mean_y}{A numeric scalar, specifying the mean of the dependent variable
-in the experimental group.}
+\item{mean_y}{A numeric vector of length one, specifying the mean of the
+dependent variable in the experimental group.}
 
-\item{sd_x}{A numeric scalar, specifying the standard deviation of the
-dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
-\strong{OR} \code{ci_margin} should be defined (see Details).}
-
-\item{sd_y}{A numeric scalar, specifying the standard deviation of the
-dependent variable in the experimental group. Only \code{sd_x} and
+\item{sd_x}{A numeric vector of length one, specifying the standard deviation
+of the dependent variable in the control group. Only \code{sd_x} and
 \code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
 
-\item{ci_margin}{A numeric scalar, specifying the margin of the confidence
-interval (i.e., the width of the confidence interval divided by 2) of the
-difference on the dependent variable between the control and experimental
-groups. Only \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin}
-should be defined (see Details).}
+\item{sd_y}{A numeric vector of length one, specifying the standard deviation
+of the dependent variable in the experimental group. Only \code{sd_x} and
+\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
+
+\item{ci_margin}{A numeric vector of length one, specifying the margin of the
+confidence interval (i.e., the width of the confidence interval divided by
+2) of the difference on the dependent variable between the control and
+experimental groups. Only \code{sd_x} and \code{sd_y} \strong{OR}
+\code{ci_margin} should be defined (see Details).}
 
 \item{interval}{A numeric vector of length one or two, specifying the
 boundaries of the equivalence interval in unstandardized units (see van
-Ravenzwaaij et al., 2019). If a numeric scalar is specified, a symmetric
-equivalence interval will be used (e.g., a 0.1 is equivalent to c(-0.1,
-0.1)). A numeric vector of length two provides the possibility to specify a
-asymmetric equivalence interval (e.g., c(-0.1, 0.2)). The default is 0,
-indicating a point null hypothesis rather than an interval (see Details).}
+Ravenzwaaij et al., 2019). If a numeric vector of length one is specified,
+a symmetric equivalence interval will be used (e.g., a 0.1 is equivalent
+to c(-0.1, 0.1)). A numeric vector of length two provides the possibility
+to specify an asymmetric equivalence interval (e.g., c(-0.1, 0.2)). The
+default is 0, indicating a point null hypothesis rather than an interval
+(see Details).}
 
-\item{prior_scale}{A numeric scalar, specifying the scale of the prior
-distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
-Rouder et al., 2009).}
+\item{prior_scale}{A numeric vector of length one, specifying the scale of
+the prior distribution (see Details). The default value is
+\eqn{1 / \sqrt{2}}.}
 }
 \value{
 ##TODO##
@@ -61,6 +63,14 @@ The Bayes factor resulting from \code{\link{equiv_bf}} tests the null
 hypothesis that the control group (e.g., a placebo or existing medication)
 and the experimental group (e.g., a new medication) are equivalent. The
 alternative hypothesis is that the two groups are not equivalent.
+Importantly, with \code{\link{equiv_bf}}, the goal is to express evidence in
+favour of the null hypothesis (equivalence). Thus, in contrast to other tests
+(e.g., \code{\link{super_bf}} and \code{\link{infer_bf}}), the Bayes factor
+resulting from \code{\link{equiv_bf}} expresses evidence in favour of the
+null hypothesis. Quantification of evidence in favour of the null hypothesis
+is logically sound and legitimate within the Bayesian framework but not in
+the traditional frequentist framework (see e.g., van Ravenzwaaij et al.
+(2019)).
 
 In contrast to null hypothesis significance testing (NHST),
 \code{\link{equiv_bf}} has the advantage that it is not compulsory to specify
@@ -68,10 +78,10 @@ an equivalence interval (see van Ravenzwaaij et al., 2019). Therefore, the
 default value of the argument \code{interval} is 0, indicating a point null
 hypothesis. However, if the user prefers to have an equivalence interval, the
 argument \code{interval} can be set in two ways: If a \emph{symmetric}
-interval is desired, the user can either specify a numeric scalar (e.g., 0.1,
-which is converted to c(-0.1, 0.1)) or a numeric vector of length two (e.g.,
-c(-0.1, 0.1)); if an \emph{asymmetric} interval is desired, the user can
-specify a numeric vector of length two (e.g., c(-0.1, 0.2)).
+interval is desired, the user can either specify a numeric vector of length
+one (e.g., 0.1, which is converted to c(-0.1, 0.1)) or a numeric vector of
+length two (e.g., c(-0.1, 0.1)); if an \emph{asymmetric} interval is desired,
+the user can specify a numeric vector of length two (e.g., c(-0.1, 0.2)).
 
 Importantly, \code{\link{equiv_bf}} can be utilized to calculate a Bayes
 factor based on raw data (i.e., if arguments \code{x} and \code{y} are
@@ -84,25 +94,29 @@ information that is available to the user.
 ##TODO## prior_scale
 }
 \examples{
-# equiv_bf using raw data:
-equiv_bf(x = rnorm(100, 10, 15),
-         y = rnorm(130, 13, 10))
+## equiv_bf using raw data:
 
-# equiv_bf using summary statistics. The case where sd_x and sd_y are known:
-equiv_bf(n_x = 100,
-         n_y = 130,
-         mean_x = 10,
-         mean_y = 13,
-         sd_x = 15,
-         sd_y = 10)
+# Assign model to variable.
+mod_equiv_raw <- equiv_bf(x = rnorm(100, 10, 15),
+                          y = rnorm(130, 13, 10))
 
-# equiv_bf using summary statistics. The case where sd_x and sd_y are not
-# known:
-equiv_bf(n_x = 100,
-         n_y = 130,
-         mean_x = 10,
-         mean_y = 13,
-         ci_margin = 4)
+# Extract Bayes factor from variable.
+get_bf(mod_equiv_raw)
+
+# ----------
+
+## equiv_bf using summary statistics with data from Steiner et al. (2015).
+
+# Assign model to variable.
+mod_equiv_sum <- equiv_bf(n_x = 538,
+                          n_y = 560,
+                          mean_x = 8.516,
+                          mean_y = 8.683,
+                          sd_x = 3.6,
+                          sd_y = 3.6)
+
+# Extract Bayes factor from model.
+get_bf(mod_equiv_sum)
 }
 \references{
 Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
