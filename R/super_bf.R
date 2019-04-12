@@ -82,42 +82,79 @@
 #' ## super_bf using raw data:
 #'
 #' # Assign model to variable.
-#' mod_super_raw <- super_bf(x = rnorm(100, 10, 15),
+#' super_raw <- super_bf(x = rnorm(100, 10, 15),
 #'                           y = rnorm(130, 13, 10))
 #'
 #' # Extract Bayes factor from model.
-#' get_bf(mod_super_raw)
+#' get_bf(super_raw)
 #'
+#' # ----------
 #' # ----------
 #'
 #' ## super_bf using summary statistics with data from Skjerven et al. (2013).
+#' ## EXAMPLE 1
 #' ## The one-sided alternative:
 #'
 #' # Assign model to variable.
-#' mod_super_sum_one <- super_bf(n_x = 203,
+#' super_sum_one_ex1 <- super_bf(n_x = 203,
 #'                               n_y = 201,
 #'                               mean_x = 63.6,
 #'                               mean_y = 68.1,
 #'                               ci_margin = (15.5 - (-6.5)) / 2)
 #'
 #' # Extract Bayes factor from model.
-#' get_bf(mod_super_sum_one)
+#' get_bf(super_sum_one_ex1)
 #'
 #' # ----------
 #'
 #' ## super_bf using summary statistics with data from Skjerven et al. (2013).
-#' ## The one-sided alternative:
+#' ## EXAMPLE 1
+#' ## The two-sided alternative:
 #'
 #' # Assign model to variable.
-#' mod_super_sum_two <- super_bf(n_x = 203,
+#' super_sum_two_ex1 <- super_bf(n_x = 203,
 #'                               n_y = 201,
 #'                               mean_x = 63.6,
 #'                               mean_y = 68.1,
 #'                               ci_margin = (15.5 - (-6.5)) / 2,
-#'                               alternative = "greater")
+#'                               alternative = "two.sided")
 #'
 #' # Extract Bayes factor from model.
-#' get_bf(mod_super_sum_two)
+#' get_bf(super_sum_two_ex1)
+#'
+#' # ----------
+#' # ----------
+#'
+#' ## super_bf using summary statistics with data from Skjerven et al. (2013).
+#' ## EXAMPLE 2
+#' ## The one-sided alternative:
+#'
+#' # Assign model to variable.
+#' super_sum_one_ex2 <- super_bf(n_x = 204,
+#'                               n_y = 200,
+#'                               mean_x = 61.3,
+#'                               mean_y = 47.6,
+#'                               ci_margin = (24.4 - 2.9) / 2)
+#'
+#' # Extract Bayes factor from model.
+#' get_bf(super_sum_one_ex2)
+#'
+#' # ----------
+#'
+#' ## super_bf using summary statistics with data from Skjerven et al. (2013).
+#' ## EXAMPLE 2
+#' ## The two-sided alternative:
+#'
+#' # Assign model to variable.
+#' super_sum_two_ex2 <- super_bf(n_x = 204,
+#'                               n_y = 200,
+#'                               mean_x = 61.3,
+#'                               mean_y = 47.6,
+#'                               ci_margin = (24.4 - 2.9) / 2,
+#'                               alternative = "two.sided")
+#'
+#' # Extract Bayes factor from model.
+#' get_bf(super_sum_two_ex2)
 super_bf <- function(x = NULL,
                      y = NULL,
                      n_x = NULL,

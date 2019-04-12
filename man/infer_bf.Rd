@@ -71,46 +71,48 @@ defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 ## infer_bf using raw data:
 
 # Assign model to variable.
-mod_infer_raw <- infer_bf(x = rnorm(100, 10, 15),
-                          y = rnorm(130, 13, 10),
-                          ni_margin = -1)
+infer_raw <- infer_bf(x = rnorm(100, 10, 15),
+                      y = rnorm(130, 13, 10),
+                      ni_margin = -1)
 
 # Extract Bayes factor from model.
-get_bf(mod_infer_raw)
+get_bf(infer_raw)
 
+# ----------
 # ----------
 
 ## infer_bf using summary statistics with data from Andersson et al. (2013).
 ## Test at timepoint 1:
 
 # Assign model to variable.
-mod_infer_sum_t1 <- infer_bf(n_x = 32,
-                             n_y = 33,
-                             mean_x = 13.6,
-                             mean_y = 17.1,
-                             sd_x = 9.8,
-                             sd_y = 8,
-                             ni_margin = 2)
+infer_sum_t1 <- infer_bf(n_x = 32,
+                         n_y = 33,
+                         mean_x = 13.6,
+                         mean_y = 17.1,
+                         sd_x = 9.8,
+                         sd_y = 8,
+                         ni_margin = 2)
 
 # Extract Bayes factor from model
-get_bf(mod_infer_sum_t1)
+get_bf(infer_sum_t1)
 
+# ----------
 # ----------
 
 ## infer_bf using summary statistics with data from Andersson et al. (2013).
 ## Test at timepoint 2:
 
 # Assign model to variable.
-mod_infer_sum_t2 <- infer_bf(n_x = 32,
-                             n_y = 30,
-                             mean_x = 9.2,
-                             mean_y = 13.5,
-                             sd_x = 7.6,
-                             sd_y = 8.7,
-                             ni_margin = 2)
+infer_sum_t2 <- infer_bf(n_x = 32,
+                         n_y = 30,
+                         mean_x = 9.2,
+                         mean_y = 13.5,
+                         sd_x = 7.6,
+                         sd_y = 8.7,
+                         ni_margin = 2)
 
 # Extract Bayes factor from model
-get_bf(mod_infer_sum_t2)
+get_bf(infer_sum_t2)
 }
 \references{
 Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed

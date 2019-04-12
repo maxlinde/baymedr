@@ -66,26 +66,46 @@
 #' ## equiv_bf using raw data:
 #'
 #' # Assign model to variable.
-#' mod_equiv_raw <- equiv_bf(x = rnorm(100, 10, 15),
+#' equiv_raw <- equiv_bf(x = rnorm(100, 10, 15),
 #'                           y = rnorm(130, 13, 10))
 #'
 #' # Extract Bayes factor from variable.
-#' get_bf(mod_equiv_raw)
+#' get_bf(equiv_raw)
 #'
+#' # ----------
 #' # ----------
 #'
 #' ## equiv_bf using summary statistics with data from Steiner et al. (2015).
+#' ## With a point null hypothesis:
 #'
 #' # Assign model to variable.
-#' mod_equiv_sum <- equiv_bf(n_x = 538,
-#'                           n_y = 560,
-#'                           mean_x = 8.516,
-#'                           mean_y = 8.683,
-#'                           sd_x = 3.6,
-#'                           sd_y = 3.6)
+#' equiv_sum_point <- equiv_bf(n_x = 538,
+#'                             n_y = 560,
+#'                             mean_x = 8.516,
+#'                             mean_y = 8.683,
+#'                             sd_x = 3.6,
+#'                             sd_y = 3.6)
 #'
 #' # Extract Bayes factor from model.
-#' get_bf(mod_equiv_sum)
+#' get_bf(equiv_sum_point)
+#'
+#' # ----------
+#' # ----------
+#'
+#' ## equiv_bf using summary statistics with data from Steiner et al. (2015).
+#' ## With an interval null hypothesis:
+#'
+#' # Assign model to variable.
+#' equiv_sum_interval <- equiv_bf(n_x = 538,
+#'                                n_y = 560,
+#'                                mean_x = 8.516,
+#'                                mean_y = 8.683,
+#'                                sd_x = 3.6,
+#'                                sd_y = 3.6,
+#'                                interval = 0.05)
+#'
+#' # Extract Bayes factor from model.
+#' get_bf(equiv_sum_interval)
 equiv_bf <- function(x = NULL,
                      y = NULL,
                      n_x = NULL,
