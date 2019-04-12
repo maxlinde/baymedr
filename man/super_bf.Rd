@@ -13,36 +13,40 @@ super_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
 
 \item{y}{A numeric vector of observations for the experimental group.}
 
-\item{n_x}{A numeric scalar, specifying the sample size of the control group.}
+\item{n_x}{A numeric vector of length one, specifying the sample size of the
+control group.}
 
-\item{n_y}{A numeric scalar, specifying the sample size of the experimental
-group.}
+\item{n_y}{A numeric vector of length one, specifying the sample size of the
+experimental group.}
 
-\item{mean_x}{A numeric scalar, specifying the mean of the dependent variable
-in the control group.}
+\item{mean_x}{A numeric vector of length one, specifying the mean of the
+dependent variable in the control group.}
 
-\item{mean_y}{A numeric scalar, specifying the mean of the dependent variable
-in the experimental group.}
+\item{mean_y}{A numeric vector of length one, specifying the mean of the
+dependent variable in the experimental group.}
 
-\item{sd_x}{A numeric scalar, specifying the standard deviation of the
-dependent variable in the control group. Only \code{sd_x} and \code{sd_y}
-\strong{OR} \code{ci_margin} should be defined (see Details).}
-
-\item{sd_y}{A numeric scalar, specifying the standard deviation of the
-dependent variable in the experimental group. Only \code{sd_x} and
+\item{sd_x}{A numeric vector of length one, specifying the standard deviation
+of the dependent variable in the control group. Only \code{sd_x} and
 \code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
 
-\item{ci_margin}{A numeric scalar, specifying the margin of the confidence
-interval (i.e., the width of the confidence interval divided by 2) of the
-difference on the dependent variable between the control and experimental
-groups. Only \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin}
-should be defined (see Details).}
+\item{sd_y}{A numeric vector of length one, specifying the standard deviation
+of the dependent variable in the experimental group. Only \code{sd_x} and
+\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
 
-\item{prior_scale}{A numeric scalar, specifying the scale of the prior
-distribution (see Details). The default value is \eqn{1 / \sqrt{2}} (see
-Rouder et al., 2009).}
+\item{ci_margin}{A numeric vector of length one, specifying the margin of the
+confidence interval (i.e., the width of the confidence interval divided by
+2) of the difference on the dependent variable between the control and
+experimental groups. Only \code{sd_x} and \code{sd_y} \strong{OR}
+\code{ci_margin} should be defined (see Details).}
 
-\item{alternative}{##TODO##}
+\item{prior_scale}{A numeric vector of length one, specifying the scale of
+the prior distribution (see Details). The default value is
+\eqn{1 / \sqrt{2}}.}
+
+\item{alternative}{A character vector of length one, specifying the direction
+of the alternative hypothesis. 'greater' (the default) corresponds to
+mu_y > mu_x, two.sided' reflects mu_y == mu_x, and 'less' refers to
+mu_y < mu_x (see Details).}
 }
 \value{
 ##TODO##
@@ -52,16 +56,25 @@ This function computes a Bayes factor for superiority designs.
 }
 \details{
 The Bayes factor resulting from \code{\link{super_bf}} tests the null
-hypothesis that the experimental group (e.g., a new medication) is not better
-than the control group (e.g., a placebo or existing medication). In other
-words, the null hypothesis of \code{\link{super_bf}} states that the true
+hypothesis that the experimental group (e.g., a new medication) is equal to
+the control group (e.g., a placebo or existing medication). In other words,
+the null hypothesis of \code{\link{super_bf}} states that the true
 population effect size is exactly zero.
 
 As the name 'superiority' implies, the test is typically understood as a
-one-tailed test. In practice, however, a two-tailed test is often employed.
-To cover both research practices, the user has the possibility to specify
-which of these two alternatives should be employed through the argument
-\code{alternative}.
+one-tailed test. In practice, however, a two-tailed test is often employed,
+followed by subsequent inspection of the descriptive statistics to confirm
+that results are in the expected direction. To cover both research
+practices, the user has the possibility to specify which of these two
+alternatives should be employed through the argument \code{alternative}.
+Furthermore, since sometimes high scores on the dependent variable are
+considered superior (e.g., amount of social interactions) and sometimes
+rather the low scores (e.g., severity of symptoms), the user can specify
+the direction of superiority with the argument \code{alternative}. For the
+case where higher values on the dependent variable indicate superiority,
+the user should specify 'greater' (the default) for the argument
+\code{alternative}; if lower values on the dependent variable indicate
+superiority, 'less' should be specified for the argument \code{alternative}.
 
 Importantly, \code{\link{super_bf}} can be utilized to calculate a Bayes
 factor based on raw data (i.e., if arguments \code{x} and \code{y} are
@@ -74,25 +87,45 @@ information that is available to the user.
 ##TODO## prior_scale
 }
 \examples{
-# super_bf using raw data:
-super_bf(x = rnorm(100, 10, 15),
-         y = rnorm(130, 13, 10))
+## super_bf using raw data:
 
-# super_bf using summary statistics. The case where sd_x and sd_y are known:
-super_bf(n_x = 100,
-         n_y = 130,
-         mean_x = 10,
-         mean_y = 13,
-         sd_x = 15,
-         sd_y = 10)
+# Assign model to variable.
+mod_super_raw <- super_bf(x = rnorm(100, 10, 15),
+                          y = rnorm(130, 13, 10))
 
-# super_bf using summary statistics. The case where sd_x and sd_y are not
-# known:
-super_bf(n_x = 100,
-         n_y = 130,
-         mean_x = 10,
-         mean_y = 13,
-         ci_margin = 4)
+# Extract Bayes factor from model.
+get_bf(mod_super_raw)
+
+# ----------
+
+## super_bf using summary statistics with data from Skjerven et al. (2013).
+## The one-sided alternative:
+
+# Assign model to variable.
+mod_super_sum_one <- super_bf(n_x = 203,
+                              n_y = 201,
+                              mean_x = 63.6,
+                              mean_y = 68.1,
+                              ci_margin = (15.5 - (-6.5)) / 2)
+
+# Extract Bayes factor from model.
+get_bf(mod_super_sum_one)
+
+# ----------
+
+## super_bf using summary statistics with data from Skjerven et al. (2013).
+## The one-sided alternative:
+
+# Assign model to variable.
+mod_super_sum_two <- super_bf(n_x = 203,
+                              n_y = 201,
+                              mean_x = 63.6,
+                              mean_y = 68.1,
+                              ci_margin = (15.5 - (-6.5)) / 2,
+                              alternative = "greater")
+
+# Extract Bayes factor from model.
+get_bf(mod_super_sum_two)
 }
 \references{
 Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
