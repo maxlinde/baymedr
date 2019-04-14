@@ -36,6 +36,12 @@
 #'
 #' ##TODO## prior_scale
 #'
+#' \code{\link{equiv_bf}} creates an S4 object of class 'baymedrEquivalence',
+#' which has multiple slots/entries (e.g., type of data, prior scale, Bayes
+#' factor, etc.; see Value). If it is desired to store or extract solely the
+#' Bayes factor, the user can do this with \code{\link{get_bf}}, by setting the
+#' S4 object as an argument (see Examples).
+#'
 #' @param interval A numeric vector of length one or two, specifying the
 #'   boundaries of the equivalence interval in unstandardized units (see van
 #'   Ravenzwaaij et al., 2019). If a numeric vector of length one is specified,

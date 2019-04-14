@@ -21,6 +21,12 @@
 #'
 #' ##TODO## prior_scale
 #'
+#' \code{\link{infer_bf}} creates an S4 object of class 'baymedrNonInferiority',
+#' which has multiple slots/entries (e.g., type of data, prior scale, Bayes
+#' factor, etc.; see Value). If it is desired to store or extract solely the
+#' Bayes factor, the user can do this with \code{\link{get_bf}}, by setting the
+#' S4 object as an argument (see Examples).
+#'
 #' @param ni_margin ##TODO##
 #' @param alternative ##TODO##
 #' @inheritParams super_bf

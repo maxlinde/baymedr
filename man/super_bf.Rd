@@ -85,6 +85,12 @@ has the freedom to supply values either for the arguments \code{sd_x} and
 information that is available to the user.
 
 ##TODO## prior_scale
+
+\code{\link{super_bf}} creates an S4 object of class 'baymedrSuperiority',
+which has multiple slots/entries (e.g., type of data, prior scale, Bayes
+factor, etc.; see Value). If it is desired to store or extract solely the
+Bayes factor, the user can do this with \code{\link{get_bf}}, by setting the
+S4 object as an argument (see Examples).
 }
 \examples{
 ## super_bf using raw data:
