@@ -87,11 +87,12 @@ mod_super_raw
 #> ******************************
 #> Superiority analysis
 #> --------------------
-#> H0: mu2 = mu1; Ha: mu2 > mu1
 #> Data: raw data
+#> H0 (non-superiority): mu_y == mu_x
+#> H1 (superiority):     mu_y > mu_x
 #> Prior scale: 0.707
 #> 
-#>     BF10 = 983920.9
+#>     BF10 (superiority) = 983920.9
 #> ******************************
 
 get_bf(object = mod_super_raw)
@@ -114,11 +115,12 @@ mod_super_sum
 #> ******************************
 #> Superiority analysis
 #> --------------------
-#> H0: mu2 = mu1; Ha: mu2 > mu1
 #> Data: summary data
+#> H0 (non-superiority): mu_y == mu_x
+#> H1 (superiority):     mu_y > mu_x
 #> Prior scale: 0.707
 #> 
-#>     BF10 = 2.041406e+13
+#>     BF10 (superiority) = 2.041406e+13
 #> ******************************
 
 get_bf(object = mod_super_sum)
@@ -142,12 +144,13 @@ mod_equiv_raw
 #> ******************************
 #> Equivalence analysis
 #> --------------------
-#> H0: mu2 = mu1; Ha: mu2 != mu1
 #> Data: raw data
+#> H0 (equivalence):     mu_y == mu_x
+#> H1 (non-equivalence): mu_y != mu_x
 #> Equivalence interval: Lower = 0; Upper = 0
 #> Prior scale: 0.707
 #> 
-#>     BF01 = 2.032684e-06
+#>     BF01 (equivalence) = 2.032684e-06
 #> ******************************
 
 get_bf(object = mod_equiv_raw)
@@ -170,12 +173,13 @@ mod_equiv_sum
 #> ******************************
 #> Equivalence analysis
 #> --------------------
-#> H0: mu2 = mu1; Ha: mu2 != mu1
 #> Data: summary data
+#> H0 (equivalence):     mu_y == mu_x
+#> H1 (non-equivalence): mu_y != mu_x
 #> Equivalence interval: Lower = 0; Upper = 0
 #> Prior scale: 0.707
 #> 
-#>     BF01 = 9.797167e-14
+#>     BF01 (equivalence) = 9.797167e-14
 #> ******************************
 
 get_bf(object = mod_equiv_sum)
@@ -200,12 +204,13 @@ mod_infer_raw
 #> ******************************
 #> Non-inferiority analysis
 #> ------------------------
-#> H0: mu2 - mu1 = ni_margin; Ha: mu2 - mu1 > ni_margin
 #> Data: raw data
+#> H0 (inferiority):     mu_y - mu_x < ni_margin
+#> H1 (non-inferiority): mu_y - mu_x > ni_margin
 #> Non-inferiority margin: -0.5
 #> Prior scale: 0.707
 #> 
-#>     BF10 = 55487.31
+#>     BF10 (non-inferiority) = 55487.31
 #> ******************************
 
 get_bf(object = mod_infer_raw)
@@ -229,12 +234,13 @@ mod_infer_sum
 #> ******************************
 #> Non-inferiority analysis
 #> ------------------------
-#> H0: mu2 - mu1 = ni_margin; Ha: mu2 - mu1 > ni_margin
 #> Data: summary data
+#> H0 (inferiority):     mu_y - mu_x < ni_margin
+#> H1 (non-inferiority): mu_y - mu_x > ni_margin
 #> Non-inferiority margin: 2
 #> Prior scale: 0.707
 #> 
-#>     BF10 = 7033902416
+#>     BF10 (non-inferiority) = 7033902416
 #> ******************************
 
 get_bf(object = mod_infer_sum)
@@ -246,7 +252,7 @@ References
 
 Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed bayesian t-tests. *The American Statistician*, 1-13.
 
-Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t tests for accepting and rejecting the null hypothesis. *Psychonomic Bulletin & Review*, *16*(2), 225-237.
+Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G. (2009). Bayesian t tests for accepting and rejecting the null hypothesis. *Psychonomic Bulletin & Review*, *16*(2), 225-237.
 
 Schönbrodt, F. D., Wagenmaker, E.-J., Zehetleitner, M., & Perugini, M. (2017). Sequential hypothesis testing with bayes factors: Efficiently testing mean differences. *Psychological Methods*, *22*(2), 322-339.
 

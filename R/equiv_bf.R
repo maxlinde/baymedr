@@ -60,9 +60,9 @@
 #' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
 #'   bayesian t-tests. \emph{The American Statistician}, 1-13.
 #'
-#'   Rouder, J. N., Speckman, P. L., Sun, D., & Morey, R. D. (2009). Bayesian t
-#'   tests for accepting and rejecting the null hypothesis. \emph{Psychonomic
-#'   Bulletin & Review}, \emph{16}(2), 225-237.
+#'   Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
+#'   (2009). Bayesian t tests for accepting and rejecting the null hypothesis.
+#'   \emph{Psychonomic Bulletin & Review}, \emph{16}(2), 225-237.
 #'
 #'   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
 #'   (2019). Bayes factors for superiority, non-inferiority, and equivalence
