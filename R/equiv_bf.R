@@ -12,8 +12,8 @@
 #' resulting from \code{\link{equiv_bf}} expresses evidence in favour of the
 #' null hypothesis. Quantification of evidence in favour of the null hypothesis
 #' is logically sound and legitimate within the Bayesian framework but not in
-#' the traditional frequentist framework (see e.g., van Ravenzwaaij et al.
-#' (2019)).
+#' the traditional frequentist framework (see e.g., van Ravenzwaaij et al.,
+#' 2019).
 #'
 #' In contrast to null hypothesis significance testing (NHST),
 #' \code{\link{equiv_bf}} has the advantage that it is not compulsory to specify
