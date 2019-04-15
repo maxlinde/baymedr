@@ -19,7 +19,18 @@
 #'
 #' ##TODO## ni_margin
 #'
-#' ##TODO## prior_scale
+#' The argument \code{prior_scale} specifies the width of the prior
+#' distribution on effect size. This prior follows a Cauchy distribution with
+#' one degree of freedom. Visually, it resembles a normal distribution, although
+#' with much heavier tails (see e.g., Rouder et al., 2009). Mathematically, a
+#' Cauchy distribution with one degree of freedom is equivalent to a normal
+#' distribution with a mean of zero and a variance that follows an inverse
+#' chi-square distribution with one degree of freedom, for which the variance
+#' is integrated out (Liang et al., 2008). \code{prior_scale} corresponds to
+#' half of the interquartile range of the Cauchy prior. In general, the larger
+#' the value for \code{prior_scale}, the broader the Cauchy prior distribution,
+#' and the higher the relative support for the null hypothesis, reflected in the
+#' resulting Bayes factor.
 #'
 #' \code{\link{infer_bf}} creates an S4 object of class 'baymedrNonInferiority',
 #' which has multiple slots/entries (e.g., type of data, prior scale, Bayes
@@ -38,6 +49,11 @@
 #'
 #' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
 #'   bayesian t-tests. \emph{The American Statistician}, 1-13.
+#'
+#'   Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
+#'   Mixtures of g priors for bayesian variable selection.
+#'   \emph{Journal of the American Statistical Association}, \emph{103}(481),
+#'   410-423.
 #'
 #'   Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
 #'   (2009). Bayesian t tests for accepting and rejecting the null hypothesis.
