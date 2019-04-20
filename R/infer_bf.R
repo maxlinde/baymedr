@@ -12,6 +12,15 @@
 #' size = -c against the one-sided alternative hypothesis that the true
 #' population effect size > -c.
 #'
+#' Since sometimes high scores on the dependent variable are considered
+#' non-inferior (e.g., amount of social interactions) and sometimes rather the
+#' low scores (e.g., severity of symptoms), the user can specify the direction
+#' of non-inferiority with the argument \code{alternative}. For the case where
+#' higher values on the dependent variable indicate non-inferiority, the user
+#' should specify 'greater' (the default) for the argument \code{alternative};
+#' if lower values on the dependent variable indicate non-inferiority, 'less'
+#' should be specified for the argument \code{alternative}.
+#'
 #' Importantly, \code{\link{infer_bf}} can be utilized to calculate a Bayes
 #' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
 #' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
@@ -39,7 +48,9 @@
 #' S4 object as an argument (see Examples).
 #'
 #' @param ni_margin ##TODO##
-#' @param alternative ##TODO##
+#' @param alternative A character vector of length one, specifying the direction
+#'   of the alternative hypothesis. 'greater' (the default) corresponds to mu_y
+#'   > mu_x  and 'less' refers to mu_y < mu_x (see Details).
 #' @inheritParams super_bf
 #'
 #' @return An S4 object of class 'baymedrSuperiority' is returned. Contained are
