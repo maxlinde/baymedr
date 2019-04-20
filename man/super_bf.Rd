@@ -40,16 +40,27 @@ experimental groups. Only \code{sd_x} and \code{sd_y} \strong{OR}
 \code{ci_margin} should be defined (see Details).}
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
-the prior distribution (see Details). The default value is
-\eqn{1 / \sqrt{2}}.}
+the prior distribution (see Details). The default value is \eqn{1 /
+\sqrt{2}}.}
 
 \item{alternative}{A character vector of length one, specifying the direction
-of the alternative hypothesis. 'greater' (the default) corresponds to
-mu_y > mu_x, two.sided' reflects mu_y == mu_x, and 'less' refers to
-mu_y < mu_x (see Details).}
+of the alternative hypothesis. 'greater' (the default) corresponds to mu_y
+> mu_x, two.sided' reflects mu_y == mu_x, and 'less' refers to mu_y < mu_x
+(see Details).}
 }
 \value{
-##TODO##
+An S4 object of class 'baymedrSuperiority' is returned. Contained are
+  a description of the model and the resulting Bayes factor: \itemize{ \item
+  test: The type of analysis \item hypotheses: A statement of the hypotheses
+  \itemize{ \item h0: The null hypothesis \item h1: The alternative
+  hypothesis} \item data: A description of the data \itemize{ \item type: The
+  type of data ('raw' when arguments \code{x} and \code{y} are used or
+  'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
+  \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} instead of
+  \code{sd_x} and \code{sd_y}) are used) \item ...: values for the arguments
+  used, depending on 'raw' or 'summary'} \item prior_scale: The width of the
+  Cauchy prior distribution \item bf: The resulting Bayes factor } A summary
+  of the model is shown by printing the object.
 }
 \description{
 This function computes a Bayes factor for superiority designs.
@@ -58,23 +69,23 @@ This function computes a Bayes factor for superiority designs.
 The Bayes factor resulting from \code{\link{super_bf}} tests the null
 hypothesis that the experimental group (e.g., a new medication) is equal to
 the control group (e.g., a placebo or existing medication). In other words,
-the null hypothesis of \code{\link{super_bf}} states that the true
-population effect size is exactly zero.
+the null hypothesis of \code{\link{super_bf}} states that the true population
+effect size is exactly zero.
 
 As the name 'superiority' implies, the test is typically understood as a
 one-tailed test. In practice, however, a two-tailed test is often employed,
 followed by subsequent inspection of the descriptive statistics to confirm
-that results are in the expected direction. To cover both research
-practices, the user has the possibility to specify which of these two
-alternatives should be employed through the argument \code{alternative}.
-Furthermore, since sometimes high scores on the dependent variable are
-considered superior (e.g., amount of social interactions) and sometimes
-rather the low scores (e.g., severity of symptoms), the user can specify
-the direction of superiority with the argument \code{alternative}. For the
-case where higher values on the dependent variable indicate superiority,
-the user should specify 'greater' (the default) for the argument
-\code{alternative}; if lower values on the dependent variable indicate
-superiority, 'less' should be specified for the argument \code{alternative}.
+that results are in the expected direction. To cover both research practices,
+the user has the possibility to specify which of these two alternatives
+should be employed through the argument \code{alternative}. Furthermore,
+since sometimes high scores on the dependent variable are considered superior
+(e.g., amount of social interactions) and sometimes rather the low scores
+(e.g., severity of symptoms), the user can specify the direction of
+superiority with the argument \code{alternative}. For the case where higher
+values on the dependent variable indicate superiority, the user should
+specify 'greater' (the default) for the argument \code{alternative}; if lower
+values on the dependent variable indicate superiority, 'less' should be
+specified for the argument \code{alternative}.
 
 Importantly, \code{\link{super_bf}} can be utilized to calculate a Bayes
 factor based on raw data (i.e., if arguments \code{x} and \code{y} are
@@ -84,17 +95,17 @@ has the freedom to supply values either for the arguments \code{sd_x} and
 \code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
 information that is available to the user.
 
-The argument \code{prior_scale} specifies the width of the prior
-distribution on effect size. This prior follows a Cauchy distribution with
-one degree of freedom. Visually, it resembles a normal distribution, although
-with much heavier tails (see e.g., Rouder et al., 2009). Mathematically, a
-Cauchy distribution with one degree of freedom is equivalent to a normal
+The argument \code{prior_scale} specifies the width of the prior distribution
+on effect size. This prior follows a Cauchy distribution with one degree of
+freedom. Visually, it resembles a normal distribution, although with much
+heavier tails (see e.g., Rouder et al., 2009). Mathematically, a Cauchy
+distribution with one degree of freedom is equivalent to a normal
 distribution with a mean of zero and a variance that follows an inverse
-chi-square distribution with one degree of freedom, for which the variance
-is integrated out (Liang et al., 2008). \code{prior_scale} corresponds to
-half of the interquartile range of the Cauchy prior. In general, the larger
-the value for \code{prior_scale}, the broader the Cauchy prior distribution,
-and the higher the relative support for the null hypothesis, reflected in the
+chi-square distribution with one degree of freedom, for which the variance is
+integrated out (Liang et al., 2008). \code{prior_scale} corresponds to half
+of the interquartile range of the Cauchy prior. In general, the larger the
+value for \code{prior_scale}, the broader the Cauchy prior distribution, and
+the higher the relative support for the null hypothesis, reflected in the
 resulting Bayes factor.
 
 \code{\link{super_bf}} creates an S4 object of class 'baymedrSuperiority',
@@ -186,9 +197,8 @@ Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
   bayesian t-tests. \emph{The American Statistician}, 1-13.
 
   Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
-  Mixtures of g priors for bayesian variable selection.
-  \emph{Journal of the American Statistical Association}, \emph{103}(481),
-  410-423.
+  Mixtures of g priors for bayesian variable selection. \emph{Journal of the
+  American Statistical Association}, \emph{103}(481), 410-423.
 
   Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
   (2009). Bayesian t tests for accepting and rejecting the null hypothesis.

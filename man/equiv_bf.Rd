@@ -42,18 +42,32 @@ experimental groups. Only \code{sd_x} and \code{sd_y} \strong{OR}
 \item{interval}{A numeric vector of length one or two, specifying the
 boundaries of the equivalence interval in unstandardized units (see van
 Ravenzwaaij et al., 2019). If a numeric vector of length one is specified,
-a symmetric equivalence interval will be used (e.g., a 0.1 is equivalent
-to c(-0.1, 0.1)). A numeric vector of length two provides the possibility
-to specify an asymmetric equivalence interval (e.g., c(-0.1, 0.2)). The
+a symmetric equivalence interval will be used (e.g., a 0.1 is equivalent to
+c(-0.1, 0.1)). A numeric vector of length two provides the possibility to
+specify an asymmetric equivalence interval (e.g., c(-0.1, 0.2)). The
 default is 0, indicating a point null hypothesis rather than an interval
 (see Details).}
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
-the prior distribution (see Details). The default value is
-\eqn{1 / \sqrt{2}}.}
+the prior distribution (see Details). The default value is \eqn{1 /
+\sqrt{2}}.}
 }
 \value{
-##TODO##
+An S4 object of class 'baymedrEquivalence' is returned. Contained are
+  a description of the model and the resulting Bayes factor: \itemize{ \item
+  test: The type of analysis \item hypotheses: A statement of the hypotheses
+  \itemize{ \item h0: The null hypothesis \item h1: The alternative
+  hypothesis} \item interval: Specification of the equivalence interval
+  \itemize{ \item lower: The lower boundary of the equivalence interval \item
+  upper: The upper boundary of the equivalence interval} \item data: A
+  description of the data \itemize{ \item type: The type of data ('raw' when
+  arguments \code{x} and \code{y} are used or 'summary' when arguments
+  \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y}, \code{sd_x}, and
+  \code{sd_y} (or \code{ci_margin} instead of \code{sd_x} and \code{sd_y})
+  are used) \item ...: values for the arguments used, depending on 'raw' or
+  'summary'} \item prior_scale: The width of the Cauchy prior distribution
+  \item bf: The resulting Bayes factor } A summary of the model is shown by
+  printing the object.
 }
 \description{
 This function computes a Bayes factor for equivalence designs.
@@ -91,17 +105,17 @@ has the freedom to supply values either for the arguments \code{sd_x} and
 \code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
 information that is available to the user.
 
-The argument \code{prior_scale} specifies the width of the prior
-distribution on effect size. This prior follows a Cauchy distribution with
-one degree of freedom. Visually, it resembles a normal distribution, although
-with much heavier tails (see e.g., Rouder et al., 2009). Mathematically, a
-Cauchy distribution with one degree of freedom is equivalent to a normal
+The argument \code{prior_scale} specifies the width of the prior distribution
+on effect size. This prior follows a Cauchy distribution with one degree of
+freedom. Visually, it resembles a normal distribution, although with much
+heavier tails (see e.g., Rouder et al., 2009). Mathematically, a Cauchy
+distribution with one degree of freedom is equivalent to a normal
 distribution with a mean of zero and a variance that follows an inverse
-chi-square distribution with one degree of freedom, for which the variance
-is integrated out (Liang et al., 2008). \code{prior_scale} corresponds to
-half of the interquartile range of the Cauchy prior. In general, the larger
-the value for \code{prior_scale}, the broader the Cauchy prior distribution,
-and the higher the relative support for the null hypothesis, reflected in the
+chi-square distribution with one degree of freedom, for which the variance is
+integrated out (Liang et al., 2008). \code{prior_scale} corresponds to half
+of the interquartile range of the Cauchy prior. In general, the larger the
+value for \code{prior_scale}, the broader the Cauchy prior distribution, and
+the higher the relative support for the null hypothesis, reflected in the
 resulting Bayes factor.
 
 \code{\link{equiv_bf}} creates an S4 object of class 'baymedrEquivalence',
@@ -160,9 +174,8 @@ Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
   bayesian t-tests. \emph{The American Statistician}, 1-13.
 
   Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
-  Mixtures of g priors for bayesian variable selection.
-  \emph{Journal of the American Statistical Association}, \emph{103}(481),
-  410-423.
+  Mixtures of g priors for bayesian variable selection. \emph{Journal of the
+  American Statistical Association}, \emph{103}(481), 410-423.
 
   Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
   (2009). Bayesian t tests for accepting and rejecting the null hypothesis.
