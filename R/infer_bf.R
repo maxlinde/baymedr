@@ -26,7 +26,10 @@
 #' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 #' \code{mean_x}, and \code{mean_y} are defined).
 #'
-#' ##TODO## ni_margin
+#' With the argument \code{ni_margin}, the user can determine the
+#' non-inferiority margin in unstandardized units. \code{ni_margin} should be a
+#' positive number. Following ethical scientific rigour, \code{ni_margin} should
+#' be defined prior to data collection and data analysis.
 #'
 #' The argument \code{prior_scale} specifies the width of the prior distribution
 #' on effect size. This prior follows a Cauchy distribution with one degree of
@@ -47,7 +50,9 @@
 #' Bayes factor, the user can do this with \code{\link{get_bf}}, by setting the
 #' S4 object as an argument (see Examples).
 #'
-#' @param ni_margin ##TODO##
+#' @param ni_margin A numeric vector of length one, specifying the
+#'   non-inferiority margin in unstandardized units. The value should be a
+#'   positive number.
 #' @param alternative A character vector of length one, specifying the direction
 #'   of the alternative hypothesis. 'greater' (the default) corresponds to mu_y
 #'   > mu_x  and 'less' refers to mu_y < mu_x (see Details).

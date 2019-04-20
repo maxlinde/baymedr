@@ -33,7 +33,9 @@ of the dependent variable in the control group. Only \code{sd_x} and
 of the dependent variable in the experimental group. Only \code{sd_x} and
 \code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
 
-\item{ni_margin}{##TODO##}
+\item{ni_margin}{A numeric vector of length one, specifying the
+non-inferiority margin in unstandardized units. The value should be a
+positive number.}
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
 the prior distribution (see Details). The default value is \eqn{1 /
@@ -86,7 +88,10 @@ factor based on raw data (i.e., if arguments \code{x} and \code{y} are
 defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 \code{mean_x}, and \code{mean_y} are defined).
 
-##TODO## ni_margin
+With the argument \code{ni_margin}, the user can determine the
+non-inferiority margin in unstandardized units. \code{ni_margin} should be a
+positive number. Following ethical scientific rigour, \code{ni_margin} should
+be defined prior to data collection and data analysis.
 
 The argument \code{prior_scale} specifies the width of the prior distribution
 on effect size. This prior follows a Cauchy distribution with one degree of
