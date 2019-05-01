@@ -99,7 +99,7 @@ get_bf(object = mod_super_raw)
 #> [1] 983920.9
 ```
 
-Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor. The data were obtained from Skjerven et al. (2013):
+Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor. The data was obtained from Skjerven et al. (2013):
 
 ``` r
 library(baymedr)
@@ -156,7 +156,7 @@ get_bf(object = mod_equiv_raw)
 #> [1] 2.032684e-06
 ```
 
-Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor. The data were obtained from Steiner et al. (2015):
+Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor. The data was obtained from Steiner et al. (2015):
 
 ``` r
 library(baymedr)
@@ -216,7 +216,7 @@ get_bf(object = mod_infer_raw)
 #> [1] 144586633087
 ```
 
-Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor. The data were obtained from Andersson et al. (2013):
+Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor. The data was obtained from Andersson et al. (2013):
 
 ``` r
 library(baymedr)
