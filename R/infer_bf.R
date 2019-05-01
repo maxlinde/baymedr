@@ -96,7 +96,7 @@
 #' # Assign model to variable.
 #' infer_raw <- infer_bf(x = rnorm(100, 10, 15),
 #'                       y = rnorm(130, 13, 10),
-#'                       ni_margin = -1)
+#'                       ni_margin = 1.5)
 #'
 #' # Extract Bayes factor from model.
 #' get_bf(infer_raw)
