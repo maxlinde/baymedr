@@ -99,17 +99,16 @@ get_bf(object = mod_super_raw)
 #> [1] 983920.9
 ```
 
-Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor:
+Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor. The data were obtained from Skjerven et al. (2013):
 
 ``` r
 library(baymedr)
 
-mod_super_sum <- super_bf(n_x = 138,
-                          n_y = 179,
-                          mean_x = 18.3,
-                          mean_y = 21.9,
-                          sd_x = 3.3,
-                          sd_y = 4.0)
+mod_super_sum <- super_bf(n_x = 203,
+                          n_y = 201,
+                          mean_x = 63.6,
+                          mean_y = 68.1,
+                          ci_margin = (15.5 - (-6.5)) / 2)
 
 mod_super_sum
 #> ******************************
@@ -120,11 +119,11 @@ mod_super_sum
 #> H1 (superiority):     mu_y > mu_x
 #> Prior scale: 0.707
 #> 
-#>     BF10 (superiority) = 2.041406e+13
+#>     BF10 (superiority) = 0.2364177
 #> ******************************
 
 get_bf(object = mod_super_sum)
-#> [1] 2.041406e+13
+#> [1] 0.2364177
 ```
 
 The equivalence test (`equiv_bf()`)
@@ -157,17 +156,17 @@ get_bf(object = mod_equiv_raw)
 #> [1] 2.032684e-06
 ```
 
-Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor:
+Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor. The data were obtained from Steiner et al. (2015):
 
 ``` r
 library(baymedr)
 
-mod_equiv_sum <- equiv_bf(n_x = 138,
-                          n_y = 179,
-                          mean_x = 18.3,
-                          mean_y = 21.9,
-                          sd_x = 3.3,
-                          sd_y = 4.0)
+mod_equiv_sum <- equiv_bf(n_x = 538,
+                          n_y = 560,
+                          mean_x = 8.516,
+                          mean_y = 8.683,
+                          sd_x = 3.6,
+                          sd_y = 3.6)
 
 mod_equiv_sum
 #> ******************************
@@ -179,11 +178,11 @@ mod_equiv_sum
 #> Equivalence interval: Lower = 0; Upper = 0
 #> Prior scale: 0.707
 #> 
-#>     BF01 (equivalence) = 9.797167e-14
+#>     BF01 (equivalence) = 11.04945
 #> ******************************
 
 get_bf(object = mod_equiv_sum)
-#> [1] 9.797167e-14
+#> [1] 11.04945
 ```
 
 The non-inferiority test (`infer_bf()`)
@@ -198,7 +197,7 @@ library(baymedr)
 
 mod_infer_raw <- infer_bf(x = data$dv[data$condition == "con"],
                           y = data$dv[data$condition == "exp"],
-                          ni_margin = -0.5)
+                          ni_margin = 1.5)
 
 mod_infer_raw
 #> ******************************
@@ -207,27 +206,27 @@ mod_infer_raw
 #> Data: raw data
 #> H0 (inferiority):     mu_y - mu_x < ni_margin
 #> H1 (non-inferiority): mu_y - mu_x > ni_margin
-#> Non-inferiority margin: -0.5
+#> Non-inferiority margin: 1.5
 #> Prior scale: 0.707
 #> 
-#>     BF10 (non-inferiority) = 55487.31
+#>     BF10 (non-inferiority) = 144586633087
 #> ******************************
 
 get_bf(object = mod_infer_raw)
-#> [1] 55487.31
+#> [1] 144586633087
 ```
 
-Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor:
+Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor. The data were obtained from Andersson et al. (2013):
 
 ``` r
 library(baymedr)
 
-mod_infer_sum <- infer_bf(n_x = 138,
-                          n_y = 179,
-                          mean_x = 18.3,
-                          mean_y = 21.9,
-                          sd_x = 3.3,
-                          sd_y = 4.0,
+mod_infer_sum <- infer_bf(n_x = 32,
+                          n_y = 33,
+                          mean_x = 13.6,
+                          mean_y = 17.1,
+                          sd_x = 9.8,
+                          sd_y = 8,
                           ni_margin = 2)
 
 mod_infer_sum
@@ -240,11 +239,11 @@ mod_infer_sum
 #> Non-inferiority margin: 2
 #> Prior scale: 0.707
 #> 
-#>     BF10 (non-inferiority) = 7033902416
+#>     BF10 (non-inferiority) = 90.51541
 #> ******************************
 
 get_bf(object = mod_infer_sum)
-#> [1] 7033902416
+#> [1] 90.51541
 ```
 
 References
