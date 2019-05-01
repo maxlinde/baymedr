@@ -129,7 +129,7 @@ S4 object as an argument (see Examples).
 
 # Assign model to variable.
 equiv_raw <- equiv_bf(x = rnorm(100, 10, 15),
-                          y = rnorm(130, 13, 10))
+                      y = rnorm(130, 13, 10))
 
 # Extract Bayes factor from variable.
 get_bf(equiv_raw)
