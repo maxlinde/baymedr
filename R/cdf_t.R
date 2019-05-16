@@ -19,7 +19,7 @@ cdf_t <- function(x,
                    prior_scale = prior_scale,
                    prior_df = prior_df,
                    rel.tol = rel_tol)$value
-  if (out > 1 & out < 1.001) {
+  if (out > 1) {
     out <- 1
     warn(str_c(
       "Numerical integration yields a CDF value slightly larger than 1. ",
