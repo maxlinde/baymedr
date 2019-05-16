@@ -11,7 +11,7 @@ mod_equiv <- equiv_bf(x = con,
 
 mod_infer <- infer_bf(x = con,
                       y = exp,
-                      ni_margin = -0.5)
+                      ni_margin = 0.5)
 
 test_that("get_bf extracts numeric Bayes factor from S4 object", {
   expect_true(
