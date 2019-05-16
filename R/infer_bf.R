@@ -223,15 +223,8 @@ infer_bf <- function(x = NULL,
   if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
     abort("'prior_scale' must be a single numeric value.")
   }
-  if (!is.numeric(ni_margin) || length(ni_margin) > 1) {
-    abort("'ni_margin' must be a single numeric value.")
-  }
-  if (ni_margin < 0) {
-    warn(str_c(
-      "'ni_margin' should be a single positive numeric value. The resulting ",
-      "Bayes factor should be treated with caution because of the possibility ",
-      "of an inadvertently incorrect specification of 'ni_margin'."
-    ))
+  if (!is.numeric(ni_margin) || length(ni_margin) > 1 || ni_margin < 0) {
+    abort("'ni_margin' must be a single positive numeric value.")
   }
   if (!is.character(alternative) || length(alternative) > 1) {
     abort("'alternative' must be a single character value.")
