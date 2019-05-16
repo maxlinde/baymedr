@@ -26,4 +26,5 @@ cdf_t <- function(x,
       "The CDF value has been replaced by 1."
     ))
   }
+  out
 }
