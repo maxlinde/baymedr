@@ -269,20 +269,6 @@ equiv_bf <- function(x = NULL,
                          prior_loc = 0,
                          prior_scale = prior_scale,
                          prior_df = 1)
-    if (cdf_t_upper > 1) {
-      cdf_t_upper <- 1
-      warn(str_c(
-        "Caution: An approximation for the integral is invoked. The resulting ",
-        "Bayes factor is very large and might not be entirely accurate."
-      ))
-    }
-    if (cdf_t_lower < 0) {
-      cdf_t_lower <- 0
-      warn(str_c(
-        "Caution: An approximation for the integral is invoked. The resulting ",
-        "Bayes factor is very large and might not be entirely accurate."
-      ))
-    }
     post_dens <- cdf_t_upper - cdf_t_lower
     prior_dens <- pcauchy(q = interval[[2]],
                           scale = prior_scale) - pcauchy(q = interval[[1]],
