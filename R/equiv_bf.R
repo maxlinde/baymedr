@@ -270,6 +270,13 @@ equiv_bf <- function(x = NULL,
                          prior_scale = prior_scale,
                          prior_df = 1)
     post_dens <- cdf_t_upper - cdf_t_lower
+    if (post_dens < 0) {
+      post_dens <- 0
+      warn(str_c(
+        "Numerical integration yields a posterior density slightly lower ",
+        "than 0. The posterior density has been replaced by 0."
+      ))
+    }
     prior_dens <- pcauchy(q = interval[[2]],
                           scale = prior_scale) - pcauchy(q = interval[[1]],
                                                          scale = prior_scale)
