@@ -34,7 +34,7 @@ get_bf(object = mod_equiv)
 # Extract Bayes factor from infer_bf using raw data:
 mod_infer <- infer_bf(x = rnorm(100, 10, 15),
                       y = rnorm(130, 13, 10),
-                      ni_margin = -1)
+                      ni_margin = 1)
 
 get_bf(object = mod_infer)
 }
