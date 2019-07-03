@@ -141,10 +141,10 @@ get_bf(equiv_raw)
 ## With a point null hypothesis:
 
 # Assign model to variable.
-equiv_sum_point <- equiv_bf(n_x = 538,
-                            n_y = 560,
-                            mean_x = 8.516,
-                            mean_y = 8.683,
+equiv_sum_point <- equiv_bf(n_x = 560,
+                            n_y = 538,
+                            mean_x = 8.683,
+                            mean_y = 8.516,
                             sd_x = 3.6,
                             sd_y = 3.6)
 
@@ -158,10 +158,10 @@ get_bf(equiv_sum_point)
 ## With an interval null hypothesis:
 
 # Assign model to variable.
-equiv_sum_interval <- equiv_bf(n_x = 538,
-                               n_y = 560,
-                               mean_x = 8.516,
-                               mean_y = 8.683,
+equiv_sum_interval <- equiv_bf(n_x = 560,
+                               n_y = 538,
+                               mean_x = 8.683,
+                               mean_y = 8.516,
                                sd_x = 3.6,
                                sd_y = 3.6,
                                interval = 0.05)
