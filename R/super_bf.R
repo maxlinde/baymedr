@@ -284,7 +284,7 @@ super_bf <- function(x = NULL,
     se <- ci_margin / qt(p = 0.975,
                          df = n_x + n_y - 2)
   }
-  t_stat <- (mean_x - mean_y) / se
+  t_stat <- (mean_y - mean_x) / se
   res <- bf10_t(t = t_stat,
                 n1 = n_x,
                 n2 = n_y,
@@ -294,7 +294,7 @@ super_bf <- function(x = NULL,
                 prior_df = 1)
   if (str_detect(alternative,
                  "greater")) {
-    bf <- res[[3]]
+    bf <- res[[2]]
     h1 <- "mu_y > mu_x"
   } else if (str_detect(alternative,
                         "two.sided")) {
@@ -302,7 +302,7 @@ super_bf <- function(x = NULL,
     h1 <- "mu_y != mu_x"
   } else if (str_detect(alternative,
                         "less")) {
-    bf <- res[[2]]
+    bf <- res[[3]]
     h1 <- "mu_y < mu_x"
   } else {
     abort("'alternative' must be one of 'greater', 'two.sided', or 'less'.")
