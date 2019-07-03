@@ -237,7 +237,7 @@ equiv_bf <- function(x = NULL,
     se <- ci_margin / qt(p = 0.975,
                          df = n_x + n_y - 2)
   }
-  t_stat <- (mean_x - mean_y) / se
+  t_stat <- (mean_y - mean_x) / se
   if (length(interval) == 1) {
     interval <- c(-interval, interval)
   }
