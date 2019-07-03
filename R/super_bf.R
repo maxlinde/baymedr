@@ -128,11 +128,12 @@
 #' ## The one-sided alternative:
 #'
 #' # Assign model to variable.
-#' super_sum_one_ex1 <- super_bf(n_x = 203,
-#'                               n_y = 201,
-#'                               mean_x = 63.6,
-#'                               mean_y = 68.1,
-#'                               ci_margin = (15.5 - (-6.5)) / 2)
+#' super_sum_one_ex1 <- super_bf(n_x = 201,
+#'                               n_y = 203,
+#'                               mean_x = 68.1,
+#'                               mean_y = 63.6,
+#'                               ci_margin = (15.5 - (-6.5)) / 2,
+#'                               alternative = "less")
 #'
 #' # Extract Bayes factor from model.
 #' get_bf(super_sum_one_ex1)
@@ -144,10 +145,10 @@
 #' ## The two-sided alternative:
 #'
 #' # Assign model to variable.
-#' super_sum_two_ex1 <- super_bf(n_x = 203,
-#'                               n_y = 201,
-#'                               mean_x = 63.6,
-#'                               mean_y = 68.1,
+#' super_sum_two_ex1 <- super_bf(n_x = 201,
+#'                               n_y = 203,
+#'                               mean_x = 68.1,
+#'                               mean_y = 63.6,
 #'                               ci_margin = (15.5 - (-6.5)) / 2,
 #'                               alternative = "two.sided")
 #'
@@ -162,11 +163,12 @@
 #' ## The one-sided alternative:
 #'
 #' # Assign model to variable.
-#' super_sum_one_ex2 <- super_bf(n_x = 204,
-#'                               n_y = 200,
-#'                               mean_x = 61.3,
-#'                               mean_y = 47.6,
-#'                               ci_margin = (24.4 - 2.9) / 2)
+#' super_sum_one_ex2 <- super_bf(n_x = 200,
+#'                               n_y = 204,
+#'                               mean_x = 47.6,
+#'                               mean_y = 61.3,
+#'                               ci_margin = (24.4 - 2.9) / 2,
+#'                               alternative = "less")
 #'
 #' # Extract Bayes factor from model.
 #' get_bf(super_sum_one_ex2)
@@ -178,10 +180,10 @@
 #' ## The two-sided alternative:
 #'
 #' # Assign model to variable.
-#' super_sum_two_ex2 <- super_bf(n_x = 204,
-#'                               n_y = 200,
-#'                               mean_x = 61.3,
-#'                               mean_y = 47.6,
+#' super_sum_two_ex2 <- super_bf(n_x = 200,
+#'                               n_y = 204,
+#'                               mean_x = 47.6,
+#'                               mean_y = 61.3,
 #'                               ci_margin = (24.4 - 2.9) / 2,
 #'                               alternative = "two.sided")
 #'
