@@ -130,13 +130,14 @@ get_bf(infer_raw)
 ## Test at timepoint 1:
 
 # Assign model to variable.
-infer_sum_t1 <- infer_bf(n_x = 32,
-                         n_y = 33,
-                         mean_x = 13.6,
-                         mean_y = 17.1,
-                         sd_x = 9.8,
-                         sd_y = 8,
-                         ni_margin = 2)
+infer_sum_t1 <- infer_bf(n_x = 33,
+                         n_y = 32,
+                         mean_x = 17.1,
+                         mean_y = 13.6,
+                         sd_x = 8,
+                         sd_y = 9.8,
+                         ni_margin = 2,
+                         alternative = "less")
 
 # Extract Bayes factor from model
 get_bf(infer_sum_t1)
@@ -148,13 +149,14 @@ get_bf(infer_sum_t1)
 ## Test at timepoint 2:
 
 # Assign model to variable.
-infer_sum_t2 <- infer_bf(n_x = 32,
-                         n_y = 30,
-                         mean_x = 9.2,
-                         mean_y = 13.5,
-                         sd_x = 7.6,
-                         sd_y = 8.7,
-                         ni_margin = 2)
+infer_sum_t2 <- infer_bf(n_x = 30,
+                         n_y = 32,
+                         mean_x = 13.5,
+                         mean_y = 9.2,
+                         sd_x = 8.7,
+                         sd_y = 7.6,
+                         ni_margin = 2,
+                         alternative = "less")
 
 # Extract Bayes factor from model
 get_bf(infer_sum_t2)
