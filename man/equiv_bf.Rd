@@ -40,17 +40,16 @@ experimental groups. Only \code{sd_x} and \code{sd_y} \strong{OR}
 \code{ci_margin} should be defined (see Details).}
 
 \item{interval}{A numeric vector of length one or two, specifying the
-boundaries of the equivalence interval in unstandardized units (see van
-Ravenzwaaij et al., 2019). If a numeric vector of length one is specified,
-a symmetric equivalence interval will be used (e.g., a 0.1 is equivalent to
-c(-0.1, 0.1)). A numeric vector of length two provides the possibility to
-specify an asymmetric equivalence interval (e.g., c(-0.1, 0.2)). The
-default is 0, indicating a point null hypothesis rather than an interval
-(see Details).}
+boundaries of the equivalence interval in unstandardized units. If a
+numeric vector of length one is specified, a symmetric equivalence interval
+will be used (e.g., a 0.1 is equivalent to c(-0.1, 0.1)). A numeric vector
+of length two provides the possibility to specify an asymmetric equivalence
+interval (e.g., c(-0.1, 0.2)). The default is 0, indicating a point null
+hypothesis rather than an interval (see Details).}
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
-the prior distribution (see Details). The default value is \eqn{1 /
-\sqrt{2}}.}
+the Cauchy prior distribution for the effect size under the alternative
+hypothesis (see Details). The default value is \eqn{1 / \sqrt{2}}.}
 }
 \value{
 An S4 object of class 'baymedrEquivalence' is returned. Contained are
@@ -74,19 +73,22 @@ This function computes a Bayes factor for equivalence designs.
 }
 \details{
 The Bayes factor resulting from \code{\link{equiv_bf}} tests the null
-hypothesis that the control group (e.g., a placebo or existing medication)
-and the experimental group (e.g., a new medication) are equivalent. The
-alternative hypothesis is that the two groups are not equivalent.
-Importantly, with \code{\link{equiv_bf}}, the goal is to express evidence in
-favour of the null hypothesis (equivalence). Thus, in contrast to other tests
-(e.g., \code{\link{super_bf}} and \code{\link{infer_bf}}), the Bayes factor
-resulting from \code{\link{equiv_bf}} expresses evidence in favour of the
-null hypothesis. Quantification of evidence in favour of the null hypothesis
-is logically sound and legitimate within the Bayesian framework but not in
-the traditional frequentist framework (see e.g., van Ravenzwaaij et al.,
-2019).
+hypothesis that the experimental group (e.g., a new medication) and the
+control group (e.g., a placebo or an already existing medication) are
+equivalent. The alternative hypothesis is that the two groups are not
+equivalent.
 
-In contrast to null hypothesis significance testing (NHST),
+Since the main goal of \code{\link{equiv_bf}} is to establish equivalence,
+the resulting Bayes factor quantifies evidence in favour of the null
+hypothesis (i.e., \eqn{BF01}). However, evidence for the alternative
+hypothesis can easily be calculated by taking the reciprocal of the original
+Bayes factor (i.e., \eqn{BF10 = 1 / BF01}). Quantification of evidence in
+favour of the null hypothesis is logically sound and legitimate within the
+Bayesian framework but not in the traditional frequentist framework (see
+e.g., van Ravenzwaaij et al., 2019).
+
+Using the argument \code{interval}, the user can specify the equivalence
+interval. In contrast to null hypothesis significance testing (NHST),
 \code{\link{equiv_bf}} has the advantage that it is not compulsory to specify
 an equivalence interval (see van Ravenzwaaij et al., 2019). Therefore, the
 default value of the argument \code{interval} is 0, indicating a point null
@@ -103,20 +105,25 @@ defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 \code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
 has the freedom to supply values either for the arguments \code{sd_x} and
 \code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
-information that is available to the user.
+information that is available to the user. Arguments with 'x' as a name or
+suffix correspond to the control group, whereas arguments with 'y' as a name
+or suffix correspond to the experimental group.
 
-The argument \code{prior_scale} specifies the width of the prior distribution
-on effect size. This prior follows a Cauchy distribution with one degree of
-freedom. Visually, it resembles a normal distribution, although with much
-heavier tails (see e.g., Rouder et al., 2009). Mathematically, a Cauchy
-distribution with one degree of freedom is equivalent to a normal
-distribution with a mean of zero and a variance that follows an inverse
-chi-square distribution with one degree of freedom, for which the variance is
-integrated out (Liang et al., 2008). \code{prior_scale} corresponds to half
-of the interquartile range of the Cauchy prior. In general, the larger the
-value for \code{prior_scale}, the broader the Cauchy prior distribution, and
-the higher the relative support for the null hypothesis, reflected in the
-resulting Bayes factor.
+For the calculation of the Bayes factor, we chose a Cauchy prior density for
+the effect size under the alternative hypothesis. The shape of the Cauchy
+distribution can be manipulated with its location and scale parameters. The
+standard Cauchy distribution, with a location parameter of 0 and a scale
+parameter of 1, resembles a standard Normal distribution, except that the
+Cauchy distribution has less mass at the centre but heavier tails (see e.g.,
+Rouder et al., 2009, for a visualisation). Mathematically, the standard
+Cauchy distribution is equivalent to a Normal distribution with a mean of 0
+and a variance that follows and inverse chi-square distribution with one
+degree of freedom, for which the variance is integrated out (Liang et al.,
+2008). The argument \code{prior_scale} specifies the width of the Cauchy
+prior, which corresponds to half of the interquartile range. Thus, by
+adjusting the Cauchy prior scale with \code{prior_scale}, we can emphasise
+different ranges of effect sizes that might be expected. The default prior
+scale is set to \eqn{1 / \sqrt{2}}.
 
 \code{\link{equiv_bf}} creates an S4 object of class 'baymedrEquivalence',
 which has multiple slots/entries (e.g., type of data, prior scale, Bayes
@@ -171,7 +178,7 @@ get_bf(equiv_sum_interval)
 }
 \references{
 Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
-  bayesian t-tests. \emph{The American Statistician}, 1-13.
+  bayesian t-tests. \emph{The American Statistician}.
 
   Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
   Mixtures of g priors for bayesian variable selection. \emph{Journal of the
