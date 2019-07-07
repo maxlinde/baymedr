@@ -47,7 +47,8 @@ test_that("infer_bf gives correct error messages", {
              ni_margin = 0.5),
     str_c(
       "Only 'x', 'y', and 'ni_margin' OR 'n_x', 'n_y', 'mean_x', 'mean_y', ",
-      "'sd_x', 'sd_y', and 'ni_margin' must be defined."
+      "'sd_x', 'sd_y', and 'ni_margin' (or 'ci_margin' and 'ci_level' instead ",
+      "of 'sd_x' and 'sd_y') must be defined."
     ),
     fixed = TRUE
   )
@@ -63,7 +64,8 @@ test_that("infer_bf gives correct error messages", {
              sd_x = 5),
     str_c(
       "All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', 'sd_y', and ",
-      "'ni_margin' must be defined."
+      "'ni_margin' (or 'ci_margin' and 'ci_level' instead of 'sd_x' and ",
+      "'sd_y') must be defined."
     ),
     fixed = TRUE
   )

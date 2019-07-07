@@ -23,7 +23,8 @@ test_that("equiv_bf yields correct S4 class", {
              n_y = 100,
              mean_x = 10,
              mean_y = 10,
-             ci_margin = 5),
+             ci_margin = 5,
+             ci_level = 0.95),
     "baymedrEquivalence"
   )
 })
@@ -46,7 +47,8 @@ test_that("equiv_bf yields numeric Bayes factor", {
                         n_y = 100,
                         mean_x = 10,
                         mean_y = 10,
-                        ci_margin = 5)@bf)
+                        ci_margin = 5,
+                        ci_level = 0.95)@bf)
   )
 })
 
@@ -57,7 +59,8 @@ test_that("equiv_bf gives correct error messages", {
              ci_margin = 5),
     str_c(
       "Only 'x' and 'y' OR 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and ",
-      "'sd_y' (or 'ci_margin' instead of 'sd_x' and 'sd_y') must be defined."
+      "'sd_y' (or 'ci_margin' and 'ci_level' instead of 'sd_x' and 'sd_y') ",
+      "must be defined."
     ),
     fixed = TRUE
   )
@@ -73,7 +76,8 @@ test_that("equiv_bf gives correct error messages", {
              sd_x = 5),
     str_c(
       "All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and 'sd_y' (or ",
-      "'ci_margin' instead of 'sd_x' and 'sd_y') must be defined."
+      "'ci_margin' and 'ci_level' instead of 'sd_x' and 'sd_y') must be ",
+      "defined."
     ),
     fixed = TRUE
   )
@@ -84,8 +88,9 @@ test_that("equiv_bf gives correct error messages", {
              mean_y = 10,
              sd_x = 5,
              sd_y = 5,
-             ci_margin = 5),
-    "Only 'sd_x' and 'sd_y' OR 'ci_margin' must be defined.",
+             ci_margin = 5,
+             ci_level = 0.95),
+    "Only 'sd_x' and 'sd_y' OR 'ci_margin' and 'ci_level' must be defined.",
     fixed = TRUE
   )
   expect_error(
