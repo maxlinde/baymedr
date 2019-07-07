@@ -131,7 +131,7 @@ test_that("super_bf gives correct error messages", {
   expect_error(
     super_bf(x = con,
              y = exp,
-             alternative = c("greater", "less")),
+             alternative = c("one.sided", "two.sided")),
     "'alternative' must be a single character value.",
     fixed = TRUE
   )
@@ -139,7 +139,28 @@ test_that("super_bf gives correct error messages", {
     super_bf(x = con,
              y = exp,
              alternative = "abc"),
-    "'alternative' must be one of 'greater', 'two.sided', or 'less'.",
+    "'alternative' must be one of 'one.sided' or 'two.sided'.",
+    fixed = TRUE
+  )
+  expect_error(
+    super_bf(x = con,
+             y = exp,
+             direction = 5),
+    "'direction' must be a single character value.",
+    fixed = TRUE
+  )
+  expect_error(
+    super_bf(x = con,
+             y = exp,
+             direction = c("low", "high")),
+    "'direction' must be a single character value.",
+    fixed = TRUE
+  )
+  expect_error(
+    super_bf(x = con,
+             y = exp,
+             direction = "abc"),
+    "'direction' must be one of 'low' or 'high'.",
     fixed = TRUE
   )
 })
