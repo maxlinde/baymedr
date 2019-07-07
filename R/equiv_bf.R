@@ -253,7 +253,8 @@ equiv_bf <- function(x = NULL,
                         (n_x + n_y - 2))
     se <- sd_pooled * sqrt(1 / n_x + 1 / n_y)
   } else {
-    se <- ci_margin / qt(p = 0.975,
+    perc <- 1 - ((1 - ci_level) / 2)
+    se <- ci_margin / qt(p = perc,
                          df = n_x + n_y - 2)
   }
   t_stat <- (mean_y - mean_x) / se

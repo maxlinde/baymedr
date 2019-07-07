@@ -71,11 +71,11 @@ An S4 object of class 'baymedrEquivalence' is returned. Contained are
   description of the data \itemize{ \item type: The type of data ('raw' when
   arguments \code{x} and \code{y} are used or 'summary' when arguments
   \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y}, \code{sd_x}, and
-  \code{sd_y} (or \code{ci_margin} instead of \code{sd_x} and \code{sd_y})
-  are used) \item ...: values for the arguments used, depending on 'raw' or
-  'summary'} \item prior_scale: The width of the Cauchy prior distribution
-  \item bf: The resulting Bayes factor } A summary of the model is shown by
-  printing the object.
+  \code{sd_y} (or \code{ci_margin} and \code{ci_level} instead of
+  \code{sd_x} and \code{sd_y}) are used) \item ...: values for the arguments
+  used, depending on 'raw' or summary'} \item prior_scale: The width of the
+  Cauchy prior distribution \item bf: The resulting Bayes factor } A summary
+  of the model is shown by printing the object.
 }
 \description{
 This function computes a Bayes factor for equivalence designs.
@@ -116,10 +116,10 @@ factor based on raw data (i.e., if arguments \code{x} and \code{y} are
 defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 \code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
 has the freedom to supply values either for the arguments \code{sd_x} and
-\code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
-information that is available to the user. Arguments with 'x' as a name or
-suffix correspond to the control group, whereas arguments with 'y' as a name
-or suffix correspond to the experimental group.
+\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level}. The choice
+should depend on the information that is available to the user. Arguments
+with 'x' as a name or suffix correspond to the control group, whereas
+arguments with 'y' as a name or suffix correspond to the experimental group.
 
 For the calculation of the Bayes factor, we chose a Cauchy prior density for
 the effect size under the alternative hypothesis. The shape of the Cauchy
