@@ -3,6 +3,7 @@
 \docType{package}
 \name{baymedr-package}
 \alias{baymedr-package}
+\alias{baymedr}
 \title{baymedr: Computation of Bayes Factors for Common Biomedical Designs}
 \description{
 \code{baymedr} provides functions for the computation of Bayes factors for
@@ -11,7 +12,7 @@ equivalence, non-inferiority, and superiority designs are implemented.
 }
 \details{
 \tabular{ll}{ Package: \tab baymedr \cr Type: \tab Package \cr Version: \tab
-0.0.0.9000 \cr License: \tab GPL-3 \cr Date: \tab 2019-04-08 \cr}
+0.0.0.9000 \cr License: \tab GPL-3 \cr Date: \tab 2019-07-06 \cr}
 
 At this point in time, \code{baymedr} entails tests for the following
 research designs: \itemize{ \item Equivalence: \code{\link{equiv_bf}} \item
@@ -20,8 +21,8 @@ Non-Inferiority: \code{\link{infer_bf}} \item Superiority:
 }
 \seealso{
 Useful links: \itemize{ \item
-  \url{httpss//github.com/maxlinde/baymedr} \item Report bugs at
-  \url{httpss//github.com/maxlinde/baymedr/issues}}
+  \url{https://github.com/maxlinde/baymedr} \item Report bugs at
+  \url{https://github.com/maxlinde/baymedr/issues}}
 }
 \author{
 \strong{Maintainer}: Maximilian Linde --

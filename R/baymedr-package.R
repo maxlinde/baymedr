@@ -5,7 +5,7 @@
 #' equivalence, non-inferiority, and superiority designs are implemented.
 #'
 #' \tabular{ll}{ Package: \tab baymedr \cr Type: \tab Package \cr Version: \tab
-#' 0.0.0.9000 \cr License: \tab GPL-3 \cr Date: \tab 2019-04-08 \cr}
+#' 0.0.0.9000 \cr License: \tab GPL-3 \cr Date: \tab 2019-07-06 \cr}
 #'
 #' At this point in time, \code{baymedr} entails tests for the following
 #' research designs: \itemize{ \item Equivalence: \code{\link{equiv_bf}} \item
@@ -14,12 +14,13 @@
 #'
 #' @docType package
 #' @name baymedr-package
+#' @aliases baymedr-package baymedr
 #' @author \strong{Maintainer}: Maximilian Linde --
 #'   \email{maximilian.linde.92@@gmail.com}
 #'
 #'   Authors: \itemize{ \item Maximilian Linde (aut, cre) \item Don van
 #'   Ravenzwaaij (aut) \item Quentin F. Gronau (ctb) }
 #' @seealso Useful links: \itemize{ \item
-#'   \url{httpss//github.com/maxlinde/baymedr} \item Report bugs at
-#'   \url{httpss//github.com/maxlinde/baymedr/issues}}
+#'   \url{https://github.com/maxlinde/baymedr} \item Report bugs at
+#'   \url{https://github.com/maxlinde/baymedr/issues}}
 NULL
