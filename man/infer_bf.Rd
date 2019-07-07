@@ -6,7 +6,8 @@
 \usage{
 infer_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
-  ni_margin = NULL, prior_scale = 1/sqrt(2), direction = "high")
+  ci_margin = NULL, ci_level = NULL, ni_margin = NULL,
+  prior_scale = 1/sqrt(2), direction = "high")
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}
@@ -27,11 +28,25 @@ dependent variable in the experimental group.}
 
 \item{sd_x}{A numeric vector of length one, specifying the standard deviation
 of the dependent variable in the control group. Only \code{sd_x} and
-\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
+\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level} should be
+defined (see Details).}
 
 \item{sd_y}{A numeric vector of length one, specifying the standard deviation
 of the dependent variable in the experimental group. Only \code{sd_x} and
-\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
+\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level} should be
+defined (see Details).}
+
+\item{ci_margin}{A numeric vector of length one, specifying the margin of the
+confidence interval (i.e., the width of the confidence interval divided by
+2) of the difference on the dependent variable between the control and
+experimental groups. Only \code{sd_x} and \code{sd_y} \strong{OR}
+\code{ci_margin} and \code{ci_level} should be defined (see Details).}
+
+\item{ci_level}{A numeric vector of length one, specifying the confidence
+level of \code{ci_margin}. The value must be between 0 and 1 (e.g., 0.95
+for a 95% confidence interval). Only \code{sd_x} and \code{sd_y}
+\strong{OR} \code{ci_margin} and \code{ci_level} should be defined (see
+Details).}
 
 \item{ni_margin}{A numeric vector of length one, specifying the
 non-inferiority margin in unstandardized units. The value should be a
@@ -90,6 +105,9 @@ should specify 'high' (the default) for the argument \code{direction}; if
 lower values on the dependent variable indicate non-inferiority, 'low' should
 be specified for the argument \code{direction}.
 
+Note that at the moment Bayes factors can only be calculated for
+independent-groups designs.
+
 Since the main goal of \code{\link{infer_bf}} is to establish
 non-inferiority, the resulting Bayes factor quantifies evidence in favour of
 the alternative hypothesis (i.e., \eqn{BF10}). However, evidence for the null
@@ -102,9 +120,10 @@ e.g., van Ravenzwaaij et al., 2019).
 Importantly, \code{\link{infer_bf}} can be utilized to calculate a Bayes
 factor based on raw data (i.e., if arguments \code{x} and \code{y} are
 defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
-\code{mean_x}, and \code{mean_y} are defined). Arguments with 'x' as a name
-or suffix correspond to the control group, whereas arguments with 'y' as a
-name or suffix correspond to the experimental group (i.e., the group for
+\code{mean_x}, and \code{mean_y} (or \code{ci_margin} and \code{ci_level}
+instead of \code{sd_x} and \code{sd_y}) are defined). Arguments with 'x' as a
+name or suffix correspond to the control group, whereas arguments with 'y' as
+a name or suffix correspond to the experimental group (i.e., the group for
 which we seek to establish non-inferiority).
 
 With the argument \code{ni_margin}, the user can determine the

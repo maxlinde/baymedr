@@ -27,6 +27,9 @@
 #' lower values on the dependent variable indicate non-inferiority, 'low' should
 #' be specified for the argument \code{direction}.
 #'
+#' Note that at the moment Bayes factors can only be calculated for
+#' independent-groups designs.
+#'
 #' Since the main goal of \code{\link{infer_bf}} is to establish
 #' non-inferiority, the resulting Bayes factor quantifies evidence in favour of
 #' the alternative hypothesis (i.e., \eqn{BF10}). However, evidence for the null
@@ -39,9 +42,10 @@
 #' Importantly, \code{\link{infer_bf}} can be utilized to calculate a Bayes
 #' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
 #' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
-#' \code{mean_x}, and \code{mean_y} are defined). Arguments with 'x' as a name
-#' or suffix correspond to the control group, whereas arguments with 'y' as a
-#' name or suffix correspond to the experimental group (i.e., the group for
+#' \code{mean_x}, and \code{mean_y} (or \code{ci_margin} and \code{ci_level}
+#' instead of \code{sd_x} and \code{sd_y}) are defined). Arguments with 'x' as a
+#' name or suffix correspond to the control group, whereas arguments with 'y' as
+#' a name or suffix correspond to the experimental group (i.e., the group for
 #' which we seek to establish non-inferiority).
 #'
 #' With the argument \code{ni_margin}, the user can determine the
@@ -89,10 +93,11 @@
 #'   data: A description of the data \itemize{ \item type: The type of data
 #'   ('raw' when arguments \code{x} and \code{y} are used or 'summary' when
 #'   arguments \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y},
-#'   \code{sd_x}, and \code{sd_y} are used) \item ...: values for the arguments
-#'   used, depending on 'raw' or summary'} \item prior_scale: The width of the
-#'   Cauchy prior distribution \item bf: The resulting Bayes factor } A summary
-#'   of the model is shown by printing the object.
+#'   \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and \code{ci_level}
+#'   instead of \code{sd_x} and \code{sd_y}) are used) \item ...: values for the
+#'   arguments used, depending on 'raw' or summary'} \item prior_scale: The
+#'   width of the Cauchy prior distribution \item bf: The resulting Bayes factor
+#'   } A summary of the model is shown by printing the object.
 #'
 #' @export
 #' @import rlang stats stringr
@@ -168,6 +173,8 @@ infer_bf <- function(x = NULL,
                      mean_y = NULL,
                      sd_x = NULL,
                      sd_y = NULL,
+                     ci_margin = NULL,
+                     ci_level = NULL,
                      ni_margin = NULL,
                      prior_scale = 1 / sqrt(2),
                      direction = "high") {
@@ -177,10 +184,13 @@ infer_bf <- function(x = NULL,
                               !is.null(mean_x),
                               !is.null(mean_y),
                               !is.null(sd_x),
-                              !is.null(sd_y))) {
+                              !is.null(sd_y),
+                              !is.null(ci_margin),
+                              !is.null(ci_level))) {
     abort(str_c(
       "Only 'x', 'y', and 'ni_margin' OR 'n_x', 'n_y', 'mean_x', 'mean_y', ",
-      "'sd_x', 'sd_y', and 'ni_margin' must be defined."
+      "'sd_x', 'sd_y', and 'ni_margin' (or 'ci_margin' and 'ci_level' instead ",
+      "of 'sd_x' and 'sd_y') must be defined."
     ))
   }
   if (any(!is.null(x),
@@ -194,35 +204,43 @@ infer_bf <- function(x = NULL,
   if (any(!is.null(n_x),
           !is.null(n_y),
           !is.null(mean_x),
-          !is.null(mean_y),
-          !is.null(sd_x),
-          !is.null(sd_y))) {
+          !is.null(mean_y))) {
     if (any(is.null(n_x),
             is.null(n_y),
             is.null(mean_x),
             is.null(mean_y),
-            is.null(sd_x),
-            is.null(sd_y),
-            is.null(ni_margin))) {
+            is.null(ni_margin)) ||
+        ((is.null(sd_x) || is.null(sd_y)) &&
+         (is.null(ci_margin) || is.null(ci_level)))) {
       abort(str_c(
         "All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', 'sd_y', and ",
-        "'ni_margin' must be defined."
+        "'ni_margin' (or 'ci_margin' and 'ci_level' instead of 'sd_x' and ",
+        "'sd_y') must be defined."
       ))
+    }
+    if (!xor(!is.null(sd_x) && !is.null(sd_y),
+             !is.null(ci_margin) && !is.null(ci_level))) {
+      abort(
+        "Only 'sd_x' and 'sd_y' OR 'ci_margin' and 'ci_level' must be defined."
+      )
     }
   }
   if (all(!is.null(n_x),
           !is.null(n_y),
           !is.null(mean_x),
-          !is.null(mean_y),
-          !is.null(sd_x),
-          !is.null(sd_y))) {
+          !is.null(mean_y)) && (xor(
+            !is.null(sd_x) && !is.null(sd_y),
+            !is.null(ci_margin) && !is.null(ci_level)
+          ))) {
     data <- list(type = "summary data",
                  data = list(n_x = n_x,
                              n_y = n_y,
                              mean_x = mean_x,
                              mean_y = mean_y,
                              sd_x = sd_x,
-                             sd_y = sd_y))
+                             sd_y = sd_y,
+                             ci_margin = ci_margin,
+                             ci_level = ci_level))
   }
   if (!is.null(x) && !is.null(y)) {
     if (any(is.na(x)) || any(is.na(y))) {
@@ -253,9 +271,17 @@ infer_bf <- function(x = NULL,
   if (!is.character(direction) || length(direction) > 1) {
     abort("'direction' must be a single character value.")
   }
-  sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
-                      (n_x + n_y - 2))
-  se <- sd_pooled * sqrt(1 / n_x + 1 / n_y)
+
+  if (!is.null(sd_x) && !is.null(sd_y)) {
+    sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
+                        (n_x + n_y - 2))
+    se <- sd_pooled * sqrt(1 / n_x + 1 / n_y)
+  } else {
+    perc <- 1 - ((1 - ci_level) / 2)
+    se <- ci_margin / qt(p = perc,
+                         df = n_x + n_y - 2)
+    sd_pooled <- se / sqrt(1 / n_x + 1 / n_y)
+  }
   if (str_detect(direction,
                  "low")) {
     cohen_d <- ni_margin / sd_pooled
