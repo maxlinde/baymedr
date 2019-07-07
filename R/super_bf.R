@@ -28,6 +28,9 @@
 #' employed and high scores indicate superiority, the alternative hypothesis
 #' states that the experimental group is higher than the control group.
 #'
+#' Note that at the moment Bayes factors can only be calculated for
+#' independent-groups designs.
+#'
 #' Since the main goal of \code{\link{super_bf}} is to establish superiority,
 #' the resulting Bayes factor quantifies evidence in favour of the alternative
 #' hypothesis (i.e., \eqn{BF10}). However, evidence for the null hypothesis can
@@ -42,11 +45,11 @@
 #' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 #' \code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
 #' has the freedom to supply values either for the arguments \code{sd_x} and
-#' \code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
-#' information that is available to the user. Arguments with 'x' as a name or
-#' suffix correspond to the control group, whereas arguments with 'y' as a name
-#' or suffix correspond to the experimental group (i.e., the group for which we
-#' seek to establish superiority).
+#' \code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level}. The choice
+#' should depend on the information that is available to the user. Arguments
+#' with 'x' as a name or suffix correspond to the control group, whereas
+#' arguments with 'y' as a name or suffix correspond to the experimental group
+#' (i.e., the group for which we seek to establish superiority).
 #'
 #' For the calculation of the Bayes factor, we chose a Cauchy prior density for
 #' the effect size under the alternative hypothesis. The shape of the Cauchy
@@ -82,15 +85,22 @@
 #'   dependent variable in the experimental group.
 #' @param sd_x A numeric vector of length one, specifying the standard deviation
 #'   of the dependent variable in the control group. Only \code{sd_x} and
-#'   \code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).
+#'   \code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level} should be
+#'   defined (see Details).
 #' @param sd_y A numeric vector of length one, specifying the standard deviation
 #'   of the dependent variable in the experimental group. Only \code{sd_x} and
-#'   \code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).
+#'   \code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level} should be
+#'   defined (see Details).
 #' @param ci_margin A numeric vector of length one, specifying the margin of the
 #'   confidence interval (i.e., the width of the confidence interval divided by
 #'   2) of the difference on the dependent variable between the control and
 #'   experimental groups. Only \code{sd_x} and \code{sd_y} \strong{OR}
-#'   \code{ci_margin} should be defined (see Details).
+#'   \code{ci_margin} and \code{ci_level} should be defined (see Details).
+#' @param ci_level A numeric vector of length one, specifying the confidence
+#'   level of \code{ci_margin}. The value must be between 0 and 1 (e.g., 0.95
+#'   for a 95% confidence interval). Only \code{sd_x} and \code{sd_y}
+#'   \strong{OR} \code{ci_margin} and \code{ci_level} should be defined (see
+#'   Details).
 #' @param prior_scale A numeric vector of length one, specifying the scale of
 #'   the Cauchy prior distribution for the effect size under the alternative
 #'   hypothesis (see Details). The default value is \eqn{1 / \sqrt{2}}.
@@ -110,12 +120,13 @@
 #'   \itemize{ \item h0: The null hypothesis \item h1: The alternative
 #'   hypothesis} \item data: A description of the data \itemize{ \item type: The
 #'   type of data ('raw' when arguments \code{x} and \code{y} are used or
-#'   summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
-#'   \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} instead of
-#'   \code{sd_x} and \code{sd_y}) are used) \item ...: values for the arguments
-#'   used, depending on 'raw' or 'summary'} \item prior_scale: The scale of the
-#'   Cauchy prior distribution \item bf: The resulting Bayes factor } A summary
-#'   of the model is shown by printing the object.
+#'   'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
+#'   \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and
+#'   \code{ci_level} instead of \code{sd_x} and \code{sd_y}) are used) \item
+#'   ...: values for the arguments used, depending on 'raw' or 'summary'} \item
+#'   prior_scale: The scale of the Cauchy prior distribution \item bf: The
+#'   resulting Bayes factor } A summary of the model is shown by printing the
+#'   object.
 #'
 #' @export
 #' @import rlang stats stringr
@@ -158,6 +169,7 @@
 #'                               mean_x = 68.1,
 #'                               mean_y = 63.6,
 #'                               ci_margin = (15.5 - (-6.5)) / 2,
+#'                               ci_level = 0.95,
 #'                               direction = "low",
 #'                               alternative = "one.sided")
 #'
@@ -176,6 +188,7 @@
 #'                               mean_x = 68.1,
 #'                               mean_y = 63.6,
 #'                               ci_margin = (15.5 - (-6.5)) / 2,
+#'                               ci_level = 0.95,
 #'                               alternative = "two.sided")
 #'
 #' # Extract Bayes factor from model.
@@ -194,6 +207,7 @@
 #'                               mean_x = 47.6,
 #'                               mean_y = 61.3,
 #'                               ci_margin = (24.4 - 2.9) / 2,
+#'                               ci_level = 0.95,
 #'                               direction = "low",
 #'                               alternative = "one.sided")
 #'
@@ -212,6 +226,7 @@
 #'                               mean_x = 47.6,
 #'                               mean_y = 61.3,
 #'                               ci_margin = (24.4 - 2.9) / 2,
+#'                               ci_level = 0.95,
 #'                               alternative = "two.sided")
 #'
 #' # Extract Bayes factor from model.
@@ -225,6 +240,7 @@ super_bf <- function(x = NULL,
                      sd_x = NULL,
                      sd_y = NULL,
                      ci_margin = NULL,
+                     ci_level = NULL,
                      prior_scale = 1 / sqrt(2),
                      direction = "high",
                      alternative = "one.sided") {
@@ -235,10 +251,12 @@ super_bf <- function(x = NULL,
                               !is.null(mean_y),
                               !is.null(sd_x),
                               !is.null(sd_y),
-                              !is.null(ci_margin))) {
+                              !is.null(ci_margin),
+                              !is.null(ci_level))) {
     abort(str_c(
       "Only 'x' and 'y' OR 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and ",
-      "'sd_y' (or 'ci_margin' instead of 'sd_x' and 'sd_y') must be defined."
+      "'sd_y' (or 'ci_margin' and 'ci_level' instead of 'sd_x' and 'sd_y') ",
+      "must be defined."
     ))
   }
   if (xor(!is.null(x),
@@ -253,22 +271,28 @@ super_bf <- function(x = NULL,
             is.null(n_y),
             is.null(mean_x),
             is.null(mean_y)) ||
-        ((is.null(sd_x) || is.null(sd_y)) && is.null(ci_margin))) {
+        ((is.null(sd_x) || is.null(sd_y)) &&
+         (is.null(ci_margin) || is.null(ci_level)))) {
       abort(str_c(
         "All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and 'sd_y' (or ",
-        "'ci_margin' instead of 'sd_x' and 'sd_y') must be defined."
+        "'ci_margin' and 'ci_level' instead of 'sd_x' and 'sd_y') must be ",
+        "defined."
       ))
     }
     if (!xor(!is.null(sd_x) && !is.null(sd_y),
-             !is.null(ci_margin))) {
-      abort("Only 'sd_x' and 'sd_y' OR 'ci_margin' must be defined.")
+             !is.null(ci_margin) && !is.null(ci_level))) {
+      abort(
+        "Only 'sd_x' and 'sd_y' OR 'ci_margin' and 'ci_level' must be defined."
+      )
     }
   }
   if (all(!is.null(n_x),
           !is.null(n_y),
           !is.null(mean_x),
-          !is.null(mean_y)) && (xor(!is.null(sd_x) && !is.null(sd_y),
-                                    !is.null(ci_margin)))) {
+          !is.null(mean_y)) && (xor(
+            !is.null(sd_x) && !is.null(sd_y),
+            !is.null(ci_margin) && !is.null(ci_level)
+          ))) {
     data <- list(type = "summary data",
                  data = list(n_x = n_x,
                              n_y = n_y,
@@ -276,7 +300,8 @@ super_bf <- function(x = NULL,
                              mean_y = mean_y,
                              sd_x = sd_x,
                              sd_y = sd_y,
-                             ci_margin = ci_margin))
+                             ci_margin = ci_margin,
+                             ci_level = ci_level))
   }
   if (!is.null(x) && !is.null(y)) {
     if (any(is.na(x)) || any(is.na(y))) {
@@ -312,7 +337,8 @@ super_bf <- function(x = NULL,
                         (n_x + n_y - 2))
     se <- sd_pooled * sqrt(1 / n_x + 1 / n_y)
   } else {
-    se <- ci_margin / qt(p = 0.975,
+    perc <- 1 - ((1 - ci_level) / 2)
+    se <- ci_margin / qt(p = perc,
                          df = n_x + n_y - 2)
   }
   t_stat <- (mean_y - mean_x) / se

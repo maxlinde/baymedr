@@ -6,8 +6,8 @@
 \usage{
 super_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
-  ci_margin = NULL, prior_scale = 1/sqrt(2), direction = "high",
-  alternative = "one.sided")
+  ci_margin = NULL, ci_level = NULL, prior_scale = 1/sqrt(2),
+  direction = "high", alternative = "one.sided")
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}
@@ -28,17 +28,25 @@ dependent variable in the experimental group.}
 
 \item{sd_x}{A numeric vector of length one, specifying the standard deviation
 of the dependent variable in the control group. Only \code{sd_x} and
-\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
+\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level} should be
+defined (see Details).}
 
 \item{sd_y}{A numeric vector of length one, specifying the standard deviation
 of the dependent variable in the experimental group. Only \code{sd_x} and
-\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
+\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level} should be
+defined (see Details).}
 
 \item{ci_margin}{A numeric vector of length one, specifying the margin of the
 confidence interval (i.e., the width of the confidence interval divided by
 2) of the difference on the dependent variable between the control and
 experimental groups. Only \code{sd_x} and \code{sd_y} \strong{OR}
-\code{ci_margin} should be defined (see Details).}
+\code{ci_margin} and \code{ci_level} should be defined (see Details).}
+
+\item{ci_level}{A numeric vector of length one, specifying the confidence
+level of \code{ci_margin}. The value must be between 0 and 1 (e.g., 0.95
+for a 95% confidence interval). Only \code{sd_x} and \code{sd_y}
+\strong{OR} \code{ci_margin} and \code{ci_level} should be defined (see
+Details).}
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
 the Cauchy prior distribution for the effect size under the alternative
@@ -62,12 +70,13 @@ An S4 object of class 'baymedrSuperiority' is returned. Contained are
   \itemize{ \item h0: The null hypothesis \item h1: The alternative
   hypothesis} \item data: A description of the data \itemize{ \item type: The
   type of data ('raw' when arguments \code{x} and \code{y} are used or
-  summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
-  \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} instead of
-  \code{sd_x} and \code{sd_y}) are used) \item ...: values for the arguments
-  used, depending on 'raw' or 'summary'} \item prior_scale: The scale of the
-  Cauchy prior distribution \item bf: The resulting Bayes factor } A summary
-  of the model is shown by printing the object.
+  'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
+  \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and
+  \code{ci_level} instead of \code{sd_x} and \code{sd_y}) are used) \item
+  ...: values for the arguments used, depending on 'raw' or 'summary'} \item
+  prior_scale: The scale of the Cauchy prior distribution \item bf: The
+  resulting Bayes factor } A summary of the model is shown by printing the
+  object.
 }
 \description{
 This function computes a Bayes factor for superiority designs.
@@ -99,6 +108,9 @@ lower than the control group. Lastly, in the case where a one-sided test is
 employed and high scores indicate superiority, the alternative hypothesis
 states that the experimental group is higher than the control group.
 
+Note that at the moment Bayes factors can only be calculated for
+independent-groups designs.
+
 Since the main goal of \code{\link{super_bf}} is to establish superiority,
 the resulting Bayes factor quantifies evidence in favour of the alternative
 hypothesis (i.e., \eqn{BF10}). However, evidence for the null hypothesis can
@@ -113,11 +125,11 @@ factor based on raw data (i.e., if arguments \code{x} and \code{y} are
 defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 \code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
 has the freedom to supply values either for the arguments \code{sd_x} and
-\code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
-information that is available to the user. Arguments with 'x' as a name or
-suffix correspond to the control group, whereas arguments with 'y' as a name
-or suffix correspond to the experimental group (i.e., the group for which we
-seek to establish superiority).
+\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level}. The choice
+should depend on the information that is available to the user. Arguments
+with 'x' as a name or suffix correspond to the control group, whereas
+arguments with 'y' as a name or suffix correspond to the experimental group
+(i.e., the group for which we seek to establish superiority).
 
 For the calculation of the Bayes factor, we chose a Cauchy prior density for
 the effect size under the alternative hypothesis. The shape of the Cauchy
@@ -164,6 +176,7 @@ super_sum_one_ex1 <- super_bf(n_x = 201,
                               mean_x = 68.1,
                               mean_y = 63.6,
                               ci_margin = (15.5 - (-6.5)) / 2,
+                              ci_level = 0.95,
                               direction = "low",
                               alternative = "one.sided")
 
@@ -182,6 +195,7 @@ super_sum_two_ex1 <- super_bf(n_x = 201,
                               mean_x = 68.1,
                               mean_y = 63.6,
                               ci_margin = (15.5 - (-6.5)) / 2,
+                              ci_level = 0.95,
                               alternative = "two.sided")
 
 # Extract Bayes factor from model.
@@ -200,6 +214,7 @@ super_sum_one_ex2 <- super_bf(n_x = 200,
                               mean_x = 47.6,
                               mean_y = 61.3,
                               ci_margin = (24.4 - 2.9) / 2,
+                              ci_level = 0.95,
                               direction = "low",
                               alternative = "one.sided")
 
@@ -218,6 +233,7 @@ super_sum_two_ex2 <- super_bf(n_x = 200,
                               mean_x = 47.6,
                               mean_y = 61.3,
                               ci_margin = (24.4 - 2.9) / 2,
+                              ci_level = 0.95,
                               alternative = "two.sided")
 
 # Extract Bayes factor from model.
