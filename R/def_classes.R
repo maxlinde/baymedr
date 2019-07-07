@@ -1,4 +1,24 @@
+#' S4 classes for representing different models
+#'
+#' The S4 classes \code{baymedrSuperiority}, \code{baymedrEquivalence}. and
+#' \code{baymedrNonInferiority} represent models for the superiority
+#' (\code{\link{super_bf}}), equivalence (\code{\link{equiv_bf}}), and
+#' non-inferiority (\code{\link{infer_bf}}) tests, respectively.
+#'
+#' @slot test Type of test that was conducted.
+#' @slot hypotheses The hypotheses that are tested.
+#' @slot data The type of data that was used.
+#' @slot prior_scale The Cauchy prior scale that was used.
+#' @slot bf The resuling Bayes factor
+#' @slot interval The equivalence interval in case of \code{\link{equiv_bf}}.
+#' @slot ni_margin The non-inferiority margin in case of \code{\link{infer_bf}}.
+#'
+#' @name model-classes
+#'
 #' @import methods
+NULL
+
+#' @rdname model-classes
 setClass(Class = "baymedrSuperiority",
          slots = c(test = "character",
                    hypotheses = "list",
@@ -6,6 +26,7 @@ setClass(Class = "baymedrSuperiority",
                    prior_scale = "numeric",
                    bf = "numeric"))
 
+#' @rdname model-classes
 setClass(Class = "baymedrEquivalence",
          slots = c(test = "character",
                    hypotheses = "list",
@@ -14,6 +35,7 @@ setClass(Class = "baymedrEquivalence",
                    prior_scale = "numeric",
                    bf = "numeric"))
 
+#' @rdname model-classes
 setClass(Class = "baymedrNonInferiority",
          slots = c(test = "character",
                    hypotheses = "list",
