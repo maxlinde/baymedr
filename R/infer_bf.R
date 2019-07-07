@@ -2,47 +2,68 @@
 #'
 #' This function computes a Bayes factor for non-inferiority designs.
 #'
-#' The Bayes factor resulting from \code{\link{infer_bf}} tests the null
-#' hypothesis that the experimental group (e.g., a new medication) is not better
-#' than the control group (e.g., a placebo or existing medication) minus a
-#' constant value (c). The alternative hypothesis is that the experimental group
-#' is better than the control group minus a constant value (c). Put more
-#' formally, the null hypothesis states that the true population effect size <
-#' -c, resulting in the point null hypothesis that the true population effect
-#' size = -c against the one-sided alternative hypothesis that the true
-#' population effect size > -c.
+#' The formulation of the null and alternative hypotheses differ depending on
+#' whether high or low scores on the measure of interest represent
+#' non-inferiority. In the case where high scores correspond to non-inferiority
+#' (e.g., amount of social interaction), the Bayes factor resulting from
+#' \code{\link{infer_bf}} tests the null hypothesis that the experimental group
+#' (e.g., a new medication) is higher than the control group (e.g., a placebo or
+#' an already existing medication) minus a constant value, which is given by the
+#' non-inferiority margin. The alternative hypothesis is that the experimental
+#' group is lower than the control group minus the non-inferiority margin. In
+#' turn, when lower values on the measure of interest correspond to
+#' non-inferiority (e.g., severity of symptoms), the Bayes factor resulting from
+#' \code{\link{infer_bf}} tests the null hypothesis that the experimental group
+#' is lower than the control group plus the non-inferiority margin. The
+#' alternative hypothesis states that the experimental group is higher than the
+#' control group plus the non-inferiority margin.
 #'
 #' Since sometimes high scores on the dependent variable are considered
 #' non-inferior (e.g., amount of social interactions) and sometimes rather the
 #' low scores (e.g., severity of symptoms), the user can specify the direction
-#' of non-inferiority with the argument \code{alternative}. For the case where
+#' of non-inferiority with the argument \code{direction}. For the case where
 #' higher values on the dependent variable indicate non-inferiority, the user
-#' should specify 'greater' (the default) for the argument \code{alternative};
-#' if lower values on the dependent variable indicate non-inferiority, 'less'
-#' should be specified for the argument \code{alternative}.
+#' should specify 'high' (the default) for the argument \code{direction}; if
+#' lower values on the dependent variable indicate non-inferiority, 'low' should
+#' be specified for the argument \code{direction}.
+#'
+#' Since the main goal of \code{\link{infer_bf}} is to establish
+#' non-inferiority, the resulting Bayes factor quantifies evidence in favour of
+#' the alternative hypothesis (i.e., \eqn{BF10}). However, evidence for the null
+#' hypothesis can easily be calculated by taking the reciprocal of the original
+#' Bayes factor (i.e., \eqn{BF01 = 1 / BF10}). Quantification of evidence in
+#' favour of the null hypothesis is logically sound and legitimate within the
+#' Bayesian framework but not in the traditional frequentist framework (see
+#' e.g., van Ravenzwaaij et al., 2019).
 #'
 #' Importantly, \code{\link{infer_bf}} can be utilized to calculate a Bayes
 #' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
 #' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
-#' \code{mean_x}, and \code{mean_y} are defined).
+#' \code{mean_x}, and \code{mean_y} are defined). Arguments with 'x' as a name
+#' or suffix correspond to the control group, whereas arguments with 'y' as a
+#' name or suffix correspond to the experimental group (i.e., the group for
+#' which we seek to establish non-inferiority).
 #'
 #' With the argument \code{ni_margin}, the user can determine the
 #' non-inferiority margin in unstandardized units. \code{ni_margin} should be a
 #' positive number. Following ethical scientific rigour, \code{ni_margin} should
 #' be defined prior to data collection and data analysis.
 #'
-#' The argument \code{prior_scale} specifies the width of the prior distribution
-#' on effect size. This prior follows a Cauchy distribution with one degree of
-#' freedom. Visually, it resembles a normal distribution, although with much
-#' heavier tails (see e.g., Rouder et al., 2009). Mathematically, a Cauchy
-#' distribution with one degree of freedom is equivalent to a normal
-#' distribution with a mean of zero and a variance that follows an inverse
-#' chi-square distribution with one degree of freedom, for which the variance is
-#' integrated out (Liang et al., 2008). \code{prior_scale} corresponds to half
-#' of the interquartile range of the Cauchy prior. In general, the larger the
-#' value for \code{prior_scale}, the broader the Cauchy prior distribution, and
-#' the higher the relative support for the null hypothesis, reflected in the
-#' resulting Bayes factor.
+#' For the calculation of the Bayes factor, we chose a Cauchy prior density for
+#' the effect size under the alternative hypothesis. The shape of the Cauchy
+#' distribution can be manipulated with its location and scale parameters. The
+#' standard Cauchy distribution, with a location parameter of 0 and a scale
+#' parameter of 1, resembles a standard Normal distribution, except that the
+#' Cauchy distribution has less mass at the centre but heavier tails (see e.g.,
+#' Rouder et al., 2009, for a visualisation). Mathematically, the standard
+#' Cauchy distribution is equivalent to a Normal distribution with a mean of 0
+#' and a variance that follows and inverse chi-square distribution with one
+#' degree of freedom, for which the variance is integrated out (Liang et al.,
+#' 2008). The argument \code{prior_scale} specifies the width of the Cauchy
+#' prior, which corresponds to half of the interquartile range. Thus, by
+#' adjusting the Cauchy prior scale with \code{prior_scale}, we can emphasise
+#' different ranges of effect sizes that might be expected. The default prior
+#' scale is set to \eqn{1 / \sqrt{2}}.
 #'
 #' \code{\link{infer_bf}} creates an S4 object of class 'baymedrNonInferiority',
 #' which has multiple slots/entries (e.g., type of data, prior scale, Bayes
@@ -53,30 +74,31 @@
 #' @param ni_margin A numeric vector of length one, specifying the
 #'   non-inferiority margin in unstandardized units. The value should be a
 #'   positive number.
-#' @param alternative A character vector of length one, specifying the direction
-#'   of the alternative hypothesis. 'greater' (the default) corresponds to mu_y
-#'   > mu_x  and 'less' refers to mu_y < mu_x (see Details).
+#' @param direction A character vector of length one, specifying the direction
+#'   of non-inferior scores. 'low' indicates that low scores on the measure of
+#'   interest correspond to a non-inferior outcome and 'high' (the default)
+#'   indicates that high scores on the measure of interest correspond to a
+#'   non-inferior outcome (see Details).
 #' @inheritParams super_bf
 #'
-#' @return An S4 object of class 'baymedrSuperiority' is returned. Contained are
-#'   a description of the model and the resulting Bayes factor: \itemize{ \item
-#'   test: The type of analysis \item hypotheses: A statement of the hypotheses
-#'   \itemize{ \item h0: The null hypothesis \item h1: The alternative
-#'   hypothesis} \item ni_margin: The value for ni_margin \item data: A
-#'   description of the data \itemize{ \item type: The type of data ('raw' when
-#'   arguments \code{x} and \code{y} are used or 'summary' when arguments
-#'   \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y}, \code{sd_x}, and
-#'   \code{sd_y} (or \code{ci_margin} instead of \code{sd_x} and \code{sd_y})
-#'   are used) \item ...: values for the arguments used, depending on 'raw' or
-#'   'summary'} \item prior_scale: The width of the Cauchy prior distribution
-#'   \item bf: The resulting Bayes factor } A summary of the model is shown by
-#'   printing the object.
+#' @return An S4 object of class 'baymedrNonInferiorty' is returned. Contained
+#'   are a description of the model and the resulting Bayes factor: \itemize{
+#'   \item test: The type of analysis \item hypotheses: A statement of the
+#'   hypotheses \itemize{ \item h0: The null hypothesis \item h1: The
+#'   alternative hypothesis} \item ni_margin: The value for ni_margin \item
+#'   data: A description of the data \itemize{ \item type: The type of data
+#'   ('raw' when arguments \code{x} and \code{y} are used or 'summary' when
+#'   arguments \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y},
+#'   \code{sd_x}, and \code{sd_y} are used) \item ...: values for the arguments
+#'   used, depending on 'raw' or summary'} \item prior_scale: The width of the
+#'   Cauchy prior distribution \item bf: The resulting Bayes factor } A summary
+#'   of the model is shown by printing the object.
 #'
 #' @export
 #' @import rlang stats stringr
 #'
 #' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
-#'   bayesian t-tests. \emph{The American Statistician}, 1-13.
+#'   bayesian t-tests. \emph{The American Statistician}.
 #'
 #'   Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
 #'   Mixtures of g priors for bayesian variable selection. \emph{Journal of the
@@ -115,7 +137,7 @@
 #'                          sd_x = 8,
 #'                          sd_y = 9.8,
 #'                          ni_margin = 2,
-#'                          alternative = "less")
+#'                          direction = "low")
 #'
 #' # Extract Bayes factor from model
 #' get_bf(infer_sum_t1)
@@ -134,7 +156,7 @@
 #'                          sd_x = 8.7,
 #'                          sd_y = 7.6,
 #'                          ni_margin = 2,
-#'                          alternative = "less")
+#'                          direction = "low")
 #'
 #' # Extract Bayes factor from model
 #' get_bf(infer_sum_t2)
@@ -148,7 +170,7 @@ infer_bf <- function(x = NULL,
                      sd_y = NULL,
                      ni_margin = NULL,
                      prior_scale = 1 / sqrt(2),
-                     alternative = "greater") {
+                     direction = "high") {
   if (any(!is.null(x),
           !is.null(y)) && any(!is.null(n_x),
                               !is.null(n_y),
@@ -228,33 +250,42 @@ infer_bf <- function(x = NULL,
   if (!is.numeric(ni_margin) || length(ni_margin) > 1 || ni_margin < 0) {
     abort("'ni_margin' must be a single positive numeric value.")
   }
-  if (!is.character(alternative) || length(alternative) > 1) {
-    abort("'alternative' must be a single character value.")
+  if (!is.character(direction) || length(direction) > 1) {
+    abort("'direction' must be a single character value.")
   }
   sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
                       (n_x + n_y - 2))
   se <- sd_pooled * sqrt(1 / n_x + 1 / n_y)
-  cohen_d <- ni_margin / sd_pooled
-  t_stat <- (mean_y - mean_x - ni_margin) / se
-  res <- bf10_t(t = t_stat,
-                n1 = n_x,
-                n2 = n_y,
-                ind_samples = TRUE,
-                prior_loc = cohen_d,
-                prior_scale = prior_scale,
-                prior_df = 1)
-  if (str_detect(alternative,
-                 "greater")) {
-    bf <- res[[2]] / res[[3]]
-    h0 <- "mu_y - mu_x < ni_margin"
-    h1 <- "mu_y - mu_x > ni_margin"
-  } else if (str_detect(alternative,
-                        "less")) {
+  if (str_detect(direction,
+                 "low")) {
+    cohen_d <- ni_margin / sd_pooled
+    t_stat <- (mean_y - mean_x - ni_margin) / se
+    res <- bf10_t(t = t_stat,
+                  n1 = n_x,
+                  n2 = n_y,
+                  ind_samples = TRUE,
+                  prior_loc = cohen_d,
+                  prior_scale = prior_scale,
+                  prior_df = 1)
     bf <- res[[3]] / res[[2]]
     h0 <- "mu_y - mu_x > ni_margin"
     h1 <- "mu_y - mu_x < ni_margin"
+  } else if (str_detect(direction,
+                        "high")) {
+    cohen_d <- -ni_margin / sd_pooled
+    t_stat <- (mean_y - mean_x + ni_margin) / se
+    res <- bf10_t(t = t_stat,
+                  n1 = n_x,
+                  n2 = n_y,
+                  ind_samples = TRUE,
+                  prior_loc = cohen_d,
+                  prior_scale = prior_scale,
+                  prior_df = 1)
+    bf <- res[[2]] / res[[3]]
+    h0 <- "mu_y - mu_x < ni_margin"
+    h1 <- "mu_y - mu_x > ni_margin"
   } else {
-    abort("'alternative' must be one of 'greater' or 'less'.")
+    abort("'direction' must be one of 'low' or 'high'.")
   }
   test <- "Non-inferiority analysis"
   hypotheses <- list(h0 = h0,
