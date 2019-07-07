@@ -8,6 +8,9 @@
 #' equivalent. The alternative hypothesis is that the two groups are not
 #' equivalent.
 #'
+#' Note that at the moment Bayes factors can only be calculated for
+#' independent-groups designs.
+#'
 #' Since the main goal of \code{\link{equiv_bf}} is to establish equivalence,
 #' the resulting Bayes factor quantifies evidence in favour of the null
 #' hypothesis (i.e., \eqn{BF01}). However, evidence for the alternative
@@ -34,10 +37,10 @@
 #' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
 #' \code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
 #' has the freedom to supply values either for the arguments \code{sd_x} and
-#' \code{sd_y} \strong{OR} \code{ci_margin}. The choice should depend on the
-#' information that is available to the user. Arguments with 'x' as a name or
-#' suffix correspond to the control group, whereas arguments with 'y' as a name
-#' or suffix correspond to the experimental group.
+#' \code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level}. The choice
+#' should depend on the information that is available to the user. Arguments
+#' with 'x' as a name or suffix correspond to the control group, whereas
+#' arguments with 'y' as a name or suffix correspond to the experimental group.
 #'
 #' For the calculation of the Bayes factor, we chose a Cauchy prior density for
 #' the effect size under the alternative hypothesis. The shape of the Cauchy
@@ -80,11 +83,11 @@
 #'   description of the data \itemize{ \item type: The type of data ('raw' when
 #'   arguments \code{x} and \code{y} are used or 'summary' when arguments
 #'   \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y}, \code{sd_x}, and
-#'   \code{sd_y} (or \code{ci_margin} instead of \code{sd_x} and \code{sd_y})
-#'   are used) \item ...: values for the arguments used, depending on 'raw' or
-#'   'summary'} \item prior_scale: The width of the Cauchy prior distribution
-#'   \item bf: The resulting Bayes factor } A summary of the model is shown by
-#'   printing the object.
+#'   \code{sd_y} (or \code{ci_margin} and \code{ci_level} instead of
+#'   \code{sd_x} and \code{sd_y}) are used) \item ...: values for the arguments
+#'   used, depending on 'raw' or summary'} \item prior_scale: The width of the
+#'   Cauchy prior distribution \item bf: The resulting Bayes factor } A summary
+#'   of the model is shown by printing the object.
 #'
 #' @export
 #' @import rlang stats stringr
@@ -157,6 +160,7 @@ equiv_bf <- function(x = NULL,
                      sd_x = NULL,
                      sd_y = NULL,
                      ci_margin = NULL,
+                     ci_level = NULL,
                      interval = 0,
                      prior_scale = 1 / sqrt(2)) {
   if (any(!is.null(x),
@@ -166,10 +170,12 @@ equiv_bf <- function(x = NULL,
                               !is.null(mean_y),
                               !is.null(sd_x),
                               !is.null(sd_y),
-                              !is.null(ci_margin))) {
+                              !is.null(ci_margin),
+                              !is.null(ci_level))) {
     abort(str_c(
       "Only 'x' and 'y' OR 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and ",
-      "'sd_y' (or 'ci_margin' instead of 'sd_x' and 'sd_y') must be defined."
+      "'sd_y' (or 'ci_margin' and 'ci_level' instead of 'sd_x' and 'sd_y') ",
+      "must be defined."
     ))
   }
   if (xor(!is.null(x),
@@ -184,23 +190,28 @@ equiv_bf <- function(x = NULL,
             is.null(n_y),
             is.null(mean_x),
             is.null(mean_y)) ||
-        ((is.null(sd_x) || is.null(sd_y)) && is.null(ci_margin))) {
+        ((is.null(sd_x) || is.null(sd_y)) &&
+         (is.null(ci_margin) || is.null(ci_level)))) {
       abort(str_c(
         "All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', and 'sd_y' (or ",
-        "'ci_margin' instead of 'sd_x' and 'sd_y') must be defined."
+        "'ci_margin' and 'ci_level' instead of 'sd_x' and 'sd_y') must be ",
+        "defined."
       ))
     }
 
     if (!xor(!is.null(sd_x) && !is.null(sd_y),
-             !is.null(ci_margin))) {
-      abort("Only 'sd_x' and 'sd_y' OR 'ci_margin' must be defined.")
+             !is.null(ci_margin) && !is.null(ci_level))) {
+      abort("Only 'sd_x' and 'sd_y' OR 'ci_margin' and 'ci_level' must be ",
+            "defined.")
     }
   }
   if (all(!is.null(n_x),
           !is.null(n_y),
           !is.null(mean_x),
-          !is.null(mean_y)) && (xor(!is.null(sd_x) && !is.null(sd_y),
-                                    !is.null(ci_margin)))) {
+          !is.null(mean_y)) && (xor(
+            !is.null(sd_x) && !is.null(sd_y),
+            !is.null(ci_margin) && !is.null(ci_level)
+          ))) {
     data <- list(type = "summary data",
                  data = list(n_x = n_x,
                              n_y = n_y,
@@ -208,7 +219,8 @@ equiv_bf <- function(x = NULL,
                              mean_y = mean_y,
                              sd_x = sd_x,
                              sd_y = sd_y,
-                             ci_margin = ci_margin))
+                             ci_margin = ci_margin,
+                             ci_level = ci_level))
   }
   if (!is.null(x) && !is.null(y)) {
     if (any(is.na(x)) || any(is.na(y))) {

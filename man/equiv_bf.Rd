@@ -6,7 +6,8 @@
 \usage{
 equiv_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
-  ci_margin = NULL, interval = 0, prior_scale = 1/sqrt(2))
+  ci_margin = NULL, ci_level = NULL, interval = 0,
+  prior_scale = 1/sqrt(2))
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}
@@ -27,17 +28,25 @@ dependent variable in the experimental group.}
 
 \item{sd_x}{A numeric vector of length one, specifying the standard deviation
 of the dependent variable in the control group. Only \code{sd_x} and
-\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
+\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level} should be
+defined (see Details).}
 
 \item{sd_y}{A numeric vector of length one, specifying the standard deviation
 of the dependent variable in the experimental group. Only \code{sd_x} and
-\code{sd_y} \strong{OR} \code{ci_margin} should be defined (see Details).}
+\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level} should be
+defined (see Details).}
 
 \item{ci_margin}{A numeric vector of length one, specifying the margin of the
 confidence interval (i.e., the width of the confidence interval divided by
 2) of the difference on the dependent variable between the control and
 experimental groups. Only \code{sd_x} and \code{sd_y} \strong{OR}
-\code{ci_margin} should be defined (see Details).}
+\code{ci_margin} and \code{ci_level} should be defined (see Details).}
+
+\item{ci_level}{A numeric vector of length one, specifying the confidence
+level of \code{ci_margin}. The value must be between 0 and 1 (e.g., 0.95
+for a 95% confidence interval). Only \code{sd_x} and \code{sd_y}
+\strong{OR} \code{ci_margin} and \code{ci_level} should be defined (see
+Details).}
 
 \item{interval}{A numeric vector of length one or two, specifying the
 boundaries of the equivalence interval in unstandardized units. If a
@@ -77,6 +86,9 @@ hypothesis that the experimental group (e.g., a new medication) and the
 control group (e.g., a placebo or an already existing medication) are
 equivalent. The alternative hypothesis is that the two groups are not
 equivalent.
+
+Note that at the moment Bayes factors can only be calculated for
+independent-groups designs.
 
 Since the main goal of \code{\link{equiv_bf}} is to establish equivalence,
 the resulting Bayes factor quantifies evidence in favour of the null
