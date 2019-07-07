@@ -201,8 +201,8 @@ equiv_bf <- function(x = NULL,
 
     if (!xor(!is.null(sd_x) && !is.null(sd_y),
              !is.null(ci_margin) && !is.null(ci_level))) {
-      abort("Only 'sd_x' and 'sd_y' OR 'ci_margin' and 'ci_level' must be ",
-            "defined.")
+      abort(str_c("Only 'sd_x' and 'sd_y' OR 'ci_margin' and 'ci_level' must ",
+                  "be defined."))
     }
   }
   if (all(!is.null(n_x),
