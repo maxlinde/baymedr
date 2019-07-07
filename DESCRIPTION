@@ -1,7 +1,7 @@
 Package: baymedr
 Title: Computation of Bayes Factors for Common Biomedical Designs
 Version: 0.0.0.9000
-Date: 2019-04-08
+Date: 2019-07-06
 Authors@R: c(
     person(given = "Maximilian",
            family = "Linde",
@@ -18,11 +18,12 @@ Authors@R: c(
 Description: BAYesian inference for MEDical designs in R. Convenience functions 
     for the computation of Bayes factors for common biomedical research 
     designs. Implemented are functions to test the equivalence (equiv_bf), 
-    non-inferiority (infer_bf), and superiority (super_bf) of an intervention 
+    non-inferiority (infer_bf), and superiority (super_bf) of an experimental 
     group compared to some form of control group. Bayes factors for these three 
     tests can be computed based on raw data (x, y) or summary statistics (n_x, 
-    n_y, mean_x, mean_y, sd_x, sd_y), making it possible to reanalyze findings 
-    (e.g., from publications) without the need to obtain the raw data.
+    n_y, mean_x, mean_y, sd_x, sd_y [or ci_margin]), making it possible to
+    reanalyse findings (e.g., from publications) without the need to obtain the
+    raw data.
 Depends:
     R (>= 3.2.0)
 Imports: 
