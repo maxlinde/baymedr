@@ -64,13 +64,12 @@ factor from one of the three S4 objects, use the function `get_bf()`.
 
 The Bayes factors resulting from `super_bf()` and `infer_bf()` quantify
 evidence in favour of the alternative hypothesis (i.e., superiority and
-non-inferiority, respectively), which is indicated by \({BF}_{10}\). In
-contrast, the Bayes factor resulting from `equiv_bf()` quantifies
-evidence in favour of the null hypothesis (i.e., equivalence), indicated
-by \({BF}_{01}\). In case the evidence for the other hypothesis is
-desired, the user can take the reciprocal of the Bayes factor (i.e.,
-\({BF}_{01} = \frac{1}{{BF}_{10}}\) and
-\({BF}_{10} = \frac{1}{{BF}_{01}}\)).
+non-inferiority, respectively), which is indicated by BF10. In contrast,
+the Bayes factor resulting from `equiv_bf()` quantifies evidence in
+favour of the null hypothesis (i.e., equivalence), indicated by BF01. In
+case the evidence for the other hypothesis is desired, the user can take
+the reciprocal of the Bayes factor (i.e., BF01 = 1 / BF10 and BF10 = 1 /
+BF01).
 
 ## The Cauchy prior distribution
 
