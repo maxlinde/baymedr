@@ -41,31 +41,6 @@ You can install the latest development version of `baymedr` from
 ``` r
 # install.packages("devtools")
 devtools::install_github("maxlinde/baymedr")
-#>   
-   checking for file ‘/tmp/RtmpLa4YBx/remotes786b69867fe9/maxlinde-baymedr-97e5106/DESCRIPTION’ ...
-  
-✔  checking for file ‘/tmp/RtmpLa4YBx/remotes786b69867fe9/maxlinde-baymedr-97e5106/DESCRIPTION’
-#> 
-  
-─  preparing ‘baymedr’:
-#> 
-  
-   checking DESCRIPTION meta-information ...
-  
-✔  checking DESCRIPTION meta-information
-#> 
-  
-─  checking for LF line-endings in source and make files and shell scripts
-#> 
-  
-─  checking for empty or unneeded directories
-#> 
-  
-─  building ‘baymedr_0.0.0.9000.tar.gz’
-#> 
-  
-   
-#> 
 ```
 
 ## General usage
