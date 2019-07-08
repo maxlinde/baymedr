@@ -212,6 +212,10 @@ equiv_bf <- function(x = NULL,
             !is.null(sd_x) && !is.null(sd_y),
             !is.null(ci_margin) && !is.null(ci_level)
           ))) {
+    if (!is.null(ci_level) && (length(ci_level) > 1 || ci_level <= 0 ||
+                               ci_level >= 1 || !is.numeric(ci_level))) {
+      abort("'ci_level' must be a single numeric value between 0 and 1.")
+    }
     data <- list(type = "summary data",
                  data = list(n_x = n_x,
                              n_y = n_y,
