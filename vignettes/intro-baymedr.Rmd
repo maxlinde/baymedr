@@ -22,15 +22,6 @@ knitr::opts_chunk$set(
 
 The Bayesian approach to inference has several advantages over the conventional frequentist approach. To mention only a few, with Bayesian inference it is legitimate to monitor results during data collection and decide to stop or continue data collection based on the inspection of interim analyses. This is considered a bad practice within the frequentist framework because it would result in an inflated Type I error rate (e.g., Schönbrodt et al., 2017). Furthermore, null hypothesis significance tests and the corresponding *p*-values do not allow for the quantification of evidence for the null hypothesis (e.g., Wagenmakers et al., 2018). The Bayesian framework remedies this shortcoming, which is particularly important for the equivalence design (van Ravenzwaaij et al., 2019). Lastly, in some situations the frequentist approaches to equivalence and non-inferiority tests bear certain interpretational ambiguities. For instance, when the confidence interval of the difference between the two group means fully lies between the non-inferiority margin and 0, this means that the experimental group is non-inferior with regard to the non-inferiority margin but inferior with regard to 0. The same applies to the equivalence design (van Ravenzwaaij et al., 2019). Fortunately, these ambiguities are fully resolved within the Bayesian framework. For a more thorough discussion of Bayesian advantages, see, for example, Wagenmakers et al. (2018). 
 
-## Installation
-
-You can install the latest development version of `baymedr` from [GitHub](https://github.com/), using the `devtools` package, with:
-
-``` {r, message = FALSE}
-# install.packages("devtools")
-devtools::install_github("maxlinde/baymedr")
-```
-
 ## General usage
 
 All three functions for the three research designs (i.e., equivalence, non-inferiority, and superiority) allow the user to compute Bayes factors based on raw data (if arguments `x` and `y` are defined) or summary statistics (if arguments `n_x`, `n_y`, `mean_x`, `mean_y`, `sd_x`, and `sd_y` are defined). If summary statistics are used, the user has the option to specify `ci_margin` and `ci_level` instead of `sd_x` and `sd_y`. In general, arguments with 'x' as a name or suffix correspond to the control group and those with 'y' as a name or suffix refer to the experimental group.
