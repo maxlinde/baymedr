@@ -152,4 +152,37 @@ test_that("infer_bf gives correct error messages", {
     "'direction' must be one of 'low' or 'high'.",
     fixed = TRUE
   )
+  expect_error(
+    infer_bf(n_x = 100,
+             n_y = 100,
+             mean_x = 0,
+             mean_y = 2,
+             ci_margin = 5,
+             ci_level = 1.5,
+             ni_margin = 0.5),
+    "'ci_level' must be a single numeric value between 0 and 1.",
+    fixed = TRUE
+  )
+  expect_error(
+    infer_bf(n_x = 100,
+             n_y = 100,
+             mean_x = 0,
+             mean_y = 2,
+             ci_margin = 5,
+             ci_level = "high",
+             ni_margin = 0.5),
+    "'ci_level' must be a single numeric value between 0 and 1.",
+    fixed = TRUE
+  )
+  expect_error(
+    infer_bf(n_x = 100,
+             n_y = 100,
+             mean_x = 0,
+             mean_y = 2,
+             ci_margin = 5,
+             ci_level = c(0.3, 0.7),
+             ni_margin = 0.5),
+    "'ci_level' must be a single numeric value between 0 and 1.",
+    fixed = TRUE
+  )
 })

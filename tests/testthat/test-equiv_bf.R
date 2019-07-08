@@ -140,4 +140,34 @@ test_that("equiv_bf gives correct error messages", {
     "'interval' must be a numeric vector of length one or two.",
     fixed = TRUE
   )
+  expect_error(
+    equiv_bf(n_x = 100,
+             n_y = 100,
+             mean_x = 0,
+             mean_y = 2,
+             ci_margin = 5,
+             ci_level = 1.5),
+    "'ci_level' must be a single numeric value between 0 and 1.",
+    fixed = TRUE
+  )
+  expect_error(
+    equiv_bf(n_x = 100,
+             n_y = 100,
+             mean_x = 0,
+             mean_y = 2,
+             ci_margin = 5,
+             ci_level = "high"),
+    "'ci_level' must be a single numeric value between 0 and 1.",
+    fixed = TRUE
+  )
+  expect_error(
+    equiv_bf(n_x = 100,
+             n_y = 100,
+             mean_x = 0,
+             mean_y = 2,
+             ci_margin = 5,
+             ci_level = c(0.3, 0.7)),
+    "'ci_level' must be a single numeric value between 0 and 1.",
+    fixed = TRUE
+  )
 })
