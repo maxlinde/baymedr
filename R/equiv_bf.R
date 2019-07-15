@@ -65,7 +65,7 @@
 #' S4 object as an argument (see Examples).
 #'
 #' @param interval A numeric vector of length one or two, specifying the
-#'   boundaries of the equivalence interval in unstandardized units. If a
+#'   boundaries of the equivalence interval in standardized units. If a
 #'   numeric vector of length one is specified, a symmetric equivalence interval
 #'   will be used (e.g., a 0.1 is equivalent to c(-0.1, 0.1)). A numeric vector
 #'   of length two provides the possibility to specify an asymmetric equivalence
