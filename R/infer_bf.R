@@ -311,8 +311,8 @@ infer_bf <- function(x = NULL,
                   prior_scale = prior_scale,
                   prior_df = 1)
     bf <- res[[2]] / res[[3]]
-    h0 <- "mu_y - mu_x < ni_margin"
-    h1 <- "mu_y - mu_x > ni_margin"
+    h0 <- "mu_y - mu_x < -ni_margin"
+    h1 <- "mu_y - mu_x > -ni_margin"
   } else {
     abort("'direction' must be one of 'low' or 'high'.")
   }
