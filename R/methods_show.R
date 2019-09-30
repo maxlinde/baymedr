@@ -19,11 +19,20 @@ setMethod(
         object@hypotheses$h1,
         "\n",
         "Prior scale: ",
-        round(x = object@prior_scale,
-              digits = 3),
+        formatC(x = object@prior_scale,
+                digits = 3,
+                format = "f"),
         "\n\n",
         "    BF10 (superiority) = ",
-        object@bf,
+        if (object@bf > 1 / 1000 && object@bf < 1000) {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "f")
+        } else {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "e")
+        },
         "\n",
         "******************************\n",
         sep = "")
@@ -55,11 +64,20 @@ setMethod(
         object@interval$upper,
         "\n",
         "Prior scale: ",
-        round(x = object@prior_scale,
-              digits = 3),
+        formatC(x = object@prior_scale,
+                digits = 3,
+                format = "f"),
         "\n\n",
         "    BF01 (equivalence) = ",
-        object@bf,
+        if (object@bf > 1 / 1000 && object@bf < 1000) {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "f")
+        } else {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "e")
+        },
         "\n",
         "******************************\n",
         sep = "")
@@ -88,11 +106,20 @@ setMethod(
         "Non-inferiority margin: ",
         object@ni_margin, "\n",
         "Prior scale: ",
-        round(x = object@prior_scale,
-              digits = 3),
+        formatC(x = object@prior_scale,
+                digits = 3,
+                format = "f"),
         "\n\n",
         "    BF10 (non-inferiority) = ",
-        object@bf,
+        if (object@bf > 1 / 1000 && object@bf < 1000) {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "f")
+        } else {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "e")
+        },
         "\n",
         "******************************\n",
         sep = "")
