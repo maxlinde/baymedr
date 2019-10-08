@@ -39,8 +39,9 @@ defined (see Details).}
 \item{ci_margin}{A numeric vector of length one, specifying the margin of the
 confidence interval (i.e., the width of the confidence interval divided by
 2) of the difference on the dependent variable between the experimental and
-control groups (i.e., mu_y - mu_x). Only \code{sd_x} and \code{sd_y} \strong{OR}
-\code{ci_margin} and \code{ci_level} should be defined (see Details).}
+control groups (i.e., mu_y - mu_x). Only \code{sd_x} and \code{sd_y}
+\strong{OR} \code{ci_margin} and \code{ci_level} should be defined (see
+Details).}
 
 \item{ci_level}{A numeric vector of length one, specifying the confidence
 level of \code{ci_margin}. The value must be between 0 and 1 (e.g., 0.95
@@ -107,9 +108,6 @@ to superiority, the alternative hypothesis is that the experimental group is
 lower than the control group. Lastly, in the case where a one-sided test is
 employed and high scores indicate superiority, the alternative hypothesis
 states that the experimental group is higher than the control group.
-
-Note that at the moment Bayes factors can only be calculated for
-independent-groups designs.
 
 Since the main goal of \code{\link{super_bf}} is to establish superiority,
 the resulting Bayes factor quantifies evidence in favour of the alternative
