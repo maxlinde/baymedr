@@ -39,7 +39,7 @@ setClass(Class = "baymedrEquivalence",
 setClass(Class = "baymedrNonInferiority",
          slots = c(test = "character",
                    hypotheses = "list",
-                   ni_margin = "numeric",
+                   ni_margin = "list",
                    data = "list",
                    prior_scale = "numeric",
                    bf = "numeric"))
