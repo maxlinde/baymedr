@@ -7,7 +7,7 @@
 infer_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
   ci_margin = NULL, ci_level = NULL, ni_margin = NULL,
-  prior_scale = 1/sqrt(2), direction = "high")
+  ni_margin_std = TRUE, prior_scale = 1/sqrt(2), direction = "high")
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}
@@ -39,8 +39,9 @@ defined (see Details).}
 \item{ci_margin}{A numeric vector of length one, specifying the margin of the
 confidence interval (i.e., the width of the confidence interval divided by
 2) of the difference on the dependent variable between the experimental and
-control groups (i.e., mu_y - mu_x). Only \code{sd_x} and \code{sd_y} \strong{OR}
-\code{ci_margin} and \code{ci_level} should be defined (see Details).}
+control groups (i.e., mu_y - mu_x). Only \code{sd_x} and \code{sd_y}
+\strong{OR} \code{ci_margin} and \code{ci_level} should be defined (see
+Details).}
 
 \item{ci_level}{A numeric vector of length one, specifying the confidence
 level of \code{ci_margin}. The value must be between 0 and 1 (e.g., 0.95
@@ -49,8 +50,11 @@ for a 95% confidence interval). Only \code{sd_x} and \code{sd_y}
 Details).}
 
 \item{ni_margin}{A numeric vector of length one, specifying the
-non-inferiority margin in unstandardized units. The value should be a
-positive number.}
+non-inferiority margin. The value should be a positive number.}
+
+\item{ni_margin_std}{A locial vector of length one, specifying whether the
+non-inferiority margin (i.e., \code{ni_margin}) is given in standardised
+(TRUE; the default) or unstandardised (FALSE) units.}
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
 the Cauchy prior distribution for the effect size under the alternative
@@ -67,15 +71,18 @@ An S4 object of class 'baymedrNonInferiorty' is returned. Contained
   are a description of the model and the resulting Bayes factor: \itemize{
   \item test: The type of analysis \item hypotheses: A statement of the
   hypotheses \itemize{ \item h0: The null hypothesis \item h1: The
-  alternative hypothesis} \item ni_margin: The value for ni_margin \item
-  data: A description of the data \itemize{ \item type: The type of data
-  ('raw' when arguments \code{x} and \code{y} are used or 'summary' when
-  arguments \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y},
-  \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and \code{ci_level}
-  instead of \code{sd_x} and \code{sd_y}) are used) \item ...: values for the
-  arguments used, depending on 'raw' or summary'} \item prior_scale: The
-  width of the Cauchy prior distribution \item bf: The resulting Bayes factor
-  } A summary of the model is shown by printing the object.
+  alternative hypothesis} \item ni_margin: The value for ni_margin in
+  standardised and unstandardised units \itemize{ \item ni_mar_std: The
+  standardised non-inferiority margin \item ni_mar_unstd: The unstandardised
+  non-inferiority margin} \item data: A description of the data \itemize{
+  \item type: The type of data ('raw' when arguments \code{x} and \code{y}
+  are used or 'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
+  \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and
+  \code{ci_level} instead of \code{sd_x} and \code{sd_y}) are used) \item
+  ...: values for the arguments used, depending on 'raw' or summary'} \item
+  prior_scale: The width of the Cauchy prior distribution \item bf: The
+  resulting Bayes factor } A summary of the model is shown by printing the
+  object.
 }
 \description{
 This function computes a Bayes factor for non-inferiority designs.
@@ -106,9 +113,6 @@ should specify 'high' (the default) for the argument \code{direction}; if
 lower values on the dependent variable indicate non-inferiority, 'low' should
 be specified for the argument \code{direction}.
 
-Note that at the moment Bayes factors can only be calculated for
-independent-groups designs.
-
 Since the main goal of \code{\link{infer_bf}} is to establish
 non-inferiority, the resulting Bayes factor quantifies evidence in favour of
 the alternative hypothesis (i.e., \eqn{BF10}). However, evidence for the null
@@ -128,9 +132,12 @@ a name or suffix correspond to the experimental group (i.e., the group for
 which we seek to establish non-inferiority).
 
 With the argument \code{ni_margin}, the user can determine the
-non-inferiority margin in unstandardized units. \code{ni_margin} should be a
-positive number. Following ethical scientific rigour, \code{ni_margin} should
-be defined prior to data collection and data analysis.
+non-inferiority margin. \code{ni_margin} should be a positive number.
+Following ethical scientific rigour, \code{ni_margin} should be defined prior
+to data collection and data analysis. The user can declare whether the
+non-inferiority margin was specified in standardised or unstandardised units
+with the \code{ni_margin_std} argument, where TRUE, corresponding to
+standardised units, is the default.
 
 For the calculation of the Bayes factor, we chose a Cauchy prior density for
 the effect size under the alternative hypothesis. The shape of the Cauchy
@@ -160,7 +167,8 @@ S4 object as an argument (see Examples).
 # Assign model to variable.
 infer_raw <- infer_bf(x = rnorm(100, 10, 15),
                       y = rnorm(130, 13, 10),
-                      ni_margin = 1.5)
+                      ni_margin = 1.5,
+                      ni_margin_std = FALSE)
 
 # Extract Bayes factor from model.
 get_bf(infer_raw)
@@ -179,6 +187,7 @@ infer_sum_t1 <- infer_bf(n_x = 33,
                          sd_x = 8,
                          sd_y = 9.8,
                          ni_margin = 2,
+                         ni_margin_std = FALSE,
                          direction = "low")
 
 # Extract Bayes factor from model
@@ -198,6 +207,7 @@ infer_sum_t2 <- infer_bf(n_x = 30,
                          sd_x = 8.7,
                          sd_y = 7.6,
                          ni_margin = 2,
+                         ni_margin_std = FALSE,
                          direction = "low")
 
 # Extract Bayes factor from model

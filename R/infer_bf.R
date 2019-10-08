@@ -27,9 +27,6 @@
 #' lower values on the dependent variable indicate non-inferiority, 'low' should
 #' be specified for the argument \code{direction}.
 #'
-#' Note that at the moment Bayes factors can only be calculated for
-#' independent-groups designs.
-#'
 #' Since the main goal of \code{\link{infer_bf}} is to establish
 #' non-inferiority, the resulting Bayes factor quantifies evidence in favour of
 #' the alternative hypothesis (i.e., \eqn{BF10}). However, evidence for the null
@@ -49,9 +46,12 @@
 #' which we seek to establish non-inferiority).
 #'
 #' With the argument \code{ni_margin}, the user can determine the
-#' non-inferiority margin in unstandardized units. \code{ni_margin} should be a
-#' positive number. Following ethical scientific rigour, \code{ni_margin} should
-#' be defined prior to data collection and data analysis.
+#' non-inferiority margin. \code{ni_margin} should be a positive number.
+#' Following ethical scientific rigour, \code{ni_margin} should be defined prior
+#' to data collection and data analysis. The user can declare whether the
+#' non-inferiority margin was specified in standardised or unstandardised units
+#' with the \code{ni_margin_std} argument, where TRUE, corresponding to
+#' standardised units, is the default.
 #'
 #' For the calculation of the Bayes factor, we chose a Cauchy prior density for
 #' the effect size under the alternative hypothesis. The shape of the Cauchy
@@ -76,8 +76,10 @@
 #' S4 object as an argument (see Examples).
 #'
 #' @param ni_margin A numeric vector of length one, specifying the
-#'   non-inferiority margin in unstandardized units. The value should be a
-#'   positive number.
+#'   non-inferiority margin. The value should be a positive number.
+#' @param ni_margin_std A locial vector of length one, specifying whether the
+#'   non-inferiority margin (i.e., \code{ni_margin}) is given in standardised
+#'   (TRUE; the default) or unstandardised (FALSE) units.
 #' @param direction A character vector of length one, specifying the direction
 #'   of non-inferior scores. 'low' indicates that low scores on the measure of
 #'   interest correspond to a non-inferior outcome and 'high' (the default)
@@ -89,15 +91,18 @@
 #'   are a description of the model and the resulting Bayes factor: \itemize{
 #'   \item test: The type of analysis \item hypotheses: A statement of the
 #'   hypotheses \itemize{ \item h0: The null hypothesis \item h1: The
-#'   alternative hypothesis} \item ni_margin: The value for ni_margin \item
-#'   data: A description of the data \itemize{ \item type: The type of data
-#'   ('raw' when arguments \code{x} and \code{y} are used or 'summary' when
-#'   arguments \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y},
-#'   \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and \code{ci_level}
-#'   instead of \code{sd_x} and \code{sd_y}) are used) \item ...: values for the
-#'   arguments used, depending on 'raw' or summary'} \item prior_scale: The
-#'   width of the Cauchy prior distribution \item bf: The resulting Bayes factor
-#'   } A summary of the model is shown by printing the object.
+#'   alternative hypothesis} \item ni_margin: The value for ni_margin in
+#'   standardised and unstandardised units \itemize{ \item ni_mar_std: The
+#'   standardised non-inferiority margin \item ni_mar_unstd: The unstandardised
+#'   non-inferiority margin} \item data: A description of the data \itemize{
+#'   \item type: The type of data ('raw' when arguments \code{x} and \code{y}
+#'   are used or 'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
+#'   \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and
+#'   \code{ci_level} instead of \code{sd_x} and \code{sd_y}) are used) \item
+#'   ...: values for the arguments used, depending on 'raw' or summary'} \item
+#'   prior_scale: The width of the Cauchy prior distribution \item bf: The
+#'   resulting Bayes factor } A summary of the model is shown by printing the
+#'   object.
 #'
 #' @export
 #' @import rlang stats stringr
@@ -123,7 +128,8 @@
 #' # Assign model to variable.
 #' infer_raw <- infer_bf(x = rnorm(100, 10, 15),
 #'                       y = rnorm(130, 13, 10),
-#'                       ni_margin = 1.5)
+#'                       ni_margin = 1.5,
+#'                       ni_margin_std = FALSE)
 #'
 #' # Extract Bayes factor from model.
 #' get_bf(infer_raw)
@@ -142,6 +148,7 @@
 #'                          sd_x = 8,
 #'                          sd_y = 9.8,
 #'                          ni_margin = 2,
+#'                          ni_margin_std = FALSE,
 #'                          direction = "low")
 #'
 #' # Extract Bayes factor from model
@@ -161,6 +168,7 @@
 #'                          sd_x = 8.7,
 #'                          sd_y = 7.6,
 #'                          ni_margin = 2,
+#'                          ni_margin_std = FALSE,
 #'                          direction = "low")
 #'
 #' # Extract Bayes factor from model
@@ -176,6 +184,7 @@ infer_bf <- function(x = NULL,
                      ci_margin = NULL,
                      ci_level = NULL,
                      ni_margin = NULL,
+                     ni_margin_std = TRUE,
                      prior_scale = 1 / sqrt(2),
                      direction = "high") {
   if (any(!is.null(x),
@@ -272,6 +281,9 @@ infer_bf <- function(x = NULL,
   if (!is.numeric(ni_margin) || length(ni_margin) > 1 || ni_margin < 0) {
     abort("'ni_margin' must be a single positive numeric value.")
   }
+  if (!is.logical(ni_margin_std) || length(ni_margin_std) > 1) {
+    abort("'ni_margin_std' must be a single locial value.")
+  }
   if (!is.character(direction) || length(direction) > 1) {
     abort("'direction' must be a single character value.")
   }
@@ -287,13 +299,19 @@ infer_bf <- function(x = NULL,
   }
   if (str_detect(direction,
                  "low")) {
-    cohen_d <- ni_margin / sd_pooled
+    if (isFALSE(ni_margin_std)) {
+      ni_mar_std <- ni_margin / sd_pooled
+      ni_mar_unstd <- ni_margin
+    } else {
+      ni_mar_std <- ni_margin
+      ni_mar_unstd <- ni_margin * sd_pooled
+    }
     t_stat <- (mean_y - mean_x - ni_margin) / se
     res <- bf10_t(t = t_stat,
                   n1 = n_x,
                   n2 = n_y,
                   ind_samples = TRUE,
-                  prior_loc = cohen_d,
+                  prior_loc = ni_mar_std,
                   prior_scale = prior_scale,
                   prior_df = 1)
     bf <- res[[3]] / res[[2]]
@@ -301,13 +319,19 @@ infer_bf <- function(x = NULL,
     h1 <- "mu_y - mu_x < ni_margin"
   } else if (str_detect(direction,
                         "high")) {
-    cohen_d <- -ni_margin / sd_pooled
+    if (isFALSE(ni_margin_std)) {
+      ni_mar_std <- -ni_margin / sd_pooled
+      ni_mar_unstd <- -ni_margin
+    } else {
+      ni_mar_std <- -ni_margin
+      ni_mar_unstd <- -ni_margin * sd_pooled
+    }
     t_stat <- (mean_y - mean_x + ni_margin) / se
     res <- bf10_t(t = t_stat,
                   n1 = n_x,
                   n2 = n_y,
                   ind_samples = TRUE,
-                  prior_loc = cohen_d,
+                  prior_loc = ni_mar_std,
                   prior_scale = prior_scale,
                   prior_df = 1)
     bf <- res[[2]] / res[[3]]
@@ -319,6 +343,8 @@ infer_bf <- function(x = NULL,
   test <- "Non-inferiority analysis"
   hypotheses <- list(h0 = h0,
                      h1 = h1)
+  ni_margin <- list(ni_mar_std = abs(ni_mar_std),
+                    ni_mar_unstd = abs(ni_mar_unstd))
   baymedrNonInferiority(test = test,
                         hypotheses = hypotheses,
                         ni_margin = ni_margin,
