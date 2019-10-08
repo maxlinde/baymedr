@@ -7,7 +7,7 @@
 equiv_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
   mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
   ci_margin = NULL, ci_level = NULL, interval = 0,
-  prior_scale = 1/sqrt(2))
+  interval_std = TRUE, prior_scale = 1/sqrt(2))
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}
@@ -39,8 +39,9 @@ defined (see Details).}
 \item{ci_margin}{A numeric vector of length one, specifying the margin of the
 confidence interval (i.e., the width of the confidence interval divided by
 2) of the difference on the dependent variable between the experimental and
-control groups (i.e., mu_y - mu_x). Only \code{sd_x} and \code{sd_y} \strong{OR}
-\code{ci_margin} and \code{ci_level} should be defined (see Details).}
+control groups (i.e., mu_y - mu_x). Only \code{sd_x} and \code{sd_y}
+\strong{OR} \code{ci_margin} and \code{ci_level} should be defined (see
+Details).}
 
 \item{ci_level}{A numeric vector of length one, specifying the confidence
 level of \code{ci_margin}. The value must be between 0 and 1 (e.g., 0.95
@@ -49,12 +50,16 @@ for a 95% confidence interval). Only \code{sd_x} and \code{sd_y}
 Details).}
 
 \item{interval}{A numeric vector of length one or two, specifying the
-boundaries of the equivalence interval in standardized units. If a
-numeric vector of length one is specified, a symmetric equivalence interval
-will be used (e.g., a 0.1 is equivalent to c(-0.1, 0.1)). A numeric vector
-of length two provides the possibility to specify an asymmetric equivalence
-interval (e.g., c(-0.1, 0.2)). The default is 0, indicating a point null
-hypothesis rather than an interval (see Details).}
+boundaries of the equivalence interval. If a numeric vector of length one
+is specified, a symmetric equivalence interval will be used (e.g., a 0.1 is
+equivalent to c(-0.1, 0.1)). A numeric vector of length two provides the
+possibility to specify an asymmetric equivalence interval (e.g., c(-0.1,
+0.2)). The default is 0, indicating a point null hypothesis rather than an
+interval (see Details).}
+
+\item{interval_std}{A logical vector of length one, specifying whether the
+equivalence interval (i.e., \code{interval}) is given in standardised
+(TRUE; the default) or unstandardised (FALSE) units.}
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
 the Cauchy prior distribution for the effect size under the alternative
@@ -65,17 +70,21 @@ An S4 object of class 'baymedrEquivalence' is returned. Contained are
   a description of the model and the resulting Bayes factor: \itemize{ \item
   test: The type of analysis \item hypotheses: A statement of the hypotheses
   \itemize{ \item h0: The null hypothesis \item h1: The alternative
-  hypothesis} \item interval: Specification of the equivalence interval
-  \itemize{ \item lower: The lower boundary of the equivalence interval \item
-  upper: The upper boundary of the equivalence interval} \item data: A
-  description of the data \itemize{ \item type: The type of data ('raw' when
-  arguments \code{x} and \code{y} are used or 'summary' when arguments
-  \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y}, \code{sd_x}, and
-  \code{sd_y} (or \code{ci_margin} and \code{ci_level} instead of
-  \code{sd_x} and \code{sd_y}) are used) \item ...: values for the arguments
-  used, depending on 'raw' or summary'} \item prior_scale: The width of the
-  Cauchy prior distribution \item bf: The resulting Bayes factor } A summary
-  of the model is shown by printing the object.
+  hypothesis} \item interval: Specification of the equivalence interval in
+  standardised and unstandardised units \itemize{ \item lower_std: The
+  standardised lower boundary of the equivalence interval \item upper_std:
+  The standardised upper boundary of the equivalence interval \item
+  lower_unstd: The unstandardised lower boundary of the equivalence interval
+  \item upper_unstd: The unstandardised upper boundary of the equivalence
+  interval} \item data: A description of the data \itemize{ \item type: The
+  type of data ('raw' when arguments \code{x} and \code{y} are used or
+  'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
+  \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and
+  \code{ci_level} instead of \code{sd_x} and \code{sd_y}) are used) \item
+  ...: values for the arguments used, depending on 'raw' or summary'} \item
+  prior_scale: The width of the Cauchy prior distribution \item bf: The
+  resulting Bayes factor } A summary of the model is shown by printing the
+  object.
 }
 \description{
 This function computes a Bayes factor for equivalence designs.
@@ -86,9 +95,6 @@ hypothesis that the experimental group (e.g., a new medication) and the
 control group (e.g., a placebo or an already existing medication) are
 equivalent. The alternative hypothesis is that the two groups are not
 equivalent.
-
-Note that at the moment Bayes factors can only be calculated for
-independent-groups designs.
 
 Since the main goal of \code{\link{equiv_bf}} is to establish equivalence,
 the resulting Bayes factor quantifies evidence in favour of the null
@@ -109,7 +115,10 @@ argument \code{interval} can be set in two ways: If a \emph{symmetric}
 interval is desired, the user can either specify a numeric vector of length
 one (e.g., 0.1, which is converted to c(-0.1, 0.1)) or a numeric vector of
 length two (e.g., c(-0.1, 0.1)); if an \emph{asymmetric} interval is desired,
-the user can specify a numeric vector of length two (e.g., c(-0.1, 0.2)).
+the user can specify a numeric vector of length two (e.g., c(-0.1, 0.2)). It
+can be specified whether the equivalence interval (i.e., \code{interval}) is
+given in standardised or unstandardised units with the \code{interval_std}
+argument, where TRUE, corresponding to standardised units, is the default.
 
 Importantly, \code{\link{equiv_bf}} can be utilized to calculate a Bayes
 factor based on raw data (i.e., if arguments \code{x} and \code{y} are

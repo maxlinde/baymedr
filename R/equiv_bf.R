@@ -8,9 +8,6 @@
 #' equivalent. The alternative hypothesis is that the two groups are not
 #' equivalent.
 #'
-#' Note that at the moment Bayes factors can only be calculated for
-#' independent-groups designs.
-#'
 #' Since the main goal of \code{\link{equiv_bf}} is to establish equivalence,
 #' the resulting Bayes factor quantifies evidence in favour of the null
 #' hypothesis (i.e., \eqn{BF01}). However, evidence for the alternative
@@ -30,7 +27,10 @@
 #' interval is desired, the user can either specify a numeric vector of length
 #' one (e.g., 0.1, which is converted to c(-0.1, 0.1)) or a numeric vector of
 #' length two (e.g., c(-0.1, 0.1)); if an \emph{asymmetric} interval is desired,
-#' the user can specify a numeric vector of length two (e.g., c(-0.1, 0.2)).
+#' the user can specify a numeric vector of length two (e.g., c(-0.1, 0.2)). It
+#' can be specified whether the equivalence interval (i.e., \code{interval}) is
+#' given in standardised or unstandardised units with the \code{interval_std}
+#' argument, where TRUE, corresponding to standardised units, is the default.
 #'
 #' Importantly, \code{\link{equiv_bf}} can be utilized to calculate a Bayes
 #' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
@@ -65,29 +65,36 @@
 #' S4 object as an argument (see Examples).
 #'
 #' @param interval A numeric vector of length one or two, specifying the
-#'   boundaries of the equivalence interval in standardized units. If a
-#'   numeric vector of length one is specified, a symmetric equivalence interval
-#'   will be used (e.g., a 0.1 is equivalent to c(-0.1, 0.1)). A numeric vector
-#'   of length two provides the possibility to specify an asymmetric equivalence
-#'   interval (e.g., c(-0.1, 0.2)). The default is 0, indicating a point null
-#'   hypothesis rather than an interval (see Details).
+#'   boundaries of the equivalence interval. If a numeric vector of length one
+#'   is specified, a symmetric equivalence interval will be used (e.g., a 0.1 is
+#'   equivalent to c(-0.1, 0.1)). A numeric vector of length two provides the
+#'   possibility to specify an asymmetric equivalence interval (e.g., c(-0.1,
+#'   0.2)). The default is 0, indicating a point null hypothesis rather than an
+#'   interval (see Details).
+#' @param interval_std A logical vector of length one, specifying whether the
+#'   equivalence interval (i.e., \code{interval}) is given in standardised
+#'   (TRUE; the default) or unstandardised (FALSE) units.
 #' @inheritParams super_bf
 #'
 #' @return An S4 object of class 'baymedrEquivalence' is returned. Contained are
 #'   a description of the model and the resulting Bayes factor: \itemize{ \item
 #'   test: The type of analysis \item hypotheses: A statement of the hypotheses
 #'   \itemize{ \item h0: The null hypothesis \item h1: The alternative
-#'   hypothesis} \item interval: Specification of the equivalence interval
-#'   \itemize{ \item lower: The lower boundary of the equivalence interval \item
-#'   upper: The upper boundary of the equivalence interval} \item data: A
-#'   description of the data \itemize{ \item type: The type of data ('raw' when
-#'   arguments \code{x} and \code{y} are used or 'summary' when arguments
-#'   \code{n_x}, \code{n_y}, \code{mean_x}, \code{mean_y}, \code{sd_x}, and
-#'   \code{sd_y} (or \code{ci_margin} and \code{ci_level} instead of
-#'   \code{sd_x} and \code{sd_y}) are used) \item ...: values for the arguments
-#'   used, depending on 'raw' or summary'} \item prior_scale: The width of the
-#'   Cauchy prior distribution \item bf: The resulting Bayes factor } A summary
-#'   of the model is shown by printing the object.
+#'   hypothesis} \item interval: Specification of the equivalence interval in
+#'   standardised and unstandardised units \itemize{ \item lower_std: The
+#'   standardised lower boundary of the equivalence interval \item upper_std:
+#'   The standardised upper boundary of the equivalence interval \item
+#'   lower_unstd: The unstandardised lower boundary of the equivalence interval
+#'   \item upper_unstd: The unstandardised upper boundary of the equivalence
+#'   interval} \item data: A description of the data \itemize{ \item type: The
+#'   type of data ('raw' when arguments \code{x} and \code{y} are used or
+#'   'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
+#'   \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and
+#'   \code{ci_level} instead of \code{sd_x} and \code{sd_y}) are used) \item
+#'   ...: values for the arguments used, depending on 'raw' or summary'} \item
+#'   prior_scale: The width of the Cauchy prior distribution \item bf: The
+#'   resulting Bayes factor } A summary of the model is shown by printing the
+#'   object.
 #'
 #' @export
 #' @import rlang stats stringr
@@ -162,6 +169,7 @@ equiv_bf <- function(x = NULL,
                      ci_margin = NULL,
                      ci_level = NULL,
                      interval = 0,
+                     interval_std = TRUE,
                      prior_scale = 1 / sqrt(2)) {
   if (any(!is.null(x),
           !is.null(y)) && any(!is.null(n_x),
@@ -252,6 +260,9 @@ equiv_bf <- function(x = NULL,
   if (!is.numeric(interval) || length(interval) > 2) {
     abort("'interval' must be a numeric vector of length one or two.")
   }
+  if (!is.logical(interval_std) || length(interval_std) > 1) {
+    abort("'interval_std' must be a single logical value.")
+  }
   if (!is.null(sd_x) && !is.null(sd_y)) {
     sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
                         (n_x + n_y - 2))
@@ -260,12 +271,21 @@ equiv_bf <- function(x = NULL,
     perc <- 1 - ((1 - ci_level) / 2)
     se <- ci_margin / qt(p = perc,
                          df = n_x + n_y - 2)
+    sd_pooled <- se / sqrt(1 / n_x + 1 / n_y)
   }
   t_stat <- (mean_y - mean_x) / se
-  if (length(interval) == 1) {
-    interval <- c(-interval, interval)
+  if (isFALSE(interval_std)) {
+    inter_std <- interval / sd_pooled
+    inter_unstd <- interval
+  } else {
+    inter_std <- interval
+    inter_unstd <- interval * sd_pooled
   }
-  if (identical(interval, c(0, 0))) {
+  if (length(inter_std) == 1) {
+    inter_std <- c(-inter_std, inter_std)
+    inter_unstd <- c(-inter_unstd, inter_unstd)
+  }
+  if (identical(inter_std, c(0, 0))) {
     res <- bf10_t(t = t_stat,
                   n1 = n_x,
                   n2 = n_y,
@@ -277,7 +297,7 @@ equiv_bf <- function(x = NULL,
     h0 <- "mu_y == mu_x"
     h1 <- "mu_y != mu_x"
   } else {
-    cdf_t_upper <- cdf_t(x = interval[[2]],
+    cdf_t_upper <- cdf_t(x = inter_std[[2]],
                          t = t_stat,
                          n1 = n_x,
                          n2 = n_y,
@@ -285,7 +305,7 @@ equiv_bf <- function(x = NULL,
                          prior_loc = 0,
                          prior_scale = prior_scale,
                          prior_df = 1)
-    cdf_t_lower <- cdf_t(x = interval[[1]],
+    cdf_t_lower <- cdf_t(x = inter_std[[1]],
                          t = t_stat,
                          n1 = n_x,
                          n2 = n_y,
@@ -301,8 +321,8 @@ equiv_bf <- function(x = NULL,
         "than 0. The posterior density has been replaced by 0."
       ))
     }
-    prior_dens <- pcauchy(q = interval[[2]],
-                          scale = prior_scale) - pcauchy(q = interval[[1]],
+    prior_dens <- pcauchy(q = inter_std[[2]],
+                          scale = prior_scale) - pcauchy(q = inter_std[[1]],
                                                          scale = prior_scale)
     bf <- (post_dens / prior_dens) /
       ((1 - post_dens) / (1 - prior_dens))
@@ -312,8 +332,10 @@ equiv_bf <- function(x = NULL,
   test <- "Equivalence analysis"
   hypotheses <- list(h0 = h0,
                      h1 = h1)
-  interval <- list(lower = interval[[1]],
-                   upper = interval[[2]])
+  interval <- list(lower_std = inter_std[[1]],
+                   upper_std = inter_std[[2]],
+                   lower_unstd = inter_unstd[[1]],
+                   upper_unstd = inter_unstd[[2]])
   baymedrEquivalence(test = test,
                      hypotheses = hypotheses,
                      interval = interval,
