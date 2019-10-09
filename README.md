@@ -34,7 +34,7 @@ et al., 2019). Fortunately, these ambiguities are fully resolved within
 the Bayesian framework. For a more thorough discussion of Bayesian
 advantages, see, for example, Wagenmakers et al. (2018).
 
-## Installation
+## Installation and loading
 
 You can install the latest development version of `baymedr` from
 [GitHub](https://github.com/), using the `devtools` package, with:
@@ -42,6 +42,12 @@ You can install the latest development version of `baymedr` from
 ``` r
 # install.packages("devtools")
 devtools::install_github("maxlinde/baymedr")
+```
+
+Subsequently, you can load `baymedr`, so that it is ready to use:
+
+``` r
+library(baymedr)
 ```
 
 ## General usage
@@ -144,10 +150,6 @@ one-sided test.
 We can use the raw data to compute a Bayes factor:
 
 ``` r
-library(baymedr)
-```
-
-``` r
 mod_super_raw <- super_bf(
   x = data$dv[data$condition == "con"],
   y = data$dv[data$condition == "exp"]
@@ -172,10 +174,6 @@ get_bf(object = mod_super_raw)
 Alternatively, if the raw data are not available, we can use summary
 statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019).
 The data were obtained from Skjerven et al. (2013):
-
-``` r
-library(baymedr)
-```
 
 ``` r
 mod_super_sum <- super_bf(
@@ -219,10 +217,6 @@ default in `equiv_bf()` (i.e., `interval` = 0).
 We can use the raw data to compute a Bayes factor:
 
 ``` r
-library(baymedr)
-```
-
-``` r
 mod_equiv_raw <- equiv_bf(
   x = data$dv[data$condition == "con"],
   y = data$dv[data$condition == "exp"],
@@ -250,10 +244,6 @@ get_bf(object = mod_equiv_raw)
 Alternatively, if the raw data are not available, we can use summary
 statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019).
 The data were obtained from Steiner et al. (2015):
-
-``` r
-library(baymedr)
-```
 
 ``` r
 mod_equiv_sum <- equiv_bf(
@@ -298,10 +288,6 @@ standardised (TRUE; the default) or unstandardised (FALSE) units.
 We can use the raw data to compute a Bayes factor:
 
 ``` r
-library(baymedr)
-```
-
-``` r
 mod_infer_raw <- infer_bf(
   x = data$dv[data$condition == "con"],
   y = data$dv[data$condition == "exp"],
@@ -330,10 +316,6 @@ get_bf(object = mod_infer_raw)
 Alternatively, if the raw data are not available, we can use summary
 statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019).
 The data were obtained from Andersson et al. (2013):
-
-``` r
-library(baymedr)
-```
 
 ``` r
 mod_infer_sum <- infer_bf(
