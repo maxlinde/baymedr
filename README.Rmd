@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 ```
 # baymedr: BAYesian inference for MEDical designs in R
 
-`baymedr` is an R package with the goal of providing researchers with tools for the computation of Bayes factors for common biomedical research designs (see van Ravenzwaaij et al., 2019). Implemented are functions to test the equivalence (`equiv_bf()`), non-inferiority (`infer_bf()`), and superiority (`super_bf()`) of an experimental group (e.g., a new medication) compared to a control group (e.g., a placebo or an already existing medication). A special focus of `baymedr` lies on a user-friendly interface, so that a wide variety or researchers (i.e., not only statisticians) can utilise `baymedr` for their analyses.
+`baymedr` is an R package with the goal of providing researchers with easy-to-use tools for the computation of Bayes factors for common biomedical research designs (see van Ravenzwaaij et al., 2019). Implemented are functions to test the equivalence (`equiv_bf()`), non-inferiority (`infer_bf()`), and superiority (`super_bf()`) of an experimental group (e.g., a new medication) compared to a control group (e.g., a placebo or an already existing medication). A special focus of `baymedr` lies on a user-friendly interface, so that a wide variety or researchers (i.e., not only statisticians) can utilise `baymedr` for their analyses.
 
 The Bayesian approach to inference has several advantages over the conventional frequentist approach. To mention only a few, with Bayesian inference it is legitimate to monitor results during data collection and decide to stop or continue data collection based on the inspection of interim analyses. This is considered a bad practice within the frequentist framework because it would result in an inflated Type I error rate (e.g., Schönbrodt et al., 2017). Furthermore, null hypothesis significance tests and the corresponding *p*-values do not allow for the quantification of evidence for the null hypothesis (e.g., Wagenmakers et al., 2018). The Bayesian framework remedies this shortcoming, which is particularly important for the equivalence design (van Ravenzwaaij et al., 2019). Lastly, in some situations the frequentist approaches to equivalence and non-inferiority tests bear certain interpretational ambiguities. For instance, when the confidence interval of the difference between the two group means fully lies between the non-inferiority margin and 0, this means that the experimental group is non-inferior with regard to the non-inferiority margin but inferior with regard to 0. The same applies to the equivalence design (van Ravenzwaaij et al., 2019). Fortunately, these ambiguities are fully resolved within the Bayesian framework. For a more thorough discussion of Bayesian advantages, see, for example, Wagenmakers et al. (2018). 
 
@@ -35,11 +35,11 @@ The Bayes factors resulting from `super_bf()` and `infer_bf()` quantify evidence
 
 ## The Cauchy prior distribution
 
-Bayesian inference requires the specification of a prior distribution, which mirrors prior beliefs about the likelihood of parameter values. For the equivalence, non-inferiority, and superiority tests, the parameter of interest is the effect size between the experimental and control conditions (see Rouder et al., 2009). If relevant information is available, this knowledge could be expressed in an idiosyncratic prior distribution. Most of the time, however, relevant information is missing. In that case, it is reasonable to define a prior distribution that is as objective as possible. It has been argued that the Cauchy probability density function represents such a function (see, e.g., Rouder et al., 2009). The standard Cauchy distribution resembles a standard Normal distribution, except that the Cauchy distribution has less mass at the centre but instead heavier tails. The centre of the distribution is determined by the location parameter, while the width is specified by the scale parameter. By varying the scale of the Cauchy prior, the user can change the range of reasonable effect sizes. This is accomplished with the argument `prior_scale`.
+Bayesian inference requires the specification of a prior distribution, which mirrors prior beliefs about the likelihood of parameter values. For the equivalence, non-inferiority, and superiority tests, the parameter of interest is the effect size between the experimental and control conditions (see, e.g., Rouder et al., 2009; van Ravenzwaaij et al., 2019). If relevant information is available, this knowledge could be expressed in an idiosyncratic prior distribution. Most of the time, however, relevant information is missing. In that case, it is reasonable to define a prior distribution that is as objective as possible. It has been argued that the Cauchy probability density function represents such a function (see, e.g., Rouder et al., 2009). The standard Cauchy distribution resembles a standard Normal distribution, except that the Cauchy distribution has less mass at the centre but instead heavier tails. The centre of the distribution is determined by the location parameter, while the width is specified by the scale parameter. By varying the scale of the Cauchy prior, the user can change the range of reasonable effect sizes. This is accomplished with the argument `prior_scale`.
 
 ## Random example data
 
-In order to demonstrate the three functions from `baymedr`, we create an example dataset (data). There is a control group "con" and an experimental group "exp" (condition). Further, random numbers, sampled from the normal distribution, within each group are created, serving as the dependent variable of interest (dv):
+In order to demonstrate the three functions within `baymedr`, we create an example dataset (data). There is a control group "con" and an experimental group "exp" (condition). Further, random numbers, sampled from the Normal distribution, within each group are created, serving as the dependent variable of interest (dv):
 
 ``` {r}
 set.seed(123456789)
@@ -79,7 +79,7 @@ mod_super_raw
 get_bf(object = mod_super_raw)
 ```
 
-Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019). The data was obtained from Skjerven et al. (2013):
+Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019). The data were obtained from Skjerven et al. (2013):
 
 ``` {r, message = FALSE}
 library(baymedr)
@@ -104,7 +104,7 @@ get_bf(object = mod_super_sum)
 
 ## The equivalence test (`equiv_bf()`)
 
-With `equiv_bf()` we can test whether the experimental group and the control group are equivalent. With the argument `interval`, an equivalence interval can be specified. However, in contrast to the frequentist equivalence test, `equiv_bf()` can also incorporate a point null hypothesis, which constitutes the default in `equiv_bf()` (i.e., `interval` = 0).
+With `equiv_bf()` we can test whether the experimental group and the control group are equivalent. With the argument `interval`, an equivalence interval can be specified. The argument `interval_std` can be used to specify whether the equivalence interval is given in standardised (TRUE; the default) or unstandardised (FALSE) units. However, in contrast to the frequentist equivalence test, `equiv_bf()` can also incorporate a point null hypothesis, which constitutes the default in `equiv_bf()` (i.e., `interval` = 0).
 
 We can use the raw data to compute a Bayes factor:
 
@@ -115,7 +115,8 @@ library(baymedr)
 ``` {r}
 mod_equiv_raw <- equiv_bf(
   x = data$dv[data$condition == "con"],
-  y = data$dv[data$condition == "exp"]
+  y = data$dv[data$condition == "exp"],
+  interval = 0.1,
 )
 
 mod_equiv_raw
@@ -123,7 +124,7 @@ mod_equiv_raw
 get_bf(object = mod_equiv_raw)
 ```
 
-Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019). The data was obtained from Steiner et al. (2015):
+Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019). The data were obtained from Steiner et al. (2015):
 
 ``` {r, message = FALSE}
 library(baymedr)
@@ -146,7 +147,7 @@ get_bf(object = mod_equiv_sum)
 
 ## The non-inferiority test (`infer_bf()`)
 
-With `infer_bf()` we can test whether the experimental group is worse by a certain amount - which is given by the non-inferiority margin - than the the control group. Importantly, sometimes low and sometimes high values on the measure of interest represent non-inferiority, which can be specified with the argument `direction`. The default is that high values represent non-inferiority. The non-inferiority margin can be specified with the argument `ni_margin`.
+With `infer_bf()` we can test whether the experimental group is worse by a certain amount - which is given by the non-inferiority margin - than the the control group. Importantly, sometimes low and sometimes high values on the measure of interest represent non-inferiority, which can be specified with the argument `direction`. The default is that high values represent non-inferiority. The non-inferiority margin can be specified with the argument `ni_margin`. The argument `ni_margin_std` can be used to specify whether the non-inferiority margin is given in standardised (TRUE; the default) or unstandardised (FALSE) units.
 
 We can use the raw data to compute a Bayes factor:
 
@@ -158,7 +159,8 @@ library(baymedr)
 mod_infer_raw <- infer_bf(
   x = data$dv[data$condition == "con"],
   y = data$dv[data$condition == "exp"],
-  ni_margin = 1.5
+  ni_margin = 1.5,
+  ni_margin_std = FALSE
 )
 
 mod_infer_raw
@@ -166,7 +168,7 @@ mod_infer_raw
 get_bf(object = mod_infer_raw)
 ```
 
-Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019). The data was obtained from Andersson et al. (2013):
+Alternatively, if the raw data are not available, we can use summary statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019). The data were obtained from Andersson et al. (2013):
 
 ``` {r, message = FALSE}
 library(baymedr)
@@ -188,10 +190,6 @@ mod_infer_sum
 
 get_bf(object = mod_infer_sum)
 ```
-
-## Note
-
-At the present stage in the development of `baymedr`, it is only possible to conduct superiority, equivalence, and non-inferiority designs for independent-groups designs. In the future, the option to conduct these tests for dependent-groups designs will be implemented.
 
 ## References
 
