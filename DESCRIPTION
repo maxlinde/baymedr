@@ -21,8 +21,9 @@ Description: BAYesian inference for MEDical designs in R. Convenience functions
     non-inferiority (infer_bf), and superiority (super_bf) of an experimental 
     group compared to a control group. Bayes factors for these three tests can
     be computed based on raw data (x, y) or summary statistics (n_x, n_y,
-    mean_x, mean_y, sd_x, sd_y [or ci_margin]), making it possible to reanalyse
-    findings (e.g., from publications) without the need to obtain the raw data.
+    mean_x, mean_y, sd_x, sd_y [or ci_margin and ci_level]), making it possible 
+    to reanalyse findings (e.g., from publications) without the need to obtain 
+    the raw data.
 Depends:
     R (>= 3.2.0)
 Imports: 
