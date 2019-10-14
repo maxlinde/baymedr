@@ -130,19 +130,19 @@
 #' @import rlang stats stringr
 #'
 #' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
-#'   bayesian t-tests. \emph{The American Statistician}.
+#' Bayesian t-tests. \emph{The American Statistician}.
 #'
-#'   Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
-#'   Mixtures of g priors for bayesian variable selection. \emph{Journal of the
-#'   American Statistical Association}, \emph{103}(481), 410-423.
+#' Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
+#' Mixtures of g priors for Bayesian variable selection. \emph{Journal of the
+#' American Statistical Association}, \emph{103}(481), 410-423.
 #'
-#'   Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
-#'   (2009). Bayesian t tests for accepting and rejecting the null hypothesis.
-#'   \emph{Psychonomic Bulletin & Review}, \emph{16}(2), 225-237.
+#' Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G. (2009).
+#' Bayesian t tests for accepting and rejecting the null hypothesis.
+#' \emph{Psychonomic Bulletin & Review}, \emph{16}(2), 225-237.
 #'
-#'   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
-#'   (2019). Bayes factors for superiority, non-inferiority, and equivalence
-#'   designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
+#' van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
+#' (2019). Bayes factors for superiority, non-inferiority, and equivalence
+#' designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
 #'
 #' @examples
 #' ## super_bf using raw data:

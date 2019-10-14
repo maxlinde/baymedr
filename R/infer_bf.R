@@ -108,10 +108,10 @@
 #' @import rlang stats stringr
 #'
 #' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
-#'   bayesian t-tests. \emph{The American Statistician}.
+#'   Bayesian t-tests. \emph{The American Statistician}.
 #'
 #'   Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
-#'   Mixtures of g priors for bayesian variable selection. \emph{Journal of the
+#'   Mixtures of g priors for Bayesian variable selection. \emph{Journal of the
 #'   American Statistical Association}, \emph{103}(481), 410-423.
 #'
 #'   Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
