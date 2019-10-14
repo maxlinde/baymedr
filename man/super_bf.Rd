@@ -65,13 +65,13 @@ corresponds to a one-sided test and 'two.sided' corresponds to a two-sided
 test (see Details).}
 }
 \value{
-An S4 object of class 'baymedrSuperiority' is returned. Contained are
-  a description of the model and the resulting Bayes factor: \itemize{ \item
-  test: The type of analysis \item hypotheses: A statement of the hypotheses
-  \itemize{ \item h0: The null hypothesis \item h1: The alternative
-  hypothesis} \item data: A description of the data \itemize{ \item type: The
-  type of data ('raw' when arguments \code{x} and \code{y} are used or
-  'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
+An S4 object of class \linkS4class{baymedrSuperiority} is returned.
+  Contained are a description of the model and the resulting Bayes factor:
+  \itemize{ \item test: The type of analysis \item hypotheses: A statement of
+  the hypotheses \itemize{ \item h0: The null hypothesis \item h1: The
+  alternative hypothesis} \item data: A description of the data \itemize{
+  \item type: The type of data ('raw' when arguments \code{x} and \code{y}
+  are used or 'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
   \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and
   \code{ci_level} instead of \code{sd_x} and \code{sd_y}) are used) \item
   ...: values for the arguments used, depending on 'raw' or 'summary'} \item
@@ -145,11 +145,11 @@ adjusting the Cauchy prior scale with \code{prior_scale}, we can emphasise
 different ranges of effect sizes that might be expected. The default prior
 scale is set to \eqn{1 / \sqrt{2}}.
 
-\code{\link{super_bf}} creates an S4 object of class 'baymedrSuperiority',
-which has multiple slots/entries (e.g., type of data, prior scale, Bayes
-factor, etc.; see Value). If it is desired to store or extract solely the
-Bayes factor, the user can do this with \code{\link{get_bf}}, by setting the
-S4 object as an argument (see Examples).
+\code{\link{super_bf}} creates an S4 object of class
+\linkS4class{baymedrSuperiority}, which has multiple slots/entries (e.g.,
+type of data, prior scale, Bayes factor, etc.; see Value). If it is desired
+to store or extract solely the Bayes factor, the user can do this with
+\code{\link{get_bf}}, by setting the S4 object as an argument (see Examples).
 }
 \examples{
 ## super_bf using raw data:
@@ -239,17 +239,17 @@ get_bf(super_sum_two_ex2)
 }
 \references{
 Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed
-Bayesian t-tests. \emph{The American Statistician}.
+  Bayesian t-tests. \emph{The American Statistician}.
 
-Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
-Mixtures of g priors for Bayesian variable selection. \emph{Journal of the
-American Statistical Association}, \emph{103}(481), 410-423.
+  Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
+  Mixtures of g priors for Bayesian variable selection. \emph{Journal of the
+  American Statistical Association}, \emph{103}(481), 410-423.
 
-Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G. (2009).
-Bayesian t tests for accepting and rejecting the null hypothesis.
-\emph{Psychonomic Bulletin & Review}, \emph{16}(2), 225-237.
+  Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
+  (2009). Bayesian t tests for accepting and rejecting the null hypothesis.
+  \emph{Psychonomic Bulletin & Review}, \emph{16}(2), 225-237.
 
-van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
-(2019). Bayes factors for superiority, non-inferiority, and equivalence
-designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
+  van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
+  (2019). Bayes factors for superiority, non-inferiority, and equivalence
+  designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
 }

@@ -69,11 +69,11 @@
 #' different ranges of effect sizes that might be expected. The default prior
 #' scale is set to \eqn{1 / \sqrt{2}}.
 #'
-#' \code{\link{infer_bf}} creates an S4 object of class 'baymedrNonInferiority',
-#' which has multiple slots/entries (e.g., type of data, prior scale, Bayes
-#' factor, etc.; see Value). If it is desired to store or extract solely the
-#' Bayes factor, the user can do this with \code{\link{get_bf}}, by setting the
-#' S4 object as an argument (see Examples).
+#' \code{\link{infer_bf}} creates an S4 object of class
+#' \linkS4class{baymedrNonInferiority}, which has multiple slots/entries (e.g.,
+#' type of data, prior scale, Bayes factor, etc.; see Value). If it is desired
+#' to store or extract solely the Bayes factor, the user can do this with
+#' \code{\link{get_bf}}, by setting the S4 object as an argument (see Examples).
 #'
 #' @param ni_margin A numeric vector of length one, specifying the
 #'   non-inferiority margin. The value should be a positive number.
@@ -87,11 +87,11 @@
 #'   non-inferior outcome (see Details).
 #' @inheritParams super_bf
 #'
-#' @return An S4 object of class 'baymedrNonInferiorty' is returned. Contained
-#'   are a description of the model and the resulting Bayes factor: \itemize{
-#'   \item test: The type of analysis \item hypotheses: A statement of the
-#'   hypotheses \itemize{ \item h0: The null hypothesis \item h1: The
-#'   alternative hypothesis} \item ni_margin: The value for ni_margin in
+#' @return An S4 object of class \linkS4class{baymedrNonInferiority} is
+#'   returned. Contained are a description of the model and the resulting Bayes
+#'   factor: \itemize{ \item test: The type of analysis \item hypotheses: A
+#'   statement of the hypotheses \itemize{ \item h0: The null hypothesis \item
+#'   h1: The alternative hypothesis} \item ni_margin: The value for ni_margin in
 #'   standardised and unstandardised units \itemize{ \item ni_mar_std: The
 #'   standardised non-inferiority margin \item ni_mar_unstd: The unstandardised
 #'   non-inferiority margin} \item data: A description of the data \itemize{

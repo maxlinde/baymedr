@@ -7,16 +7,17 @@
 get_bf(object)
 }
 \arguments{
-\item{object}{An S4 object of class 'baymedrSuperiority',
-'baymedrEquivalence', or 'baymedrNonInferiority'.}
+\item{object}{An S4 object of class \linkS4class{baymedrSuperiority},
+\linkS4class{baymedrEquivalence}, or \linkS4class{baymedrNonInferiority}.}
 }
 \value{
 A numeric scalar, providing the Bayes factor from an S4 object.
 }
 \description{
-\code{\link{get_bf}} extracts the Bayes factor from S4 objects, created from
-the functions \code{\link{super_bf}}, \code{\link{equiv_bf}}, or
-\code{\link{infer_bf}}.
+\code{\link{get_bf}} extracts the Bayes factor from S4 objects (i.e.,
+\linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence},
+\linkS4class{baymedrNonInferiority}), created from the functions
+\code{\link{super_bf}}, \code{\link{equiv_bf}}, or \code{\link{infer_bf}}.
 }
 \examples{
 # Extract Bayes factor from a baymedrSuperiority object using raw data:

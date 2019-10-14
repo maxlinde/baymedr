@@ -58,11 +58,11 @@
 #' different ranges of effect sizes that might be expected. The default prior
 #' scale is set to \eqn{1 / \sqrt{2}}.
 #'
-#' \code{\link{equiv_bf}} creates an S4 object of class 'baymedrEquivalence',
-#' which has multiple slots/entries (e.g., type of data, prior scale, Bayes
-#' factor, etc.; see Value). If it is desired to store or extract solely the
-#' Bayes factor, the user can do this with \code{\link{get_bf}}, by setting the
-#' S4 object as an argument (see Examples).
+#' \code{\link{equiv_bf}} creates an S4 object of class
+#' \linkS4class{baymedrEquivalence}, which has multiple slots/entries (e.g.,
+#' type of data, prior scale, Bayes factor, etc.; see Value). If it is desired
+#' to store or extract solely the Bayes factor, the user can do this with
+#' \code{\link{get_bf}}, by setting the S4 object as an argument (see Examples).
 #'
 #' @param interval A numeric vector of length one or two, specifying the
 #'   boundaries of the equivalence interval. If a numeric vector of length one
@@ -76,25 +76,25 @@
 #'   (TRUE; the default) or unstandardised (FALSE) units.
 #' @inheritParams super_bf
 #'
-#' @return An S4 object of class 'baymedrEquivalence' is returned. Contained are
-#'   a description of the model and the resulting Bayes factor: \itemize{ \item
-#'   test: The type of analysis \item hypotheses: A statement of the hypotheses
-#'   \itemize{ \item h0: The null hypothesis \item h1: The alternative
-#'   hypothesis} \item interval: Specification of the equivalence interval in
-#'   standardised and unstandardised units \itemize{ \item lower_std: The
-#'   standardised lower boundary of the equivalence interval \item upper_std:
-#'   The standardised upper boundary of the equivalence interval \item
-#'   lower_unstd: The unstandardised lower boundary of the equivalence interval
-#'   \item upper_unstd: The unstandardised upper boundary of the equivalence
-#'   interval} \item data: A description of the data \itemize{ \item type: The
-#'   type of data ('raw' when arguments \code{x} and \code{y} are used or
-#'   'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
-#'   \code{mean_y}, \code{sd_x}, and \code{sd_y} (or \code{ci_margin} and
-#'   \code{ci_level} instead of \code{sd_x} and \code{sd_y}) are used) \item
-#'   ...: values for the arguments used, depending on 'raw' or summary'} \item
-#'   prior_scale: The width of the Cauchy prior distribution \item bf: The
-#'   resulting Bayes factor } A summary of the model is shown by printing the
-#'   object.
+#' @return An S4 object of class \linkS4class{baymedrEquivalence} is returned.
+#'   Contained are a description of the model and the resulting Bayes factor:
+#'   \itemize{ \item test: The type of analysis \item hypotheses: A statement of
+#'   the hypotheses \itemize{ \item h0: The null hypothesis \item h1: The
+#'   alternative hypothesis} \item interval: Specification of the equivalence
+#'   interval in standardised and unstandardised units \itemize{ \item
+#'   lower_std: The standardised lower boundary of the equivalence interval
+#'   \item upper_std: The standardised upper boundary of the equivalence
+#'   interval \item lower_unstd: The unstandardised lower boundary of the
+#'   equivalence interval \item upper_unstd: The unstandardised upper boundary
+#'   of the equivalence interval} \item data: A description of the data
+#'   \itemize{ \item type: The type of data ('raw' when arguments \code{x} and
+#'   \code{y} are used or 'summary' when arguments \code{n_x}, \code{n_y},
+#'   \code{mean_x}, \code{mean_y}, \code{sd_x}, and \code{sd_y} (or
+#'   \code{ci_margin} and \code{ci_level} instead of \code{sd_x} and
+#'   \code{sd_y}) are used) \item ...: values for the arguments used, depending
+#'   on 'raw' or summary'} \item prior_scale: The width of the Cauchy prior
+#'   distribution \item bf: The resulting Bayes factor } A summary of the model
+#'   is shown by printing the object.
 #'
 #' @export
 #' @import rlang stats stringr

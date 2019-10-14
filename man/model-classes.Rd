@@ -8,8 +8,8 @@
 \alias{baymedrNonInferiority-class}
 \title{S4 classes to represent different models}
 \description{
-The S4 classes \code{baymedrSuperiority}, \code{baymedrEquivalence}, and
-\code{baymedrNonInferiority} represent models for the superiority
+The S4 classes \linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence}, and
+\linkS4class{baymedrNonInferiority} represent models for the superiority
 (\code{\link{super_bf}}), equivalence (\code{\link{equiv_bf}}), and
 non-inferiority (\code{\link{infer_bf}}) tests, respectively.
 }
