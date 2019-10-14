@@ -6,7 +6,7 @@
 \alias{baymedrSuperiority-class}
 \alias{baymedrEquivalence-class}
 \alias{baymedrNonInferiority-class}
-\title{S4 classes for representing different models}
+\title{S4 classes to represent different models}
 \description{
 The S4 classes \code{baymedrSuperiority}, \code{baymedrEquivalence}. and
 \code{baymedrNonInferiority} represent models for the superiority
@@ -24,7 +24,7 @@ non-inferiority (\code{\link{infer_bf}}) tests, respectively.
 
 \item{\code{prior_scale}}{The Cauchy prior scale that was used.}
 
-\item{\code{bf}}{The resuling Bayes factor}
+\item{\code{bf}}{The resuling Bayes factor.}
 
 \item{\code{interval}}{The equivalence interval in case of \code{\link{equiv_bf}}.}
 
