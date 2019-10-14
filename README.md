@@ -326,6 +326,7 @@ mod_infer_sum <- infer_bf(
   sd_x = 8,
   sd_y = 9.8,
   ni_margin = 2,
+  ni_margin_std = FALSE,
   direction = "low"
 )
 
@@ -336,15 +337,15 @@ mod_infer_sum
 #> Data:                         summary data
 #> H0 (inferiority):             mu_y - mu_x > ni_margin
 #> H1 (non-inferiority):         mu_y - mu_x < ni_margin
-#> Non-inferiority margin:       2.00 (standardised)
-#>                               17.86 (unstandardised)
+#> Non-inferiority margin:       0.22 (standardised)
+#>                               2.00 (unstandardised)
 #> Cauchy prior scale:           0.707
 #> 
-#>     BF10 (non-inferiority) = 631.69
+#>     BF10 (non-inferiority) = 90.52
 #> ******************************
 
 get_bf(object = mod_infer_sum)
-#> [1] 631.6918
+#> [1] 90.51541
 ```
 
 ## References

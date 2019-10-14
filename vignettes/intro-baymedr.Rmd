@@ -195,6 +195,7 @@ mod_infer_sum <- infer_bf(
   sd_x = 8,
   sd_y = 9.8,
   ni_margin = 2,
+  ni_margin_std = FALSE,
   direction = "low"
 )
 
