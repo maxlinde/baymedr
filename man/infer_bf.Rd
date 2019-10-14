@@ -85,7 +85,7 @@ An S4 object of class 'baymedrNonInferiorty' is returned. Contained
   object.
 }
 \description{
-This function computes a Bayes factor for non-inferiority designs.
+\code{\link{infer_bf}} computes a Bayes factor for non-inferiority designs.
 }
 \details{
 The formulation of the null and alternative hypotheses differ depending on

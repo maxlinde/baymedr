@@ -1,6 +1,6 @@
 #' Bayes factor for non-inferiority designs
 #'
-#' This function computes a Bayes factor for non-inferiority designs.
+#' \code{\link{infer_bf}} computes a Bayes factor for non-inferiority designs.
 #'
 #' The formulation of the null and alternative hypotheses differ depending on
 #' whether high or low scores on the measure of interest represent

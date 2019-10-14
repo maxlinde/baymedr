@@ -87,7 +87,7 @@ An S4 object of class 'baymedrEquivalence' is returned. Contained are
   object.
 }
 \description{
-This function computes a Bayes factor for equivalence designs.
+\code{\link{equiv_bf}} computes a Bayes factor for equivalence designs.
 }
 \details{
 The Bayes factor resulting from \code{\link{equiv_bf}} tests the null

@@ -1,6 +1,6 @@
 #' Bayes factor for equivalence designs
 #'
-#' This function computes a Bayes factor for equivalence designs.
+#' \code{\link{equiv_bf}} computes a Bayes factor for equivalence designs.
 #'
 #' The Bayes factor resulting from \code{\link{equiv_bf}} tests the null
 #' hypothesis that the experimental group (e.g., a new medication) and the

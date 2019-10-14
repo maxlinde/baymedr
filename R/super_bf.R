@@ -1,6 +1,6 @@
 #' Bayes factor for superiority designs
 #'
-#' This function computes a Bayes factor for superiority designs.
+#' \code{\link{super_bf}} computes a Bayes factor for superiority designs.
 #'
 #' The Bayes factor resulting from \code{\link{super_bf}} tests the null
 #' hypothesis that the experimental group (e.g., a new medication) is equal to

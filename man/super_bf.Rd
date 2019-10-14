@@ -80,7 +80,7 @@ An S4 object of class 'baymedrSuperiority' is returned. Contained are
   object.
 }
 \description{
-This function computes a Bayes factor for superiority designs.
+\code{\link{super_bf}} computes a Bayes factor for superiority designs.
 }
 \details{
 The Bayes factor resulting from \code{\link{super_bf}} tests the null
