@@ -1,4 +1,4 @@
-#' S4 classes for representing different models
+#' S4 classes to represent different models
 #'
 #' The S4 classes \code{baymedrSuperiority}, \code{baymedrEquivalence}. and
 #' \code{baymedrNonInferiority} represent models for the superiority
@@ -9,7 +9,7 @@
 #' @slot hypotheses The hypotheses that are tested.
 #' @slot data The type of data that was used.
 #' @slot prior_scale The Cauchy prior scale that was used.
-#' @slot bf The resuling Bayes factor
+#' @slot bf The resuling Bayes factor.
 #' @slot interval The equivalence interval in case of \code{\link{equiv_bf}}.
 #' @slot ni_margin The non-inferiority margin in case of \code{\link{infer_bf}}.
 #'
