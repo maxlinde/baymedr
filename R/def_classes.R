@@ -20,26 +20,55 @@ NULL
 
 #' @rdname model-classes
 setClass(Class = "baymedrSuperiority",
-         slots = c(test = "character",
-                   hypotheses = "list",
-                   data = "list",
-                   prior_scale = "numeric",
-                   bf = "numeric"))
+         slots = c(
+           test = "character",
+           hypotheses = "list",
+           data = "list",
+           prior_scale = "numeric",
+           bf = "numeric"
+         ),
+         prototype = list(
+           test = NA_character_,
+           hypotheses = list(),
+           data = list(),
+           prior_scale = NA_real_,
+           bf = NA_real_
+         ))
 
 #' @rdname model-classes
 setClass(Class = "baymedrEquivalence",
-         slots = c(test = "character",
-                   hypotheses = "list",
-                   interval = "list",
-                   data = "list",
-                   prior_scale = "numeric",
-                   bf = "numeric"))
+         slots = c(
+           test = "character",
+           hypotheses = "list",
+           interval = "list",
+           data = "list",
+           prior_scale = "numeric",
+           bf = "numeric"
+         ),
+         prototype = list(
+           test = NA_character_,
+           hypotheses = list(),
+           interval = list(),
+           data = list(),
+           prior_scale = NA_real_,
+           bf = NA_real_
+         ))
 
 #' @rdname model-classes
 setClass(Class = "baymedrNonInferiority",
-         slots = c(test = "character",
-                   hypotheses = "list",
-                   ni_margin = "list",
-                   data = "list",
-                   prior_scale = "numeric",
-                   bf = "numeric"))
+         slots = c(
+           test = "character",
+           hypotheses = "list",
+           ni_margin = "list",
+           data = "list",
+           prior_scale = "numeric",
+           bf = "numeric"
+         ),
+         prototype = list(
+           test = NA_character_,
+           hypotheses = list(),
+           ni_margin = list(),
+           data = list(),
+           prior_scale = NA_real_,
+           bf = NA_real_
+         ))
