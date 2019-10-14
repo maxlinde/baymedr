@@ -34,7 +34,7 @@ et al., 2019). Fortunately, these ambiguities are fully resolved within
 the Bayesian framework. For a more thorough discussion of Bayesian
 advantages, see, for example, Wagenmakers et al. (2018).
 
-## Installation and loading
+## Installation and attaching
 
 You can install the latest development version of `baymedr` from
 [GitHub](https://github.com/), using the `devtools` package, with:
@@ -44,7 +44,7 @@ You can install the latest development version of `baymedr` from
 devtools::install_github("maxlinde/baymedr")
 ```
 
-Subsequently, you can load `baymedr`, so that it is ready to use:
+Subsequently, you can attach `baymedr`, so that it is ready to use:
 
 ``` r
 library(baymedr)
