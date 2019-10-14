@@ -3,7 +3,8 @@ setMethod(
   f = "show",
   signature = "baymedrSuperiority",
   definition = function(object) {
-    cat("******************************\n",
+    cat("******************************",
+        "\n",
         object@test,
         "\n",
         rep("-",
@@ -34,7 +35,8 @@ setMethod(
                   format = "e")
         },
         "\n",
-        "******************************\n",
+        "******************************",
+        "\n",
         sep = "")
   }
 )
@@ -43,7 +45,8 @@ setMethod(
   f = "show",
   signature = "baymedrEquivalence",
   definition = function(object) {
-    cat("******************************\n",
+    cat("******************************",
+        "\n",
         object@test,
         "\n",
         rep("-",
@@ -94,7 +97,8 @@ setMethod(
                   format = "e")
         },
         "\n",
-        "******************************\n",
+        "******************************",
+        "\n",
         sep = "")
   }
 )
@@ -103,7 +107,8 @@ setMethod(
   f = "show",
   signature = "baymedrNonInferiority",
   definition = function(object) {
-    cat("******************************\n",
+    cat("******************************",
+        "\n",
         object@test,
         "\n",
         rep("-",
@@ -146,7 +151,8 @@ setMethod(
                   format = "e")
         },
         "\n",
-        "******************************\n",
+        "******************************",
+        "\n",
         sep = "")
   }
 )
