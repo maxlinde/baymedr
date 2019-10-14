@@ -12,19 +12,19 @@
 #' @export
 #'
 #' @examples
-#' # Extract Bayes factor from \code{\link{super_bf}} using raw data:
+#' # Extract Bayes factor from a baymedrSuperiority object using raw data:
 #' mod_super <- super_bf(x = rnorm(100, 10, 15),
 #'                       y = rnorm(130, 13, 10))
 #'
 #' get_bf(object = mod_super)
 #'
-#' # Extract Bayes factor from \code{\link{equiv_bf}} using raw data:
+#' # Extract Bayes factor from a baymedrEquivalence object using raw data:
 #' mod_equiv <- equiv_bf(x = rnorm(100, 10, 15),
 #'                       y = rnorm(130, 13, 10))
 #'
 #' get_bf(object = mod_equiv)
 #'
-#' # Extract Bayes factor from \code{\link{infer_bf}} using raw data:
+#' # Extract Bayes factor from a baymedrNonInferiority object using raw data:
 #' mod_infer <- infer_bf(x = rnorm(100, 10, 15),
 #'                       y = rnorm(130, 13, 10),
 #'                       ni_margin = 1)
