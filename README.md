@@ -32,7 +32,7 @@ non-inferior with regard to the non-inferiority margin but inferior with
 regard to 0. The same applies to the equivalence design (van Ravenzwaaij
 et al., 2019). Fortunately, these ambiguities are fully resolved within
 the Bayesian framework. For a more thorough discussion of Bayesian
-advantages, see, for example, Wagenmakers et al. (2018).
+advantages, see, for example, Wagenmakers et al. (2018).
 
 ## Installation and loading
 
@@ -173,7 +173,7 @@ get_bf(object = mod_super_raw)
 
 Alternatively, if the raw data are not available, we can use summary
 statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019).
-The data were obtained from Skjerven et al. (2013):
+The data were obtained from Skjerven et al. (2013):
 
 ``` r
 mod_super_sum <- super_bf(
@@ -243,7 +243,7 @@ get_bf(object = mod_equiv_raw)
 
 Alternatively, if the raw data are not available, we can use summary
 statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019).
-The data were obtained from Steiner et al. (2015):
+The data were obtained from Steiner et al. (2015):
 
 ``` r
 mod_equiv_sum <- equiv_bf(
@@ -310,12 +310,12 @@ mod_infer_raw
 #> ******************************
 
 get_bf(object = mod_infer_raw)
-#> [1] 31818926201
+#> [1] 31814264413
 ```
 
 Alternatively, if the raw data are not available, we can use summary
 statistics to compute a Bayes factor (cf. van Ravenzwaaij et al., 2019).
-The data were obtained from Andersson et al. (2013):
+The data were obtained from Andersson et al. (2013):
 
 ``` r
 mod_infer_sum <- infer_bf(
@@ -349,7 +349,7 @@ get_bf(object = mod_infer_sum)
 
 ## References
 
-Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed bayesian
+Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2019). Informed Bayesian
 t-tests. *The American Statistician*.
 
 Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
@@ -357,7 +357,7 @@ Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
 hypothesis. *Psychonomic Bulletin & Review*, *16*(2), 225-237.
 
 Schönbrodt, F. D., Wagenmaker, E.-J., Zehetleitner, M., & Perugini, M.
-(2017). Sequential hypothesis testing with bayes factors: Efficiently
+(2017). Sequential hypothesis testing with Bayes factors: Efficiently
 testing mean differences. *Psychological Methods*, *22*(2), 322-339.
 
 van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
