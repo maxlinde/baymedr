@@ -6,15 +6,18 @@ Authors@R: c(
     person(given = "Maximilian",
            family = "Linde",
            role = c("aut", "cre"),
-           email = "maximilian.linde.92@gmail.com"),
+           email = "maximilian.linde.92@gmail.com",
+           comment = c(ORCID = "0000-0001-8421-090X")),
     person(given = "Don",
            family = "van Ravenzwaaij",
            role= "aut",
-           email = "d.van.ravenzwaaij@rug.nl"),
+           email = "d.van.ravenzwaaij@rug.nl",
+           comment = c(ORCID = "0000-0002-5030-4091")),
     person(given = "Quentin F.",
            family = "Gronau",
            role = "ctb",
-           email = "q.f.gronau@uva.nl"))
+           email = "q.f.gronau@uva.nl",
+           comment = c(ORCID = "0000-0001-5510-6943")))
 Description: BAYesian inference for MEDical designs in R. Convenience functions 
     for the computation of Bayes factors for common biomedical research 
     designs. Implemented are functions to test the equivalence (equiv_bf), 
