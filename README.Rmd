@@ -153,7 +153,7 @@ get_bf(object = mod_equiv_sum)
 
 ## The non-inferiority test (`infer_bf()`)
 
-With `infer_bf()` we can test whether the experimental group is not worse by a certain amount - which is given by the non-inferiority margin - than the the control group. Importantly, sometimes low and sometimes high values on the measure of interest represent non-inferiority, which can be specified with the argument `direction`. The default is that high values represent non-inferiority. The non-inferiority margin can be specified with the argument `ni_margin`. The argument `ni_margin_std` can be used to specify whether the non-inferiority margin is given in standardised (TRUE; the default) or unstandardised (FALSE) units.
+With `infer_bf()` we can test whether the experimental group is not worse by a certain amount--which is given by the non-inferiority margin--than the control group. Importantly, sometimes low and sometimes high values on the measure of interest represent non-inferiority, which can be specified with the argument `direction`. The default is that high values represent non-inferiority. The non-inferiority margin can be specified with the argument `ni_margin`. The argument `ni_margin_std` can be used to specify whether the non-inferiority margin is given in standardised (TRUE; the default) or unstandardised (FALSE) units.
 
 We can use the raw data to compute a Bayes factor:
 
