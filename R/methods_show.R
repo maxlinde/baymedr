@@ -4,7 +4,12 @@
 #' \linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence}, and
 #' \linkS4class{baymedrNonInferiority}
 #'
+#' @name methods-show
+#'
 #' @import methods
+NULL
+
+#' @rdname methods-show
 setMethod(
   f = "show",
   signature = "baymedrSuperiority",
@@ -47,6 +52,7 @@ setMethod(
   }
 )
 
+#' @rdname methods-show
 setMethod(
   f = "show",
   signature = "baymedrEquivalence",
@@ -109,6 +115,7 @@ setMethod(
   }
 )
 
+#' @rdname methods-show
 setMethod(
   f = "show",
   signature = "baymedrNonInferiority",
