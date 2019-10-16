@@ -64,14 +64,14 @@ refer to the experimental group.
 
 Usage of the functions for equivalence (`equiv_bf()`), non-inferiority
 (`infer_bf()`), and superiority designs (`super_bf()`), results in S4
-objects of classes ‘baymedrEquivalence’, ‘baymedrNonInferiority’, and
-‘baymedrSuperiority’, respectively. Summary information are shown in
-the console by printing the created S4 object. To extract the Bayes
-factor from one of the three S4 objects, use the function `get_bf()`.
+objects of classes `baymedrEquivalence`, `baymedrNonInferiority`, and
+`baymedrSuperiority`, respectively. Summary information are shown in the
+console by printing the created S4 object. To extract the Bayes factor
+from one of the three S4 objects, use the function `get_bf()`.
 
 The Bayes factors resulting from `super_bf()` and `infer_bf()` quantify
 evidence in favour of the alternative hypothesis (i.e., superiority and
-non-inferiority, respectively), which is indicated by BF10. In contrast,
+non-inferiority, respectively), which is indicated by BF01. In contrast,
 the Bayes factor resulting from `equiv_bf()` quantifies evidence in
 favour of the null hypothesis (i.e., equivalence), indicated by BF01. In
 case the evidence for the other hypothesis is desired, the user can take
@@ -141,7 +141,7 @@ With `super_bf()` we can test whether the experimental group is better
 than the control group. Importantly, sometimes low and sometimes high
 values on the measure of interest represent superiority, which can be
 specified with the argument `direction`. The default is that high values
-represent superiority. Moreover, research practices diverge on whether
+represent superiority. Moreover, research practices diverge on whether a
 one-tailed test should be conducted or a two-tailed test with subsequent
 confirmation that the results follow the expected direction. This can be
 specified with the argument `alternative`, for which the default is a
@@ -205,14 +205,14 @@ get_bf(object = mod_super_sum)
 
 ## The equivalence test (`equiv_bf()`)
 
-With `equiv_bf()` we can test whether the experimental group and the
-control group are equivalent. With the argument `interval`, an
-equivalence interval can be specified. The argument `interval_std` can
-be used to specify whether the equivalence interval is given in
-standardised (TRUE; the default) or unstandardised (FALSE) units.
-However, in contrast to the frequentist equivalence test, `equiv_bf()`
-can also incorporate a point null hypothesis, which constitutes the
-default in `equiv_bf()` (i.e., `interval` = 0).
+With `equiv_bf()` we can test whether the experimental and the control
+groups are equivalent. With the argument `interval`, an equivalence
+interval can be specified. The argument `interval_std` can be used to
+specify whether the equivalence interval is given in standardised (TRUE;
+the default) or unstandardised (FALSE) units. However, in contrast to
+the frequentist equivalence test, `equiv_bf()` can also incorporate a
+point null hypothesis, which constitutes the default in `equiv_bf()`
+(i.e., `interval` = 0).
 
 We can use the raw data to compute a Bayes factor:
 
@@ -275,11 +275,11 @@ get_bf(object = mod_equiv_sum)
 
 ## The non-inferiority test (`infer_bf()`)
 
-With `infer_bf()` we can test whether the experimental group is worse by
-a certain amount - which is given by the non-inferiority margin - than
-the the control group. Importantly, sometimes low and sometimes high
-values on the measure of interest represent non-inferiority, which can
-be specified with the argument `direction`. The default is that high
+With `infer_bf()` we can test whether the experimental group is not
+worse by a certain amount - which is given by the non-inferiority margin
+- than the the control group. Importantly, sometimes low and sometimes
+high values on the measure of interest represent non-inferiority, which
+can be specified with the argument `direction`. The default is that high
 values represent non-inferiority. The non-inferiority margin can be
 specified with the argument `ni_margin`. The argument `ni_margin_std`
 can be used to specify whether the non-inferiority margin is given in
