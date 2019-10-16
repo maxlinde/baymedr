@@ -90,13 +90,13 @@
 #'   defined (see Details).
 #' @param ci_margin A numeric vector of length one, specifying the margin of the
 #'   confidence interval (i.e., the width of the confidence interval divided by
-#'   2) of the difference on the dependent variable between the experimental and
-#'   control groups (i.e., mu_y - mu_x). Only \code{sd_x} and \code{sd_y}
+#'   2) of the mean difference on the dependent variable between the
+#'   experimental and control groups. Only \code{sd_x} and \code{sd_y}
 #'   \strong{OR} \code{ci_margin} and \code{ci_level} should be defined (see
 #'   Details).
 #' @param ci_level A numeric vector of length one, specifying the confidence
 #'   level of \code{ci_margin}. The value must be between 0 and 1 (e.g., 0.95
-#'   for a 95% confidence interval). Only \code{sd_x} and \code{sd_y}
+#'   for a 95\% confidence interval). Only \code{sd_x} and \code{sd_y}
 #'   \strong{OR} \code{ci_margin} and \code{ci_level} should be defined (see
 #'   Details).
 #' @param prior_scale A numeric vector of length one, specifying the scale of
