@@ -101,7 +101,7 @@
 #'   Details).
 #' @param prior_scale A numeric vector of length one, specifying the scale of
 #'   the Cauchy prior distribution for the effect size under the alternative
-#'   hypothesis (see Details). The default value is \eqn{1 / \sqrt{2}}.
+#'   hypothesis (see Details). The default value is r = 1 / sqrt(2).
 #' @param direction A character vector of length one, specifying the direction
 #'   of superior scores. 'low' indicates that low scores on the measure of
 #'   interest correspond to a superior outcome and 'high' (the default)

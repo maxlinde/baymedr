@@ -63,7 +63,7 @@ equivalence interval (i.e., \code{interval}) is given in standardised
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
 the Cauchy prior distribution for the effect size under the alternative
-hypothesis (see Details). The default value is \eqn{1 / \sqrt{2}}.}
+hypothesis (see Details). The default value is r = 1 / sqrt(2).}
 }
 \value{
 An S4 object of class \linkS4class{baymedrEquivalence} is returned.
