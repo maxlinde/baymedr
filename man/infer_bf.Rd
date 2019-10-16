@@ -93,34 +93,25 @@ whether high or low scores on the measure of interest represent
 non-inferiority. In the case where high scores correspond to non-inferiority
 (e.g., amount of social interaction), the Bayes factor resulting from
 \code{\link{infer_bf}} tests the null hypothesis that the experimental group
-(e.g., a new medication) is higher than the control group (e.g., a placebo or
+(e.g., a new medication) is lower than the control group (e.g., a placebo or
 an already existing medication) minus a constant value, which is given by the
 non-inferiority margin. The alternative hypothesis is that the experimental
-group is lower than the control group minus the non-inferiority margin. In
-turn, when lower values on the measure of interest correspond to
+group is higher than the control group minus the non-inferiority margin. In
+turn, when low values on the measure of interest correspond to
 non-inferiority (e.g., severity of symptoms), the Bayes factor resulting from
 \code{\link{infer_bf}} tests the null hypothesis that the experimental group
-is lower than the control group plus the non-inferiority margin. The
-alternative hypothesis states that the experimental group is higher than the
+is higher than the control group plus the non-inferiority margin. The
+alternative hypothesis states that the experimental group is lower than the
 control group plus the non-inferiority margin.
-
-Since sometimes high scores on the dependent variable are considered
-non-inferior (e.g., amount of social interactions) and sometimes rather the
-low scores (e.g., severity of symptoms), the user can specify the direction
-of non-inferiority with the argument \code{direction}. For the case where
-higher values on the dependent variable indicate non-inferiority, the user
-should specify 'high' (the default) for the argument \code{direction}; if
-lower values on the dependent variable indicate non-inferiority, 'low' should
-be specified for the argument \code{direction}.
 
 Since the main goal of \code{\link{infer_bf}} is to establish
 non-inferiority, the resulting Bayes factor quantifies evidence in favour of
-the alternative hypothesis (i.e., \eqn{BF10}). However, evidence for the null
+the alternative hypothesis (i.e., BF10). However, evidence for the null
 hypothesis can easily be calculated by taking the reciprocal of the original
-Bayes factor (i.e., \eqn{BF01 = 1 / BF10}). Quantification of evidence in
-favour of the null hypothesis is logically sound and legitimate within the
-Bayesian framework but not in the traditional frequentist framework (see
-e.g., van Ravenzwaaij et al., 2019).
+Bayes factor (i.e., BF01 = 1 / BF10). Quantification of evidence in favour of
+the null hypothesis is logically sound and legitimate within the Bayesian
+framework but not in the traditional frequentist framework (see e.g., van
+Ravenzwaaij et al., 2019).
 
 Importantly, \code{\link{infer_bf}} can be utilized to calculate a Bayes
 factor based on raw data (i.e., if arguments \code{x} and \code{y} are
@@ -130,6 +121,15 @@ instead of \code{sd_x} and \code{sd_y}) are defined). Arguments with 'x' as a
 name or suffix correspond to the control group, whereas arguments with 'y' as
 a name or suffix correspond to the experimental group (i.e., the group for
 which we seek to establish non-inferiority).
+
+Since sometimes high scores on the dependent variable are considered
+non-inferior (e.g., amount of social interactions) and sometimes rather the
+low scores (e.g., severity of symptoms), the user can specify the direction
+of non-inferiority with the argument \code{direction}. For the case where
+higher values on the dependent variable indicate non-inferiority, the user
+should specify 'high' (the default) for the argument \code{direction}; if
+lower values on the dependent variable indicate non-inferiority, 'low' should
+be specified for the argument \code{direction}.
 
 With the argument \code{ni_margin}, the user can determine the
 non-inferiority margin. \code{ni_margin} should be a positive number.
@@ -144,7 +144,7 @@ the effect size under the alternative hypothesis. The shape of the Cauchy
 distribution can be manipulated with its location and scale parameters. The
 standard Cauchy distribution, with a location parameter of 0 and a scale
 parameter of 1, resembles a standard Normal distribution, except that the
-Cauchy distribution has less mass at the centre but heavier tails (see e.g.,
+Cauchy distribution has less mass at the centre but heavier tails (see, e.g.,
 Rouder et al., 2009, for a visualisation). Mathematically, the standard
 Cauchy distribution is equivalent to a Normal distribution with a mean of 0
 and a variance that follows and inverse chi-square distribution with one
@@ -153,7 +153,7 @@ degree of freedom, for which the variance is integrated out (Liang et al.,
 prior, which corresponds to half of the interquartile range. Thus, by
 adjusting the Cauchy prior scale with \code{prior_scale}, we can emphasise
 different ranges of effect sizes that might be expected. The default prior
-scale is set to \eqn{1 / \sqrt{2}}.
+scale is set to 1 / sqrt(2).
 
 \code{\link{infer_bf}} creates an S4 object of class
 \linkS4class{baymedrNonInferiority}, which has multiple slots/entries (e.g.,

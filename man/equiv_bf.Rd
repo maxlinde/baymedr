@@ -98,12 +98,22 @@ equivalent.
 
 Since the main goal of \code{\link{equiv_bf}} is to establish equivalence,
 the resulting Bayes factor quantifies evidence in favour of the null
-hypothesis (i.e., \eqn{BF01}). However, evidence for the alternative
-hypothesis can easily be calculated by taking the reciprocal of the original
-Bayes factor (i.e., \eqn{BF10 = 1 / BF01}). Quantification of evidence in
-favour of the null hypothesis is logically sound and legitimate within the
-Bayesian framework but not in the traditional frequentist framework (see
-e.g., van Ravenzwaaij et al., 2019).
+hypothesis (i.e., BF01). However, evidence for the alternative hypothesis can
+easily be calculated by taking the reciprocal of the original Bayes factor
+(i.e., BF10 = 1 / BF01). Quantification of evidence in favour of the null
+hypothesis is logically sound and legitimate within the Bayesian framework
+but not in the traditional frequentist framework (see e.g., van Ravenzwaaij
+et al., 2019).
+
+Importantly, \code{\link{equiv_bf}} can be utilized to calculate a Bayes
+factor based on raw data (i.e., if arguments \code{x} and \code{y} are
+defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
+\code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
+has the freedom to supply values either for the arguments \code{sd_x} and
+\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level}. The choice
+should depend on the information that is available to the user. Arguments
+with 'x' as a name or suffix correspond to the control group, whereas
+arguments with 'y' as a name or suffix correspond to the experimental group.
 
 Using the argument \code{interval}, the user can specify the equivalence
 interval. In contrast to null hypothesis significance testing (NHST),
@@ -120,22 +130,12 @@ can be specified whether the equivalence interval (i.e., \code{interval}) is
 given in standardised or unstandardised units with the \code{interval_std}
 argument, where TRUE, corresponding to standardised units, is the default.
 
-Importantly, \code{\link{equiv_bf}} can be utilized to calculate a Bayes
-factor based on raw data (i.e., if arguments \code{x} and \code{y} are
-defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
-\code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
-has the freedom to supply values either for the arguments \code{sd_x} and
-\code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level}. The choice
-should depend on the information that is available to the user. Arguments
-with 'x' as a name or suffix correspond to the control group, whereas
-arguments with 'y' as a name or suffix correspond to the experimental group.
-
 For the calculation of the Bayes factor, we chose a Cauchy prior density for
 the effect size under the alternative hypothesis. The shape of the Cauchy
 distribution can be manipulated with its location and scale parameters. The
 standard Cauchy distribution, with a location parameter of 0 and a scale
 parameter of 1, resembles a standard Normal distribution, except that the
-Cauchy distribution has less mass at the centre but heavier tails (see e.g.,
+Cauchy distribution has less mass at the centre but heavier tails (see, e.g.,
 Rouder et al., 2009, for a visualisation). Mathematically, the standard
 Cauchy distribution is equivalent to a Normal distribution with a mean of 0
 and a variance that follows and inverse chi-square distribution with one
@@ -144,7 +144,7 @@ degree of freedom, for which the variance is integrated out (Liang et al.,
 prior, which corresponds to half of the interquartile range. Thus, by
 adjusting the Cauchy prior scale with \code{prior_scale}, we can emphasise
 different ranges of effect sizes that might be expected. The default prior
-scale is set to \eqn{1 / \sqrt{2}}.
+scale is set to r = 1 / sqrt(2).
 
 \code{\link{equiv_bf}} creates an S4 object of class
 \linkS4class{baymedrEquivalence}, which has multiple slots/entries (e.g.,

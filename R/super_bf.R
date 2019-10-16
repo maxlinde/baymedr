@@ -10,7 +10,7 @@
 #' correspond to superiority. As the name 'superiority' implies, the test is
 #' typically understood as a one-tailed test. In practice, however, a two-tailed
 #' test is often employed, followed by subsequent confirmation that the results
-#' are in the expected direction. To cover both research practices, the user has
+#' follow the expected direction. To cover both research practices, the user has
 #' the possibility to specify which of these two alternatives should be employed
 #' through the argument \code{alternative}. Furthermore, since sometimes high
 #' scores on the dependent variable are considered superior (e.g., amount of
@@ -30,12 +30,12 @@
 #'
 #' Since the main goal of \code{\link{super_bf}} is to establish superiority,
 #' the resulting Bayes factor quantifies evidence in favour of the alternative
-#' hypothesis (i.e., \eqn{BF10}). However, evidence for the null hypothesis can
-#' easily be calculated by taking the reciprocal of the original Bayes factor
-#' (i.e., \eqn{BF01 = 1 / BF10}). Quantification of evidence in favour of the
-#' null hypothesis is logically sound and legitimate within the Bayesian
-#' framework but not in the traditional frequentist framework (see e.g., van
-#' Ravenzwaaij et al., 2019).
+#' hypothesis (i.e., BF10). However, evidence for the null hypothesis can easily
+#' be calculated by taking the reciprocal of the original Bayes factor (i.e.,
+#' BF01 = 1 / BF10). Quantification of evidence in favour of the null hypothesis
+#' is logically sound and legitimate within the Bayesian framework but not in
+#' the traditional frequentist framework (see e.g., van Ravenzwaaij et al.,
+#' 2019).
 #'
 #' Importantly, \code{\link{super_bf}} can be utilized to calculate a Bayes
 #' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
@@ -53,7 +53,7 @@
 #' distribution can be manipulated with its location and scale parameters. The
 #' standard Cauchy distribution, with a location parameter of 0 and a scale
 #' parameter of 1, resembles a standard Normal distribution, except that the
-#' Cauchy distribution has less mass at the centre but heavier tails (see e.g.,
+#' Cauchy distribution has less mass at the centre but heavier tails (see, e.g.,
 #' Rouder et al., 2009, for a visualisation). Mathematically, the standard
 #' Cauchy distribution is equivalent to a Normal distribution with a mean of 0
 #' and a variance that follows and inverse chi-square distribution with one
@@ -62,7 +62,7 @@
 #' prior, which corresponds to half of the interquartile range. Thus, by
 #' adjusting the Cauchy prior scale with \code{prior_scale}, we can emphasise
 #' different ranges of effect sizes that might be expected. The default prior
-#' scale is set to \eqn{1 / \sqrt{2}}.
+#' scale is set to 1 / sqrt(2).
 #'
 #' \code{\link{super_bf}} creates an S4 object of class
 #' \linkS4class{baymedrSuperiority}, which has multiple slots/entries (e.g.,
