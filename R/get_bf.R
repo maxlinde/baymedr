@@ -1,6 +1,6 @@
 #' Extract Bayes factor from S4 object
 #'
-#' \code{\link{get_bf}} extracts the Bayes factor from S4 objects (i.e.,
+#' \code{\link{get_bf}} extracts the Bayes factor from an S4 object (i.e.,
 #' \linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence},
 #' \linkS4class{baymedrNonInferiority}), created from the functions
 #' \code{\link{super_bf}}, \code{\link{equiv_bf}}, or \code{\link{infer_bf}}.
