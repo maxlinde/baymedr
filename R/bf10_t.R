@@ -44,5 +44,9 @@ bf10_t <- function(t,
   bf_plus1 <- (1 - post_area_smaller_0) / (1 - prior_area_smaller_0)
   bf_min0 <- bf_min1 * bf10
   bf_plus0 <- bf_plus1 * bf10
-  return(list(bf_10 = bf10, bf_plus0 = bf_plus0, bf_min0 = bf_min0))
+  return(list(
+    bf_10 = bf10,
+    bf_plus0 = bf_plus0,
+    bf_min0 = bf_min0
+    ))
 }
