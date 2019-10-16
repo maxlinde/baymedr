@@ -1,9 +1,10 @@
 #' S4 classes to represent different models
 #'
-#' The S4 classes \linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence}, and
-#' \linkS4class{baymedrNonInferiority} represent models for the superiority
-#' (\code{\link{super_bf}}), equivalence (\code{\link{equiv_bf}}), and
-#' non-inferiority (\code{\link{infer_bf}}) tests, respectively.
+#' The S4 classes \linkS4class{baymedrSuperiority},
+#' \linkS4class{baymedrEquivalence}, and \linkS4class{baymedrNonInferiority}
+#' represent models for the superiority (\code{\link{super_bf}}), equivalence
+#' (\code{\link{equiv_bf}}), and non-inferiority (\code{\link{infer_bf}}) tests,
+#' respectively.
 #'
 #' @slot test Type of test that was conducted.
 #' @slot hypotheses The hypotheses that are tested.
