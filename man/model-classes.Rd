@@ -25,7 +25,7 @@ respectively.
 
 \item{\code{prior_scale}}{The Cauchy prior scale that was used.}
 
-\item{\code{bf}}{The resuling Bayes factor.}
+\item{\code{bf}}{The resulting Bayes factor.}
 
 \item{\code{interval}}{The equivalence interval in case of \code{\link{equiv_bf}}.}
 

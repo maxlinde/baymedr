@@ -77,7 +77,7 @@
 #'
 #' @param ni_margin A numeric vector of length one, specifying the
 #'   non-inferiority margin. The value should be a positive number.
-#' @param ni_margin_std A locial vector of length one, specifying whether the
+#' @param ni_margin_std A logical vector of length one, specifying whether the
 #'   non-inferiority margin (i.e., \code{ni_margin}) is given in standardised
 #'   (TRUE; the default) or unstandardised (FALSE) units.
 #' @param direction A character vector of length one, specifying the direction

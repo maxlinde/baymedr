@@ -358,7 +358,7 @@ Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
 (2009). Bayesian t tests for accepting and rejecting the null
 hypothesis. *Psychonomic Bulletin & Review*, *16*(2), 225-237.
 
-Schönbrodt, F. D., Wagenmaker, E.-J., Zehetleitner, M., & Perugini, M.
+Schönbrodt, F. D., Wagenmakers, E.-J., Zehetleitner, M., & Perugini, M.
 (2017). Sequential hypothesis testing with Bayes factors: Efficiently
 testing mean differences. *Psychological Methods*, *22*(2), 322-339.
 
