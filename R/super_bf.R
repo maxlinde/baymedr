@@ -293,7 +293,7 @@ super_bf <- function(x = NULL,
           ))) {
     if (!is.null(ci_level) && (length(ci_level) > 1 || ci_level <= 0 ||
                                ci_level >= 1 || !is.numeric(ci_level))) {
-        abort("'ci_level' must be a single numeric value between 0 and 1.")
+      abort("'ci_level' must be a single numeric value between 0 and 1.")
     }
     data <- list(type = "summary data",
                  data = list(n_x = n_x,
@@ -375,9 +375,10 @@ super_bf <- function(x = NULL,
   h0 <- "mu_y == mu_x"
   hypotheses <- list(h0 = h0,
                      h1 = h1)
-  baymedrSuperiority(test = test,
-                     data = data,
-                     hypotheses = hypotheses,
-                     prior_scale = prior_scale,
-                     bf = bf)
+  new(Class = "baymedrSuperiority",
+      test = test,
+      data = data,
+      hypotheses = hypotheses,
+      prior_scale = prior_scale,
+      bf = bf)
 }

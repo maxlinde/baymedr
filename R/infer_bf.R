@@ -345,10 +345,11 @@ infer_bf <- function(x = NULL,
                      h1 = h1)
   ni_margin <- list(ni_mar_std = abs(ni_mar_std),
                     ni_mar_unstd = abs(ni_mar_unstd))
-  baymedrNonInferiority(test = test,
-                        hypotheses = hypotheses,
-                        ni_margin = ni_margin,
-                        data = data,
-                        prior_scale = prior_scale,
-                        bf = bf)
+  new(Class = "baymedrNonInferiority",
+      test = test,
+      hypotheses = hypotheses,
+      ni_margin = ni_margin,
+      data = data,
+      prior_scale = prior_scale,
+      bf = bf)
 }

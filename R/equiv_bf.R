@@ -336,10 +336,11 @@ equiv_bf <- function(x = NULL,
                    upper_std = inter_std[[2]],
                    lower_unstd = inter_unstd[[1]],
                    upper_unstd = inter_unstd[[2]])
-  baymedrEquivalence(test = test,
-                     hypotheses = hypotheses,
-                     interval = interval,
-                     data = data,
-                     prior_scale = prior_scale,
-                     bf = bf)
+  new(Class = "baymedrEquivalence",
+      test = test,
+      hypotheses = hypotheses,
+      interval = interval,
+      data = data,
+      prior_scale = prior_scale,
+      bf = bf)
 }
