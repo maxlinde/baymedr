@@ -1,3 +1,9 @@
+#' Methods to print (show) S4 objects in the console
+#'
+#' Definition of costumised printing (showing) of the S4 objects
+#' \linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence}, and
+#' \linkS4class{baymedrNonInferiority}
+#'
 #' @import methods
 setMethod(
   f = "show",
