@@ -18,16 +18,22 @@ The Bayesian approach to inference has several advantages over the conventional 
 
 ## Installation and attaching
 
+To install `baymedr` use:
+
+``` {r, eval = FALSE}
+install.packages("baymedr")
+```
+
 You can install the latest development version of `baymedr` from [GitHub](https://github.com/), using the `devtools` package, with:
 
-``` {r, message = FALSE}
+``` {r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("maxlinde/baymedr")
 ```
 
 Subsequently, you can attach `baymedr`, so that it is ready to use:
 
-``` {r, message = FALSE}
+``` {r, eval = FALSE}
 library(baymedr)
 ```
 

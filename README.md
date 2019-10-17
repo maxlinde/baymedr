@@ -36,6 +36,12 @@ advantages, see, for example, Wagenmakers et al. (2018).
 
 ## Installation and attaching
 
+To install `baymedr` use:
+
+``` r
+install.packages("baymedr")
+```
+
 You can install the latest development version of `baymedr` from
 [GitHub](https://github.com/), using the `devtools` package, with:
 
