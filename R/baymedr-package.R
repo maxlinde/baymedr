@@ -5,7 +5,7 @@
 #' equivalence, non-inferiority, and superiority designs are implemented.
 #'
 #' \tabular{ll}{ Package: \tab baymedr \cr Type: \tab Package \cr Version: \tab
-#' 0.0.0.9000 \cr License: \tab GPL-3 \cr Date: \tab 2019-07-06 \cr}
+#' 0.0.0.9000 \cr License: \tab GPL-3 \cr Date: \tab 2019-10-17 \cr}
 #'
 #' At this point in time, \code{baymedr} entails tests for the following
 #' research designs: \itemize{ \item Equivalence: \code{\link{equiv_bf}} \item
