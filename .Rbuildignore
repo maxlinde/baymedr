@@ -2,3 +2,4 @@
 ^LICENSE\.md$
 ^baymedr\.Rproj$
 ^\.Rproj\.user$
+^cran-comments\.md$
