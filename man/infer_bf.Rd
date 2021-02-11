@@ -4,10 +4,22 @@
 \alias{infer_bf}
 \title{Bayes factor for non-inferiority designs}
 \usage{
-infer_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
-  mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
-  ci_margin = NULL, ci_level = NULL, ni_margin = NULL,
-  ni_margin_std = TRUE, prior_scale = 1/sqrt(2), direction = "high")
+infer_bf(
+  x = NULL,
+  y = NULL,
+  n_x = NULL,
+  n_y = NULL,
+  mean_x = NULL,
+  mean_y = NULL,
+  sd_x = NULL,
+  sd_y = NULL,
+  ci_margin = NULL,
+  ci_level = NULL,
+  ni_margin = NULL,
+  ni_margin_std = TRUE,
+  prior_scale = 1/sqrt(2),
+  direction = "high"
+)
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}

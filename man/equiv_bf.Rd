@@ -4,10 +4,21 @@
 \alias{equiv_bf}
 \title{Bayes factor for equivalence designs}
 \usage{
-equiv_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
-  mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
-  ci_margin = NULL, ci_level = NULL, interval = 0,
-  interval_std = TRUE, prior_scale = 1/sqrt(2))
+equiv_bf(
+  x = NULL,
+  y = NULL,
+  n_x = NULL,
+  n_y = NULL,
+  mean_x = NULL,
+  mean_y = NULL,
+  sd_x = NULL,
+  sd_y = NULL,
+  ci_margin = NULL,
+  ci_level = NULL,
+  interval = 0,
+  interval_std = TRUE,
+  prior_scale = 1/sqrt(2)
+)
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}

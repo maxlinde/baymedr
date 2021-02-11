@@ -4,10 +4,21 @@
 \alias{super_bf}
 \title{Bayes factor for superiority designs}
 \usage{
-super_bf(x = NULL, y = NULL, n_x = NULL, n_y = NULL,
-  mean_x = NULL, mean_y = NULL, sd_x = NULL, sd_y = NULL,
-  ci_margin = NULL, ci_level = NULL, prior_scale = 1/sqrt(2),
-  direction = "high", alternative = "one.sided")
+super_bf(
+  x = NULL,
+  y = NULL,
+  n_x = NULL,
+  n_y = NULL,
+  mean_x = NULL,
+  mean_y = NULL,
+  sd_x = NULL,
+  sd_y = NULL,
+  ci_margin = NULL,
+  ci_level = NULL,
+  prior_scale = 1/sqrt(2),
+  direction = "high",
+  alternative = "one.sided"
+)
 }
 \arguments{
 \item{x}{A numeric vector of observations for the control group.}
