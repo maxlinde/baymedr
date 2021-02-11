@@ -2,3 +2,4 @@
 
 * Added a `NEWS.md` file to track changes to the package.
 * Fix bug about incorrect Bayes factor when using infer_bf() with ni_margin_std = TRUE.
+* Fix bug about calculation of t-value when direction = "high".
