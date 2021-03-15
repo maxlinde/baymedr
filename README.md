@@ -283,14 +283,13 @@ get_bf(object = mod_equiv_sum)
 
 With `infer_bf()` we can test whether the experimental group is not
 worse by a certain amount–which is given by the non-inferiority
-margin–than the control group. Importantly, sometimes low and
-sometimes high values on the measure of interest represent
-non-inferiority, which can be specified with the argument `direction`.
-The default is that high values represent non-inferiority. The
-non-inferiority margin can be specified with the argument `ni_margin`.
-The argument `ni_margin_std` can be used to specify whether the
-non-inferiority margin is given in standardised (TRUE; the default) or
-unstandardised (FALSE) units.
+margin–than the control group. Importantly, sometimes low and sometimes
+high values on the measure of interest represent non-inferiority, which
+can be specified with the argument `direction`. The default is that high
+values represent non-inferiority. The non-inferiority margin can be
+specified with the argument `ni_margin`. The argument `ni_margin_std`
+can be used to specify whether the non-inferiority margin is given in
+standardised (TRUE; the default) or unstandardised (FALSE) units.
 
 We can use the raw data to compute a Bayes factor:
 
@@ -313,11 +312,11 @@ mod_infer_raw
 #>                               1.50 (unstandardised)
 #> Cauchy prior scale:           0.707
 #> 
-#>     BF10 (non-inferiority) = 3.18e+10
+#>     BF10 (non-inferiority) = 6.85e+10
 #> ******************************
 
 get_bf(object = mod_infer_raw)
-#> [1] 31814264413
+#> [1] 68546673627
 ```
 
 Alternatively, if the raw data are not available, we can use summary
@@ -348,11 +347,11 @@ mod_infer_sum
 #>                               2.00 (unstandardised)
 #> Cauchy prior scale:           0.707
 #> 
-#>     BF10 (non-inferiority) = 90.52
+#>     BF10 (non-inferiority) = 79.59
 #> ******************************
 
 get_bf(object = mod_infer_sum)
-#> [1] 90.51541
+#> [1] 79.59441
 ```
 
 ## References
