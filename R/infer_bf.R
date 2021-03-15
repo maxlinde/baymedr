@@ -311,7 +311,7 @@ infer_bf <- function(x = NULL,
                   n1 = n_x,
                   n2 = n_y,
                   ind_samples = TRUE,
-                  prior_loc = ni_mar_std,
+                  prior_loc = -ni_mar_std,
                   prior_scale = prior_scale,
                   prior_df = 1)
     bf <- res[[3]] / res[[2]]
@@ -331,7 +331,7 @@ infer_bf <- function(x = NULL,
                   n1 = n_x,
                   n2 = n_y,
                   ind_samples = TRUE,
-                  prior_loc = ni_mar_std,
+                  prior_loc = -ni_mar_std,
                   prior_scale = prior_scale,
                   prior_df = 1)
     bf <- res[[2]] / res[[3]]
