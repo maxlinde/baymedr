@@ -18,15 +18,15 @@ Authors@R: c(
            role = "ctb",
            email = "q.f.gronau@uva.nl",
            comment = c(ORCID = "0000-0001-5510-6943")))
-Description: BAYesian inference for MEDical designs in R. Convenience functions 
-    for the computation of Bayes factors for common biomedical research 
-    designs. Implemented are functions to test the equivalence (equiv_bf), 
+Description: BAYesian inference for MEDical designs in R. Functions for the 
+    computation of Bayes factors for common biomedical research designs. 
+    Implemented are functions to test the equivalence (equiv_bf), 
     non-inferiority (infer_bf), and superiority (super_bf) of an experimental 
-    group compared to a control group. Bayes factors for these three tests can
-    be computed based on raw data (x, y) or summary statistics (n_x, n_y,
-    mean_x, mean_y, sd_x, sd_y [or ci_margin and ci_level]), making it possible 
-    to reanalyse findings (e.g., from publications) without the need to obtain 
-    the raw data.
+    group compared to a control group on a continuous outcome measure. Bayes 
+    factors for these three tests can be computed based on raw data (x, y) or 
+    summary statistics (n_x, n_y, mean_x, mean_y, sd_x, sd_y [or ci_margin 
+    and ci_level]), making it possible to reanalyse findings (e.g., from 
+    publications) without the need to obtain the raw data.
 Depends:
     R (>= 3.2.0)
 Imports: 
