@@ -112,9 +112,10 @@ group is higher than the control group minus the non-inferiority margin. In
 turn, when low values on the measure of interest correspond to
 non-inferiority (e.g., severity of symptoms), the Bayes factor resulting from
 \code{\link{infer_bf}} tests the null hypothesis that the experimental group
-is higher than the control group plus the non-inferiority margin. The
-alternative hypothesis states that the experimental group is lower than the
-control group plus the non-inferiority margin.
+is higher than the control group plus the non-inferiority margin on a
+continuous outcome measure. The alternative hypothesis states that the
+experimental group is lower than the control group plus the non-inferiority
+margin.
 
 Since the main goal of \code{\link{infer_bf}} is to establish
 non-inferiority, the resulting Bayes factor quantifies evidence in favour of

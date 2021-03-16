@@ -5,8 +5,8 @@
 #' The Bayes factor resulting from \code{\link{equiv_bf}} tests the null
 #' hypothesis that the experimental group (e.g., a new medication) and the
 #' control group (e.g., a placebo or an already existing medication) are
-#' equivalent. The alternative hypothesis is that the two groups are not
-#' equivalent.
+#' equivalent on a continuous outcome measure. The alternative hypothesis is
+#' that the two groups are not equivalent.
 #'
 #' Since the main goal of \code{\link{equiv_bf}} is to establish equivalence,
 #' the resulting Bayes factor quantifies evidence in favour of the null
