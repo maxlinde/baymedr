@@ -7,8 +7,7 @@
 \title{baymedr: Computation of Bayes Factors for Common Biomedical Designs}
 \description{
 \code{baymedr} provides functions for the computation of Bayes factors for
-common biomedical research designs. At this point in time, functions for
-equivalence, non-inferiority, and superiority designs are implemented.
+common biomedical research designs.
 }
 \details{
 \tabular{ll}{ Package: \tab baymedr \cr Type: \tab Package \cr Version: \tab
