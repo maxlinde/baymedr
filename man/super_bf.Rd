@@ -94,7 +94,7 @@ the control group (e.g., a placebo or an already existing medication) on a
 continuous outcome measure. The formulation of the alternative hypothesis
 depends on whether low or high scores on the measure of interest represent
 superiority. The direction of superiority can be specified through the
-argument \cide{direction}. For the case where high values on the dependent
+argument \code{direction}. For the case where high values on the dependent
 variable indicate superiority, the user should specify 'high' (the default)
 for the argument \code{direction}; if low values on the dependent variable
 indicate superiority, 'low' should be specified for the argument
