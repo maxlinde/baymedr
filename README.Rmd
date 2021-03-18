@@ -72,7 +72,7 @@ data[c(1:5, 151:155), ]
 
 ## The superiority test (`super_bf()`)
 
-With `super_bf()` we can test whether the experimental group is better than the control group. Importantly, sometimes low and sometimes high values on the measure of interest represent superiority, which can be specified with the argument `direction`. The default is that high values represent superiority. Moreover, research practices diverge on whether a one-tailed test should be conducted or a two-tailed test with subsequent confirmation that the results follow the expected direction. This can be specified with the argument `alternative`, for which the default is a one-sided test.
+With `super_bf()` we can test whether the experimental group is better than the control group. Importantly, sometimes low and sometimes high values on the measure of interest represent superiority, which can be specified with the argument `direction`. The default is that high values represent superiority.
 
 We can use the raw data to compute a Bayes factor:
 
@@ -105,8 +105,7 @@ mod_super_sum <- super_bf(
   mean_y = 63.6,
   ci_margin = (15.5 - (-6.5)) / 2,
   ci_level = 0.95,
-  direction = "low",
-  alternative = "one.sided"
+  direction = "low"
 )
 
 mod_super_sum

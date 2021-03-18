@@ -7,10 +7,10 @@ biomedical research designs (see van Ravenzwaaij et al., 2019).
 Implemented are functions to test the equivalence (`equiv_bf()`),
 non-inferiority (`infer_bf()`), and superiority (`super_bf()`) of an
 experimental group (e.g., a new medication) compared to a control group
-(e.g., a placebo or an already existing medication). A special focus of
-`baymedr` lies on a user-friendly interface, so that a wide variety or
-researchers (i.e., not only statisticians) can utilise `baymedr` for
-their analyses.
+(e.g., a placebo or an already existing medication) on a continuous
+outcome measure. A special focus of `baymedr` lies on a user-friendly
+interface, so that a wide variety or researchers (i.e., not only
+statisticians) can utilise `baymedr` for their analyses.
 
 The Bayesian approach to inference has several advantages over the
 conventional frequentist approach. To mention only a few, with Bayesian
@@ -77,7 +77,7 @@ from one of the three S4 objects, use the function `get_bf()`.
 
 The Bayes factors resulting from `super_bf()` and `infer_bf()` quantify
 evidence in favour of the alternative hypothesis (i.e., superiority and
-non-inferiority, respectively), which is indicated by BF01. In contrast,
+non-inferiority, respectively), which is indicated by BF10. In contrast,
 the Bayes factor resulting from `equiv_bf()` quantifies evidence in
 favour of the null hypothesis (i.e., equivalence), indicated by BF01. In
 case the evidence for the other hypothesis is desired, the user can take
@@ -147,11 +147,7 @@ With `super_bf()` we can test whether the experimental group is better
 than the control group. Importantly, sometimes low and sometimes high
 values on the measure of interest represent superiority, which can be
 specified with the argument `direction`. The default is that high values
-represent superiority. Moreover, research practices diverge on whether a
-one-tailed test should be conducted or a two-tailed test with subsequent
-confirmation that the results follow the expected direction. This can be
-specified with the argument `alternative`, for which the default is a
-one-sided test.
+represent superiority.
 
 We can use the raw data to compute a Bayes factor:
 
@@ -189,8 +185,7 @@ mod_super_sum <- super_bf(
   mean_y = 63.6,
   ci_margin = (15.5 - (-6.5)) / 2,
   ci_level = 0.95,
-  direction = "low",
-  alternative = "one.sided"
+  direction = "low"
 )
 
 mod_super_sum
