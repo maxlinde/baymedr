@@ -6,37 +6,26 @@
 #' hypothesis that the experimental group (e.g., a new medication) is equal to
 #' the control group (e.g., a placebo or an already existing medication) on a
 #' continuous outcome measure. The formulation of the alternative hypothesis
-#' depends on whether a one- or two-sided test shall be conducted and on whether
-#' the low or high values correspond to superiority. As the name 'superiority'
-#' implies, the test is typically understood as a one-tailed test. In practice,
-#' however, a two-tailed test is often employed, followed by subsequent
-#' confirmation that the results follow the expected direction. To cover both
-#' research practices, the user has the possibility to specify which of these
-#' two alternatives should be employed through the argument \code{alternative}.
-#' Furthermore, since sometimes high scores on the dependent variable are
-#' considered superior (e.g., amount of social interactions) and sometimes
-#' rather the low scores (e.g., severity of symptoms), the user can specify the
-#' direction of superiority with the argument \code{direction}. For the case
-#' where higher values on the dependent variable indicate superiority, the user
-#' should specify 'high' (the default) for the argument \code{direction}; if
-#' lower values on the dependent variable indicate superiority, 'low' should be
-#' specified for the argument \code{direction}. Therefore, in case a two-sided
-#' test is employed, the alternative hypothesis states that the experimental
-#' group is not equal to the control group. In the case of a one-sided test and
-#' low scores corresponding to superiority, the alternative hypothesis is that
-#' the experimental group is lower than the control group. Lastly, in the case
-#' where a one-sided test is employed and high scores indicate superiority, the
-#' alternative hypothesis states that the experimental group is higher than the
-#' control group.
+#' depends on whether low or high scores on the measure of interest represent
+#' superiority. The direction of superiority can be specified through the
+#' argument \cide{direction}. For the case where high values on the dependent
+#' variable indicate superiority, the user should specify 'high' (the default)
+#' for the argument \code{direction}; if low values on the dependent variable
+#' indicate superiority, 'low' should be specified for the argument
+#' \code{direction}. If low scores on the measure of interest represent
+#' superiority, the alternative hypothesis states that the experimental group is
+#' lower than the control group, whereas if high scores on the measure of
+#' interest represent superiority, the alternative hypothesis states that the
+#' experimental condition is higher than the control group.
 #'
 #' Since the main goal of \code{\link{super_bf}} is to establish superiority,
 #' the resulting Bayes factor quantifies evidence in favour of the alternative
-#' hypothesis (i.e., BF10). However, evidence for the null hypothesis can easily
-#' be calculated by taking the reciprocal of the original Bayes factor (i.e.,
-#' BF01 = 1 / BF10). Quantification of evidence in favour of the null hypothesis
-#' is logically sound and legitimate within the Bayesian framework but not in
-#' the traditional frequentist framework (see e.g., van Ravenzwaaij et al.,
-#' 2019).
+#' hypothesis (i.e., BF10). However, evidence for the null hypothesis
+#' can easily be calculated by taking the reciprocal of the original Bayes
+#' factor (i.e., BF01 = 1 / BF10). Quantification of evidence
+#' in favour of the null hypothesis is logically sound and legitimate within the
+#' Bayesian framework but not in the traditional frequentist framework (see
+#' e.g., van Ravenzwaaij et al., 2019).
 #'
 #' Importantly, \code{\link{super_bf}} can be utilized to calculate a Bayes
 #' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
@@ -108,10 +97,6 @@
 #'   interest correspond to a superior outcome and 'high' (the default)
 #'   indicates that high scores on the measure of interest correspond to a
 #'   superior outcome (see Details).
-#' @param alternative A character vector of length one, specifying whether a
-#'   one-sided or two-sided test shall be conducted. 'one.sided' (the default)
-#'   corresponds to a one-sided test and 'two.sided' corresponds to a two-sided
-#'   test (see Details).
 #'
 #' @return An S4 object of class \linkS4class{baymedrSuperiority} is returned.
 #'   Contained are a description of the model and the resulting Bayes factor:
@@ -160,76 +145,35 @@
 #'
 #' ## super_bf using summary statistics with data from Skjerven et al. (2013).
 #' ## EXAMPLE 1
-#' ## The one-sided alternative:
 #'
 #' # Assign model to variable.
-#' super_sum_one_ex1 <- super_bf(n_x = 201,
-#'                               n_y = 203,
-#'                               mean_x = 68.1,
-#'                               mean_y = 63.6,
-#'                               ci_margin = (15.5 - (-6.5)) / 2,
-#'                               ci_level = 0.95,
-#'                               direction = "low",
-#'                               alternative = "one.sided")
+#' super_sum_ex1 <- super_bf(n_x = 201,
+#'                           n_y = 203,
+#'                           mean_x = 68.1,
+#'                           mean_y = 63.6,
+#'                           ci_margin = (15.5 - (-6.5)) / 2,
+#'                           ci_level = 0.95,
+#'                           direction = "low")
 #'
 #' # Extract Bayes factor from model.
-#' get_bf(super_sum_one_ex1)
-#'
-#' # ----------
-#'
-#' ## super_bf using summary statistics with data from Skjerven et al. (2013).
-#' ## EXAMPLE 1
-#' ## The two-sided alternative:
-#'
-#' # Assign model to variable.
-#' super_sum_two_ex1 <- super_bf(n_x = 201,
-#'                               n_y = 203,
-#'                               mean_x = 68.1,
-#'                               mean_y = 63.6,
-#'                               ci_margin = (15.5 - (-6.5)) / 2,
-#'                               ci_level = 0.95,
-#'                               alternative = "two.sided")
-#'
-#' # Extract Bayes factor from model.
-#' get_bf(super_sum_two_ex1)
-#'
-#' # ----------
-#' # ----------
-#'
-#' ## super_bf using summary statistics with data from Skjerven et al. (2013).
-#' ## EXAMPLE 2
-#' ## The one-sided alternative:
-#'
-#' # Assign model to variable.
-#' super_sum_one_ex2 <- super_bf(n_x = 200,
-#'                               n_y = 204,
-#'                               mean_x = 47.6,
-#'                               mean_y = 61.3,
-#'                               ci_margin = (24.4 - 2.9) / 2,
-#'                               ci_level = 0.95,
-#'                               direction = "low",
-#'                               alternative = "one.sided")
-#'
-#' # Extract Bayes factor from model.
-#' get_bf(super_sum_one_ex2)
+#' get_bf(super_sum_ex1)
 #'
 #' # ----------
 #'
 #' ## super_bf using summary statistics with data from Skjerven et al. (2013).
 #' ## EXAMPLE 2
-#' ## The two-sided alternative:
 #'
 #' # Assign model to variable.
-#' super_sum_two_ex2 <- super_bf(n_x = 200,
-#'                               n_y = 204,
-#'                               mean_x = 47.6,
-#'                               mean_y = 61.3,
-#'                               ci_margin = (24.4 - 2.9) / 2,
-#'                               ci_level = 0.95,
-#'                               alternative = "two.sided")
+#' super_sum_ex2 <- super_bf(n_x = 200,
+#'                           n_y = 204,
+#'                           mean_x = 47.6,
+#'                           mean_y = 61.3,
+#'                           ci_margin = (24.4 - 2.9) / 2,
+#'                           ci_level = 0.95,
+#'                           direction = "low")
 #'
 #' # Extract Bayes factor from model.
-#' get_bf(super_sum_two_ex2)
+#' get_bf(super_sum_ex2)
 super_bf <- function(x = NULL,
                      y = NULL,
                      n_x = NULL,
@@ -241,8 +185,7 @@ super_bf <- function(x = NULL,
                      ci_margin = NULL,
                      ci_level = NULL,
                      prior_scale = 1 / sqrt(2),
-                     direction = "high",
-                     alternative = "one.sided") {
+                     direction = "high") {
   if (any(!is.null(x),
           !is.null(y)) && any(!is.null(n_x),
                               !is.null(n_y),
@@ -332,9 +275,6 @@ super_bf <- function(x = NULL,
   if (!is.character(direction) || length(direction) > 1) {
     abort("'direction' must be a single character value.")
   }
-  if (!is.character(alternative) || length(alternative) > 1) {
-    abort("'alternative' must be a single character value.")
-  }
   if (!is.null(sd_x) && !is.null(sd_y)) {
     sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
                         (n_x + n_y - 2))
@@ -352,25 +292,16 @@ super_bf <- function(x = NULL,
                 prior_loc = 0,
                 prior_scale = prior_scale,
                 prior_df = 1)
-  if (str_detect(alternative,
-                 "one.sided")) {
-    if (str_detect(direction,
-                   "low")) {
-      bf <- res[[3]]
-      h1 <- "mu_y < mu_x"
-    } else if (str_detect(direction,
-                          "high")) {
-      bf <- res[[2]]
-      h1 <- "mu_y > mu_x"
-    } else {
-      abort("'direction' must be one of 'low' or 'high'.")
-    }
-  } else if (str_detect(alternative,
-                        "two.sided")) {
-    bf <- res[[1]]
-    h1 <- "mu_y != mu_x"
+  if (str_detect(direction,
+                 "low")) {
+    bf <- res[[3]]
+    h1 <- "mu_y < mu_x"
+  } else if (str_detect(direction,
+                        "high")) {
+    bf <- res[[2]]
+    h1 <- "mu_y > mu_x"
   } else {
-    abort("'alternative' must be one of 'one.sided' or 'two.sided'.")
+    abort("'direction' must be one of 'low' or 'high'.")
   }
   test <- "Superiority analysis"
   h0 <- "mu_y == mu_x"
