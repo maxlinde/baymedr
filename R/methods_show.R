@@ -16,7 +16,12 @@ setMethod(
         "H0 (non-superiority):         ",
         object@hypotheses$h0,
         "\n",
-        "H1 (superiority):             ",
+        if (object@hypotheses$h1 == "mu_y < mu_x") {
+          "H- (superiority):             "
+        },
+        if (object@hypotheses$h1 == "mu_y > mu_x") {
+          "H+ (superiority):             "
+        },
         object@hypotheses$h1,
         "\n",
         "Cauchy prior scale:           ",
@@ -24,7 +29,12 @@ setMethod(
                 digits = 3,
                 format = "f"),
         "\n\n",
-        "    BF10 (superiority) = ",
+        if (object@hypotheses$h1 == "mu_y < mu_x") {
+          "    BF-0 (superiority) = "
+        },
+        if (object@hypotheses$h1 == "mu_y > mu_x") {
+          "    BF+0 (superiority) = "
+        },
         if (object@bf > 1 / 1000 && object@bf < 1000) {
           formatC(x = object@bf,
                   digits = 2,
@@ -117,11 +127,20 @@ setMethod(
         "Data:                         ",
         object@data$type,
         "\n",
-        "H0 (inferiority):             ",
-        object@hypotheses$h0,
-        "\n",
-        "H1 (non-inferiority):         ",
-        object@hypotheses$h1,
+        if (object@hypotheses$h1 == "mu_y - mu_x < ni_margin") {
+          paste0("H+ (inferiority):             ",
+                 object@hypotheses$h0,
+                 "\n",
+                 "H- (non-inferiority):         ",
+                 object@hypotheses$h1)
+        },
+        if (object@hypotheses$h1 == "mu_y - mu_x > -ni_margin") {
+          paste0("H- (inferiority):             ",
+                 object@hypotheses$h0,
+                 "\n",
+                 "H+ (non-inferiority):         ",
+                 object@hypotheses$h1)
+        },
         "\n",
         "Non-inferiority margin:       ",
         formatC(x = object@ni_margin$ni_mar_std,
@@ -140,7 +159,12 @@ setMethod(
                 digits = 3,
                 format = "f"),
         "\n\n",
-        "    BF10 (non-inferiority) = ",
+        if (object@hypotheses$h1 == "mu_y - mu_x < ni_margin") {
+        "    BF-+ (non-inferiority) = "
+        },
+        if (object@hypotheses$h1 == "mu_y - mu_x > -ni_margin") {
+        "    BF+- (non-inferiority) = "
+        },
         if (object@bf > 1 / 1000 && object@bf < 1000) {
           formatC(x = object@bf,
                   digits = 2,
