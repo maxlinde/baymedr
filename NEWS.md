@@ -4,4 +4,6 @@
 * Fix bug about incorrect Bayes factor when using infer_bf() with ni_margin_std = TRUE.
 * Fix bug about calculation of t-value when using infer_bf() with direction = "high".
 * Fix bug about placement of prior when using infer_bf().
+* Remove argument "alternative" for super_bf().
+* Incorporate exact hypotheses when printing results.
 
