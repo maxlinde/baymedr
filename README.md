@@ -50,7 +50,7 @@ You can install the latest development version of `baymedr` from
 devtools::install_github("maxlinde/baymedr")
 ```
 
-Subsequently, you can attach `baymedr`, so that it is ready to use:
+Subsequently, you can load `baymedr`, so that it is ready to use:
 
 ``` r
 library(baymedr)
@@ -66,7 +66,8 @@ summary statistics (if arguments `n_x`, `n_y`, `mean_x`, `mean_y`,
 user has the option to specify `ci_margin` and `ci_level` instead of
 `sd_x` and `sd_y`. In general, arguments with ‘x’ as a name or suffix
 correspond to the control group and those with ‘y’ as a name or suffix
-refer to the experimental group.
+refer to the experimental group. Importantly, the underlying outcome
+measure must be continuous in order to obtain valid results.
 
 Usage of the functions for equivalence (`equiv_bf()`), non-inferiority
 (`infer_bf()`), and superiority designs (`super_bf()`), results in S4
@@ -77,12 +78,10 @@ from one of the three S4 objects, use the function `get_bf()`.
 
 The Bayes factors resulting from `super_bf()` and `infer_bf()` quantify
 evidence in favour of the alternative hypothesis (i.e., superiority and
-non-inferiority, respectively), which is indicated by BF10. In contrast,
-the Bayes factor resulting from `equiv_bf()` quantifies evidence in
-favour of the null hypothesis (i.e., equivalence), indicated by BF01. In
-case the evidence for the other hypothesis is desired, the user can take
-the reciprocal of the Bayes factor (i.e., BF01 = 1 / BF10 and BF10 = 1 /
-BF01).
+non-inferiority, respectively). In contrast, the Bayes factor resulting
+from `equiv_bf()` quantifies evidence in favour of the null hypothesis
+(i.e., equivalence). In case the evidence for the other hypothesis is
+desired, the user can take the reciprocal of the Bayes factor.
 
 ## The Cauchy prior distribution
 
@@ -146,8 +145,14 @@ data[c(1:5, 151:155), ]
 With `super_bf()` we can test whether the experimental group is better
 than the control group. Importantly, sometimes low and sometimes high
 values on the measure of interest represent superiority, which can be
-specified with the argument `direction`. The default is that high values
-represent superiority.
+specified with the argument `direction`. In the case where low values
+represent superiority we have BF-0, indicating that we quantify evidence
+for the negative alternative hypothesis (i.e., H-) relative to the null
+hypothesis (i.e., H0). In the case where high values represent
+superiority we have BF+0, indicating that we quantify evidence for the
+positive alternative hypothesis (i.e., H+) relative to the null
+hypothesis (i.e., H0). The default is that high values represent
+superiority.
 
 We can use the raw data to compute a Bayes factor:
 
@@ -213,7 +218,10 @@ specify whether the equivalence interval is given in standardised (TRUE;
 the default) or unstandardised (FALSE) units. However, in contrast to
 the frequentist equivalence test, `equiv_bf()` can also incorporate a
 point null hypothesis, which constitutes the default in `equiv_bf()`
-(i.e., `interval` = 0).
+(i.e., `interval` = 0). The Bayes factor (i.e., BF01) resulting from
+`equiv_bf()` quantifies evidence for the data under the null hypothesis
+(i.e., H0) relative to the data under the two-sided alternative
+hypothesis (i.e., H1).
 
 We can use the raw data to compute a Bayes factor:
 
@@ -280,8 +288,14 @@ With `infer_bf()` we can test whether the experimental group is not
 worse by a certain amount–which is given by the non-inferiority
 margin–than the control group. Importantly, sometimes low and sometimes
 high values on the measure of interest represent non-inferiority, which
-can be specified with the argument `direction`. The default is that high
-values represent non-inferiority. The non-inferiority margin can be
+can be specified with the argument `direction`. In the case where low
+values represent non-inferiority we have BF-+, indicating that we
+quantify evidence for the negative alternative hypothesis (i.e., H-)
+relative to the postive null hypothesis (i.e., H+). In the case where
+high values represent non-superiority we have BF+-, indicating that we
+quantify evidence for the positive alternative hypothesis (i.e., H+)
+relative to the negative null hypothesis (i.e., H-). The default is that
+high values represent non-inferiority. The non-inferiority margin can be
 specified with the argument `ni_margin`. The argument `ni_margin_std`
 can be used to specify whether the non-inferiority margin is given in
 standardised (TRUE; the default) or unstandardised (FALSE) units.
