@@ -163,10 +163,10 @@ mod_super_raw
 #> --------------------
 #> Data:                         raw data
 #> H0 (non-superiority):         mu_y == mu_x
-#> H1 (superiority):             mu_y > mu_x
+#> H+ (superiority):             mu_y > mu_x
 #> Cauchy prior scale:           0.707
 #> 
-#>     BF10 (superiority) = 44.00
+#>     BF+0 (superiority) = 44.00
 #> ******************************
 
 get_bf(object = mod_super_raw)
@@ -194,10 +194,10 @@ mod_super_sum
 #> --------------------
 #> Data:                         summary data
 #> H0 (non-superiority):         mu_y == mu_x
-#> H1 (superiority):             mu_y < mu_x
+#> H- (superiority):             mu_y < mu_x
 #> Cauchy prior scale:           0.707
 #> 
-#>     BF10 (superiority) = 0.24
+#>     BF-0 (superiority) = 0.24
 #> ******************************
 
 get_bf(object = mod_super_sum)
@@ -301,13 +301,13 @@ mod_infer_raw
 #> Non-inferiority analysis
 #> ------------------------
 #> Data:                         raw data
-#> H0 (inferiority):             mu_y - mu_x < -ni_margin
-#> H1 (non-inferiority):         mu_y - mu_x > -ni_margin
+#> H- (inferiority):             mu_y - mu_x < -ni_margin
+#> H+ (non-inferiority):         mu_y - mu_x > -ni_margin
 #> Non-inferiority margin:       0.45 (standardised)
 #>                               1.50 (unstandardised)
 #> Cauchy prior scale:           0.707
 #> 
-#>     BF10 (non-inferiority) = 6.85e+10
+#>     BF+- (non-inferiority) = 6.85e+10
 #> ******************************
 
 get_bf(object = mod_infer_raw)
@@ -336,13 +336,13 @@ mod_infer_sum
 #> Non-inferiority analysis
 #> ------------------------
 #> Data:                         summary data
-#> H0 (inferiority):             mu_y - mu_x > ni_margin
-#> H1 (non-inferiority):         mu_y - mu_x < ni_margin
+#> H+ (inferiority):             mu_y - mu_x > ni_margin
+#> H- (non-inferiority):         mu_y - mu_x < ni_margin
 #> Non-inferiority margin:       0.22 (standardised)
 #>                               2.00 (unstandardised)
 #> Cauchy prior scale:           0.707
 #> 
-#>     BF10 (non-inferiority) = 79.59
+#>     BF-+ (non-inferiority) = 79.59
 #> ******************************
 
 get_bf(object = mod_infer_sum)
