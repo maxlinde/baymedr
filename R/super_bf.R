@@ -16,7 +16,8 @@
 #' hypothesis states that the experimental group is lower than the control group
 #' (i.e., H-), whereas if high scores on the measure of interest represent
 #' superiority, the alternative hypothesis states that the experimental
-#' condition is higher than the control group (i.e., H+).
+#' condition is higher than the control group (i.e., H+). Note that the outcome
+#' measure must be continuous.
 #'
 #' Since the main goal of \code{\link{super_bf}} is to establish superiority,
 #' the resulting Bayes factor quantifies evidence in favour of the alternative
