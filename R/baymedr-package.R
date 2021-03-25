@@ -7,9 +7,9 @@
 #' 0.1.0 \cr License: \tab GPL-3 \cr Date: \tab 2019-10-17 \cr}
 #'
 #' At this point in time, \code{baymedr} entails tests for the following
-#' research designs: \itemize{ \item Equivalence: \code{\link{equiv_bf}} \item
-#' Non-Inferiority: \code{\link{infer_bf}} \item Superiority:
-#' \code{\link{super_bf}} }
+#' research designs with a continuous outcome measure: \itemize{ \item
+#' Equivalence: \code{\link{equiv_bf}} \item Non-Inferiority:
+#' \code{\link{infer_bf}} \item Superiority: \code{\link{super_bf}} }
 #'
 #' @docType package
 #' @name baymedr-package
