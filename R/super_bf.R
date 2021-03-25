@@ -1,6 +1,7 @@
 #' Bayes factor for superiority designs
 #'
-#' \code{\link{super_bf}} computes a Bayes factor for superiority designs.
+#' \code{\link{super_bf}} computes a Bayes factor for superiority designs with a
+#' continuous dependent variable.
 #'
 #' The Bayes factor resulting from \code{\link{super_bf}} tests the null
 #' hypothesis (i.e., H0) that the experimental group (e.g., a new medication) is

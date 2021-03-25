@@ -85,7 +85,8 @@ An S4 object of class \linkS4class{baymedrSuperiority} is returned.
   object.
 }
 \description{
-\code{\link{super_bf}} computes a Bayes factor for superiority designs.
+\code{\link{super_bf}} computes a Bayes factor for superiority designs with a
+continuous dependent variable.
 }
 \details{
 The Bayes factor resulting from \code{\link{super_bf}} tests the null

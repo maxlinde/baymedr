@@ -97,7 +97,8 @@ An S4 object of class \linkS4class{baymedrNonInferiority} is
   object.
 }
 \description{
-\code{\link{infer_bf}} computes a Bayes factor for non-inferiority designs.
+\code{\link{infer_bf}} computes a Bayes factor for non-inferiority designs
+with a continuous dependent variable.
 }
 \details{
 The formulation of the null and alternative hypotheses differ depending on
