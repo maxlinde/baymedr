@@ -6,4 +6,5 @@
 * Fixed bug about placement of prior when using infer_bf().
 * Removed argument "alternative" for super_bf().
 * Incorporated exact hypotheses when printing results.
+* Updated function documentation.
 
