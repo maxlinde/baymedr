@@ -8,7 +8,7 @@ Implemented are functions to test the equivalence (`equiv_bf()`),
 non-inferiority (`infer_bf()`), and superiority (`super_bf()`) of an
 experimental group (e.g., a new medication) compared to a control group
 (e.g., a placebo or an already existing medication) on a continuous
-outcome measure. A special focus of `baymedr` lies on a user-friendly
+dependent variable. A special focus of `baymedr` lies on a user-friendly
 interface, so that a wide variety or researchers (i.e., not only
 statisticians) can utilise `baymedr` for their analyses.
 
@@ -19,20 +19,21 @@ decide to stop or continue data collection based on the inspection of
 interim analyses. This is considered a bad practice within the
 frequentist framework because it would result in an inflated Type I
 error rate (e.g., Schönbrodt et al., 2017). Furthermore, null hypothesis
-significance tests and the corresponding *p*-values do not allow for the
-quantification of evidence for the null hypothesis (e.g., Wagenmakers et
-al., 2018). The Bayesian framework remedies this shortcoming, which is
-particularly important for the equivalence design (van Ravenzwaaij et
-al., 2019). Lastly, in some situations the frequentist approaches to
-equivalence and non-inferiority tests bear certain interpretational
-ambiguities. For instance, when the confidence interval of the
-difference between the two group means fully lies between the
-non-inferiority margin and 0, this means that the experimental group is
-non-inferior with regard to the non-inferiority margin but inferior with
-regard to 0. The same applies to the equivalence design (van Ravenzwaaij
-et al., 2019). Fortunately, these ambiguities are fully resolved within
-the Bayesian framework. For a more thorough discussion of Bayesian
-advantages, see, for example, Wagenmakers et al. (2018).
+significance testing and the corresponding *p*-values do not allow for
+the quantification of evidence for the null hypothesis (e.g.,
+Wagenmakers et al., 2018). The Bayesian framework remedies this
+shortcoming, which is particularly important for the equivalence design
+(van Ravenzwaaij et al., 2019). Lastly, in some situations the
+frequentist approaches to equivalence and non-inferiority tests bear
+certain interpretational ambiguities. For instance, when the confidence
+interval of the difference between the two group means fully lies
+between the non-inferiority margin and 0, this means that the
+experimental group is non-inferior with regard to the non-inferiority
+margin but inferior with regard to 0. The same applies to the
+equivalence design (van Ravenzwaaij et al., 2019). Fortunately, these
+ambiguities are fully resolved within the Bayesian framework. For a more
+thorough discussion of Bayesian advantages, see, for example,
+Wagenmakers et al. (2018).
 
 ## Installation and attaching
 
@@ -66,8 +67,8 @@ summary statistics (if arguments `n_x`, `n_y`, `mean_x`, `mean_y`,
 user has the option to specify `ci_margin` and `ci_level` instead of
 `sd_x` and `sd_y`. In general, arguments with ‘x’ as a name or suffix
 correspond to the control group and those with ‘y’ as a name or suffix
-refer to the experimental group. Importantly, the underlying outcome
-measure must be continuous in order to obtain valid results.
+refer to the experimental group. Importantly, the dependent variable
+must be continuous in order to obtain valid results.
 
 Usage of the functions for equivalence (`equiv_bf()`), non-inferiority
 (`infer_bf()`), and superiority designs (`super_bf()`), results in S4
@@ -147,12 +148,12 @@ than the control group. Importantly, sometimes low and sometimes high
 values on the measure of interest represent superiority, which can be
 specified with the argument `direction`. In the case where low values
 represent superiority we have BF-0, indicating that we quantify evidence
-for the negative alternative hypothesis (i.e., H-) relative to the null
-hypothesis (i.e., H0). In the case where high values represent
-superiority we have BF+0, indicating that we quantify evidence for the
-positive alternative hypothesis (i.e., H+) relative to the null
-hypothesis (i.e., H0). The default is that high values represent
-superiority.
+for the data under the negative alternative hypothesis (i.e., H-)
+relative to the null hypothesis (i.e., H0). In the case where high
+values represent superiority we have BF+0, indicating that we quantify
+evidence for the data under the positive alternative hypothesis (i.e.,
+H+) relative to the null hypothesis (i.e., H0). The default is that high
+values represent superiority.
 
 We can use the raw data to compute a Bayes factor:
 
@@ -212,15 +213,15 @@ get_bf(object = mod_super_sum)
 ## The equivalence test (`equiv_bf()`)
 
 With `equiv_bf()` we can test whether the experimental and the control
-groups are equivalent. With the argument `interval`, an equivalence
-interval can be specified. The argument `interval_std` can be used to
-specify whether the equivalence interval is given in standardised (TRUE;
-the default) or unstandardised (FALSE) units. However, in contrast to
-the frequentist equivalence test, `equiv_bf()` can also incorporate a
-point null hypothesis, which constitutes the default in `equiv_bf()`
-(i.e., `interval` = 0). The Bayes factor (i.e., BF01) resulting from
-`equiv_bf()` quantifies evidence for the data under the null hypothesis
-(i.e., H0) relative to the data under the two-sided alternative
+groups are (practically) equivalent. With the argument `interval`, an
+equivalence interval can be specified. The argument `interval_std` can
+be used to specify whether the equivalence interval is given in
+standardised (TRUE; the default) or unstandardised (FALSE) units.
+However, in contrast to the frequentist equivalence test, `equiv_bf()`
+can also incorporate a point null hypothesis, which constitutes the
+default in `equiv_bf()` (i.e., `interval` = 0). The Bayes factor (i.e.,
+BF01) resulting from `equiv_bf()` quantifies evidence for the data under
+the null hypothesis (i.e., H0) relative to the two-sided alternative
 hypothesis (i.e., H1).
 
 We can use the raw data to compute a Bayes factor:
@@ -287,18 +288,19 @@ get_bf(object = mod_equiv_sum)
 With `infer_bf()` we can test whether the experimental group is not
 worse by a certain amount–which is given by the non-inferiority
 margin–than the control group. Importantly, sometimes low and sometimes
-high values on the measure of interest represent non-inferiority, which
+high values on the dependent variable represent non-inferiority, which
 can be specified with the argument `direction`. In the case where low
 values represent non-inferiority we have BF-+, indicating that we
-quantify evidence for the negative alternative hypothesis (i.e., H-)
-relative to the postive null hypothesis (i.e., H+). In the case where
-high values represent non-superiority we have BF+-, indicating that we
-quantify evidence for the positive alternative hypothesis (i.e., H+)
-relative to the negative null hypothesis (i.e., H-). The default is that
-high values represent non-inferiority. The non-inferiority margin can be
-specified with the argument `ni_margin`. The argument `ni_margin_std`
-can be used to specify whether the non-inferiority margin is given in
-standardised (TRUE; the default) or unstandardised (FALSE) units.
+quantify evidence for the data under the negative alternative hypothesis
+(i.e., H-) relative to the postive null hypothesis (i.e., H+). In the
+case where high values represent non-superiority we have BF+-,
+indicating that we quantify evidence for the data under the positive
+alternative hypothesis (i.e., H+) relative to the negative null
+hypothesis (i.e., H-). The default is that high values represent
+non-inferiority. The non-inferiority margin can be specified with the
+argument `ni_margin`. The argument `ni_margin_std` can be used to
+specify whether the non-inferiority margin is given in standardised
+(TRUE; the default) or unstandardised (FALSE) units.
 
 We can use the raw data to compute a Bayes factor:
 
