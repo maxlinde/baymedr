@@ -41,6 +41,5 @@ VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 URL: https://github.com/maxlinde/baymedr
 BugReports: https://github.com/maxlinde/baymedr/issues
