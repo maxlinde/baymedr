@@ -104,12 +104,12 @@ alternative hypothesis goes in the negative direction (i.e., H-). The
 dependent variable must be continuous.
 
 Since the main goal of \code{\link{super_bf}} is to establish superiority,
-the resulting Bayes factor quantifies evidence in favour of the alternative
+the resulting Bayes factor quantifies evidence in favor of the alternative
 hypothesis. In the case where low values represent superiority we have BF-0,
 whereas in the case where high values represent superiority we have BF+0.
 Evidence for the null hypothesis can easily be calculated by taking the
 reciprocal of the original Bayes factor (i.e., BF0- = 1 / BF-0 and BF0+ = 1 /
-BF+0). Quantification of evidence in favour of the null hypothesis is
+BF+0). Quantification of evidence in favor of the null hypothesis is
 logically sound and legitimate within the Bayesian framework (see e.g., van
 Ravenzwaaij et al., 2019).
 
@@ -127,7 +127,7 @@ For the calculation of the Bayes factor, a Cauchy prior density centered on 0
 is chosen for the effect size under the alternative hypothesis. The standard
 Cauchy distribution, with a location parameter of 0 and a scale parameter of
 1, resembles a standard Normal distribution, except that the Cauchy
-distribution has less mass at the centre but heavier tails (Liang et al.,
+distribution has less mass at the center but heavier tails (Liang et al.,
 2008; Rouder et al., 2009). The argument \code{prior_scale} specifies the
 width of the Cauchy prior, which corresponds to half of the interquartile
 range. Thus, by adjusting the Cauchy prior scale with \code{prior_scale},

@@ -69,8 +69,8 @@ possibility to specify an asymmetric equivalence interval (e.g., c(-0.1,
 interval (see Details).}
 
 \item{interval_std}{A logical vector of length one, specifying whether the
-equivalence interval (i.e., \code{interval}) is given in standardised
-(TRUE; the default) or unstandardised (FALSE) units.}
+equivalence interval (i.e., \code{interval}) is given in standardized
+(TRUE; the default) or unstandardized (FALSE) units.}
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
 the Cauchy prior distribution for the effect size under the alternative
@@ -82,11 +82,11 @@ An S4 object of class \linkS4class{baymedrEquivalence} is returned.
   \itemize{ \item test: The type of analysis \item hypotheses: A statement of
   the hypotheses \itemize{ \item h0: The null hypothesis \item h1: The
   alternative hypothesis} \item interval: Specification of the equivalence
-  interval in standardised and unstandardised units \itemize{ \item
-  lower_std: The standardised lower boundary of the equivalence interval
-  \item upper_std: The standardised upper boundary of the equivalence
-  interval \item lower_unstd: The unstandardised lower boundary of the
-  equivalence interval \item upper_unstd: The unstandardised upper boundary
+  interval in standardized and unstandardized units \itemize{ \item
+  lower_std: The standardized lower boundary of the equivalence interval
+  \item upper_std: The standardized upper boundary of the equivalence
+  interval \item lower_unstd: The unstandardized lower boundary of the
+  equivalence interval \item upper_unstd: The unstandardized upper boundary
   of the equivalence interval} \item data: A description of the data
   \itemize{ \item type: The type of data ('raw' when arguments \code{x} and
   \code{y} are used or 'summary' when arguments \code{n_x}, \code{n_y},
@@ -110,10 +110,10 @@ existing medication) are (practically) equivalent; the alternative hypothesis
 equivalent. The dependent variable must be continuous.
 
 Since the main goal of \code{\link{equiv_bf}} is to establish equivalence,
-the resulting Bayes factor quantifies evidence in favour of the null
+the resulting Bayes factor quantifies evidence in favor of the null
 hypothesis (i.e., BF01). Evidence for the alternative hypothesis can easily
 be calculated by taking the reciprocal of the original Bayes factor (i.e.,
-BF10 = 1 / BF01). Quantification of evidence in favour of the null hypothesis
+BF10 = 1 / BF01). Quantification of evidence in favor of the null hypothesis
 is logically sound and legitimate within the Bayesian framework (see e.g.,
 van Ravenzwaaij et al., 2019).
 
@@ -131,19 +131,19 @@ However, it is not compulsory to specify an equivalence interval (see van
 Ravenzwaaij et al., 2019). The default value of the argument \code{interval}
 is 0, indicating a point null hypothesis. If an interval is preferred, the
 argument \code{interval} can be set in two ways: A \emph{symmetric} interval
-can be defined by either specifing a numeric vector of length one (e.g., 0.1,
+can be defined by either specifying a numeric vector of length one (e.g., 0.1,
 which is converted to c(-0.1, 0.1)) or a numeric vector of length two (e.g.,
 c(-0.1, 0.1)); an \emph{asymmetric} interval can be defined by specifying a
 numeric vector of length two (e.g., c(-0.1, 0.2)). It can be specified
 whether the equivalence interval (i.e., \code{interval}) is given in
-standardised or unstandardised units with the \code{interval_std} argument,
-where TRUE, corresponding to standardised units, is the default.
+standardized or unstandardized units with the \code{interval_std} argument,
+where TRUE, corresponding to standardized units, is the default.
 
 For the calculation of the Bayes factor, a Cauchy prior density centered on 0
 is chosen for the effect size under the alternative hypothesis. The standard
 Cauchy distribution, with a location parameter of 0 and a scale parameter of
 1, resembles a standard Normal distribution, except that the Cauchy
-distribution has less mass at the centre but heavier tails (Liang et al.,
+distribution has less mass at the center but heavier tails (Liang et al.,
 2008; Rouder et al., 2009). The argument \code{prior_scale} specifies the
 width of the Cauchy prior, which corresponds to half of the interquartile
 range. Thus, by adjusting the Cauchy prior scale with \code{prior_scale},

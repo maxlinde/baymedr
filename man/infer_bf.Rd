@@ -65,8 +65,8 @@ Details).}
 non-inferiority margin. The value should be a positive number.}
 
 \item{ni_margin_std}{A logical vector of length one, specifying whether the
-non-inferiority margin (i.e., \code{ni_margin}) is given in standardised
-(TRUE; the default) or unstandardised (FALSE) units.}
+non-inferiority margin (i.e., \code{ni_margin}) is given in standardized
+(TRUE; the default) or unstandardized (FALSE) units.}
 
 \item{prior_scale}{A numeric vector of length one, specifying the scale of
 the Cauchy prior distribution for the effect size under the alternative
@@ -84,8 +84,8 @@ An S4 object of class \linkS4class{baymedrNonInferiority} is
   factor: \itemize{ \item test: The type of analysis \item hypotheses: A
   statement of the hypotheses \itemize{ \item h0: The null hypothesis \item
   h1: The alternative hypothesis} \item ni_margin: The value for ni_margin in
-  standardised and unstandardised units \itemize{ \item ni_mar_std: The
-  standardised non-inferiority margin \item ni_mar_unstd: The unstandardised
+  standardized and unstandardized units \itemize{ \item ni_mar_std: The
+  standardized non-inferiority margin \item ni_mar_unstd: The unstandardized
   non-inferiority margin} \item data: A description of the data \itemize{
   \item type: The type of data ('raw' when arguments \code{x} and \code{y}
   are used or 'summary' when arguments \code{n_x}, \code{n_y}, \code{mean_x},
@@ -123,12 +123,12 @@ direction (i.e., H+) and the alternative hypothesis in the negative direction
 (i.e., H-). The dependent variable must be continuous.
 
 Since the main goal of \code{\link{infer_bf}} is to establish
-non-inferiority, the resulting Bayes factor quantifies evidence in favour of
+non-inferiority, the resulting Bayes factor quantifies evidence in favor of
 the alternative hypothesis. In the case where high values represent
 non-inferiority we have BF+- and in the case where low values represent
 non-inferiority we have BF-+. Evidence for the null hypothesis can easily be
 calculated by taking the reciprocal of the original Bayes factor (i.e., BF+-
-= 1 / BF-+ and vice versa). Quantification of evidence in favour of the null
+= 1 / BF-+ and vice versa). Quantification of evidence in favor of the null
 hypothesis is logically sound and legitimate within the Bayesian framework
 (see e.g., van Ravenzwaaij et al., 2019).
 
@@ -151,15 +151,15 @@ for the argument \code{direction}.
 
 With the argument \code{ni_margin}, the non-inferiority margin can be
 specified. \code{ni_margin} should be a positive number.' It can be declared
-whether the non-inferiority margin is specified in standardised or
-unstandardised units with the \code{ni_margin_std} argument, where TRUE,
-corresponding to standardised units, is the default.
+whether the non-inferiority margin is specified in standardized or
+unstandardized units with the \code{ni_margin_std} argument, where TRUE,
+corresponding to standardized units, is the default.
 
 For the calculation of the Bayes factor, a Cauchy prior density centered on 0
 is chosen for the effect size under the alternative hypothesis. The standard
 Cauchy distribution, with a location parameter of 0 and a scale parameter of
 1, resembles a standard Normal distribution, except that the Cauchy
-distribution has less mass at the centre but heavier tails (Liang et al.,
+distribution has less mass at the center but heavier tails (Liang et al.,
 2008; Rouder et al., 2009). The argument \code{prior_scale} specifies the
 width of the Cauchy prior, which corresponds to half of the interquartile
 range. Thus, by adjusting the Cauchy prior scale with \code{prior_scale},
