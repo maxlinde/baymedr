@@ -12,29 +12,6 @@ dependent variable. A special focus of `baymedr` lies on a user-friendly
 interface, so that a wide variety or researchers (i.e., not only
 statisticians) can utilise `baymedr` for their analyses.
 
-The Bayesian approach to inference has several advantages over the
-conventional frequentist approach. To mention only a few, with Bayesian
-inference it is legitimate to monitor results during data collection and
-decide to stop or continue data collection based on the inspection of
-interim analyses. This is considered a bad practice within the
-frequentist framework because it would result in an inflated Type I
-error rate (e.g., Schönbrodt et al., 2017). Furthermore, null hypothesis
-significance testing and the corresponding *p*-values do not allow for
-the quantification of evidence for the null hypothesis (e.g.,
-Wagenmakers et al., 2018). The Bayesian framework remedies this
-shortcoming, which is particularly important for the equivalence design
-(van Ravenzwaaij et al., 2019). Lastly, in some situations the
-frequentist approaches to equivalence and non-inferiority tests bear
-certain interpretational ambiguities. For instance, when the confidence
-interval of the difference between the two group means fully lies
-between the non-inferiority margin and 0, this means that the
-experimental group is non-inferior with regard to the non-inferiority
-margin but inferior with regard to 0. The same applies to the
-equivalence design (van Ravenzwaaij et al., 2019). Fortunately, these
-ambiguities are fully resolved within the Bayesian framework. For a more
-thorough discussion of Bayesian advantages, see, for example,
-Wagenmakers et al. (2018).
-
 ## Installation and attaching
 
 To install `baymedr` use:
@@ -78,11 +55,14 @@ console by printing the created S4 object. To extract the Bayes factor
 from one of the three S4 objects, use the function `get_bf()`.
 
 The Bayes factors resulting from `super_bf()` and `infer_bf()` quantify
-evidence in favour of the alternative hypothesis (i.e., superiority and
-non-inferiority, respectively). In contrast, the Bayes factor resulting
-from `equiv_bf()` quantifies evidence in favour of the null hypothesis
-(i.e., equivalence). In case the evidence for the other hypothesis is
-desired, the user can take the reciprocal of the Bayes factor.
+evidence in favour of the data under the alternative hypothesis (i.e.,
+superiority and non-inferiority, respectively) relative to the data
+under the null hypothesis. In contrast, the Bayes factor resulting from
+`equiv_bf()` quantifies evidence in favour of the data under the null
+hypothesis (i.e., equivalence) relative to the data under the
+alternative hypothesis. In case the evidence for the data under the
+other hypothesis is desired, the user can take the reciprocal of the
+Bayes factor.
 
 ## The Cauchy prior distribution
 
@@ -95,15 +75,15 @@ al., 2019). If relevant information is available, this knowledge could
 be expressed in an idiosyncratic prior distribution. Most of the time,
 however, relevant information is missing. In that case, it is reasonable
 to define a prior distribution that is as objective as possible. It has
-been argued that the Cauchy probability density function represents such
-a function (see, e.g., Rouder et al., 2009). The standard Cauchy
-distribution resembles a standard Normal distribution, except that the
-Cauchy distribution has less mass at the centre but instead heavier
-tails. The centre of the distribution is determined by the location
-parameter, while the width is specified by the scale parameter. By
-varying the scale of the Cauchy prior, the user can change the range of
-reasonable effect sizes. This is accomplished with the argument
-`prior_scale`.
+been argued that the Cauchy probability density function centered on 0
+represents such a function (see, e.g., Rouder et al., 2009). The
+standard Cauchy distribution resembles a standard Normal distribution,
+except that the Cauchy distribution has less mass at the centre but
+instead heavier tails. The centre of the distribution is determined by
+the location parameter, while the width is specified by the scale
+parameter. By varying the scale of the Cauchy prior, the user can change
+the range of reasonable effect sizes. This is accomplished with the
+argument `prior_scale`.
 
 ## Random example data
 
