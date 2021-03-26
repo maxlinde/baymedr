@@ -143,7 +143,7 @@ suffix correspond to the experimental group.
 Since sometimes high scores on the dependent variable are considered
 non-inferior (e.g., amount of social interactions) and sometimes rather the
 low scores (e.g., severity of symptoms), the direction of non-inferiority can
-be specified  with the argument \code{direction}. For the case where high
+be specified with the argument \code{direction}. For the case where high
 values on the dependent variable indicate non-inferiority, 'high' (the
 default) should be specified for the argument \code{direction}; if low values
 on the dependent variable indicate non-inferiority, 'low' should be specified
