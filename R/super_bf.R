@@ -3,54 +3,50 @@
 #' \code{\link{super_bf}} computes a Bayes factor for superiority designs with a
 #' continuous dependent variable.
 #'
-#' The Bayes factor resulting from \code{\link{super_bf}} tests the null
-#' hypothesis (i.e., H0) that the experimental group (e.g., a new medication) is
-#' equal to the control group (e.g., a placebo or an already existing
-#' medication). The formulation of the alternative hypothesis depends on whether
-#' low or high scores on the measure of interest represent superiority. The
-#' direction of superiority can be specified through the argument
-#' \code{direction}. For the case where high values on the dependent variable
-#' indicate superiority, the user should specify 'high' (the default) for the
-#' argument \code{direction}; if low values on the dependent variable indicate
-#' superiority, 'low' should be specified for the argument \code{direction}. If
-#' low scores on the measure of interest represent superiority, the alternative
-#' hypothesis states that the experimental group is lower than the control group
-#' (i.e., H-), whereas if high scores on the measure of interest represent
-#' superiority, the alternative hypothesis states that the experimental
-#' condition is higher than the control group (i.e., H+). Note that the outcome
-#' measure must be continuous.
+#' The formulation of the null and alternative hypotheses for the superiority
+#' design differs depending on whether high or low scores on the dependent
+#' variable represent superiority. In both cases, the null hypothesis (i.e., H0)
+#' states that the population means of the experimental group and the control
+#' group are equivalent. In the case where high scores correspond to
+#' superiority, the alternative hypothesis states that the population mean of
+#' the experimental group is higher than the population mean of the control
+#' group. Thus, the alternative hypothesis goes in the positive direction (i.e.,
+#' H+). In turn, in the case where low scores correspond to superiority, the
+#' alternative hypothesis states that the population mean of the experimental
+#' group is lower than the population mean of the control group. Thus, the
+#' alternative hypothesis goes in the negative direction (i.e., H-). The
+#' dependent variable must be continuous.
 #'
 #' Since the main goal of \code{\link{super_bf}} is to establish superiority,
 #' the resulting Bayes factor quantifies evidence in favour of the alternative
 #' hypothesis. In the case where low values represent superiority we have BF-0,
 #' whereas in the case where high values represent superiority we have BF+0.
-#' However, evidence for the null hypothesis can easily be calculated by taking
-#' the reciprocal of the original Bayes factor (i.e., BF0- = 1 / BF-0 and BF0+ =
-#' 1 / BF+0). Quantification of evidence in favour of the null hypothesis is
+#' Evidence for the null hypothesis can easily be calculated by taking the
+#' reciprocal of the original Bayes factor (i.e., BF0- = 1 / BF-0 and BF0+ = 1 /
+#' BF+0). Quantification of evidence in favour of the null hypothesis is
 #' logically sound and legitimate within the Bayesian framework (see e.g., van
 #' Ravenzwaaij et al., 2019).
 #'
-#' Importantly, \code{\link{super_bf}} can be utilized to calculate a Bayes
-#' factor based on raw data (i.e., if arguments \code{x} and \code{y} are
-#' defined) or summary statistics (i.e., if arguments \code{n_x}, \code{n_y},
-#' \code{mean_x}, and \code{mean_y} are defined). In the latter case, the user
-#' has the freedom to supply values either for the arguments \code{sd_x} and
-#' \code{sd_y} \strong{OR} \code{ci_margin} and \code{ci_level}. Arguments with
-#' 'x' as a name or suffix correspond to the control group, whereas arguments
-#' with 'y' as a name or suffix correspond to the experimental group (i.e., the
-#' group for which we seek to establish superiority).
+#' \code{\link{super_bf}} can be utilized to calculate a Bayes factor based on
+#' raw data (i.e., if arguments \code{x} and \code{y} are defined) or summary
+#' statistics (i.e., if arguments \code{n_x}, \code{n_y}, \code{mean_x}, and
+#' \code{mean_y} are defined). In the latter case, the user has the freedom to
+#' supply values either for the arguments \code{sd_x} and \code{sd_y}
+#' \strong{OR} \code{ci_margin} and \code{ci_level}. Arguments with 'x' as a
+#' name or suffix correspond to the control group, whereas arguments with 'y' as
+#' a name or suffix correspond to the experimental group (i.e., the group for
+#' which we seek to establish superiority).
 #'
-#' For the calculation of the Bayes factor, we chose a Cauchy prior density for
-#' the effect size under the alternative hypothesis. The shape of the Cauchy
-#' distribution can be manipulated with its location and scale parameters. The
-#' standard Cauchy distribution, with a location parameter of 0 and a scale
-#' parameter of 1, resembles a standard Normal distribution, except that the
-#' Cauchy distribution has less mass at the centre but heavier tails (Liang et
-#' al., 2008; Rouder et al., 2009). The argument \code{prior_scale} specifies
-#' the width of the Cauchy prior, which corresponds to half of the interquartile
-#' range. Thus, by adjusting the Cauchy prior scale with \code{prior_scale}, we
-#' can emphasise different ranges of effect sizes that might be expected. The
-#' default prior scale is set to 1 / sqrt(2).
+#' For the calculation of the Bayes factor, a Cauchy prior density centered on 0
+#' is chosen for the effect size under the alternative hypothesis. The standard
+#' Cauchy distribution, with a location parameter of 0 and a scale parameter of
+#' 1, resembles a standard Normal distribution, except that the Cauchy
+#' distribution has less mass at the centre but heavier tails (Liang et al.,
+#' 2008; Rouder et al., 2009). The argument \code{prior_scale} specifies the
+#' width of the Cauchy prior, which corresponds to half of the interquartile
+#' range. Thus, by adjusting the Cauchy prior scale with \code{prior_scale},
+#' different ranges of expected effect sizes can be emphasized. The default
+#' prior scale is set to r = 1 / sqrt(2).
 #'
 #' \code{\link{super_bf}} creates an S4 object of class
 #' \linkS4class{baymedrSuperiority}, which has multiple slots/entries (e.g.,

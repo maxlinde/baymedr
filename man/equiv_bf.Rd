@@ -102,54 +102,53 @@ An S4 object of class \linkS4class{baymedrEquivalence} is returned.
 continuous dependent variable.
 }
 \details{
-The Bayes factor resulting from \code{\link{equiv_bf}} tests the null
-hypothesis (i.e., H0) that the experimental group (e.g., a new medication)
-and the control group (e.g., a placebo or an already existing medication) are
-equivalent against the alternative hypothesis that the two groups are not
-equivalent. Note that the outcome measure must be continuous.
+The equivalence design has the following hypotheses: The null hypothesis
+(i.e., H0) states that the population means of the experimental group (e.g.,
+a new medication) and the control group (e.g., a placebo or an already
+existing medication) are (practically) equivalent; the alternative hypothesis
+(i.e., H1) states that the population means of the two groups are not
+equivalent. The dependent variable must be continuous.
 
 Since the main goal of \code{\link{equiv_bf}} is to establish equivalence,
 the resulting Bayes factor quantifies evidence in favour of the null
-hypothesis (i.e., BF01). However, evidence for the alternative hypothesis can
-easily be calculated by taking the reciprocal of the original Bayes factor
-(i.e., BF10 = 1 / BF01). Quantification of evidence in favour of the null
-hypothesis is logically sound and legitimate within the Bayesian framework
-(see e.g., van Ravenzwaaij et al., 2019).
+hypothesis (i.e., BF01). Evidence for the alternative hypothesis can easily
+be calculated by taking the reciprocal of the original Bayes factor (i.e.,
+BF10 = 1 / BF01). Quantification of evidence in favour of the null hypothesis
+is logically sound and legitimate within the Bayesian framework (see e.g.,
+van Ravenzwaaij et al., 2019).
 
 \code{\link{equiv_bf}} can be utilized to calculate a Bayes factor based on
 raw data (i.e., if arguments \code{x} and \code{y} are defined) or summary
 statistics (i.e., if arguments \code{n_x}, \code{n_y}, \code{mean_x}, and
-\code{mean_y} are defined). In the latter case, the user has the freedom to
-supply values either for the arguments \code{sd_x} and \code{sd_y}
-\strong{OR} \code{ci_margin} and \code{ci_level}. Arguments with 'x' as a
-name or suffix correspond to the control group, whereas arguments with 'y' as
-a name or suffix correspond to the experimental group.
+\code{mean_y} are defined). In the latter case, either values for the
+arguments \code{sd_x} and \code{sd_y} \strong{OR} \code{ci_margin} and
+\code{ci_level} can be supplied. Arguments with 'x' as a name or suffix
+correspond to the control group, whereas arguments with 'y' as a name or
+suffix correspond to the experimental group.
 
-Using the argument \code{interval}, the user can specify the equivalence
-interval. However, it is not compulsory to specify an equivalence interval
-(see van Ravenzwaaij et al., 2019). The default value of the argument
-\code{interval} is 0, indicating a point null hypothesis. However, if the
-user prefers to have an equivalence interval, the argument \code{interval}
-can be set in two ways: If a \emph{symmetric} interval is desired, the user
-can either specify a numeric vector of length one (e.g., 0.1, which is
-converted to c(-0.1, 0.1)) or a numeric vector of length two (e.g.,
-c(-0.1, 0.1)); if an \emph{asymmetric} interval is desired, the user can
-specify a numeric vector of length two (e.g., c(-0.1, 0.2)). It can be
-specified whether the equivalence interval (i.e., \code{interval}) is given
-in standardised or unstandardised units with the \code{interval_std}
-argument, where TRUE, corresponding to standardised units, is the default.
+The equivalence interval can be specified with the argument \code{interval}.
+However, it is not compulsory to specify an equivalence interval (see van
+Ravenzwaaij et al., 2019). The default value of the argument \code{interval}
+is 0, indicating a point null hypothesis. If an interval is preferred, the
+argument \code{interval} can be set in two ways: A \emph{symmetric} interval
+can be defined by either specifing a numeric vector of length one (e.g., 0.1,
+which is converted to c(-0.1, 0.1)) or a numeric vector of length two (e.g.,
+c(-0.1, 0.1)); an \emph{asymmetric} interval can be defined by specifying a
+numeric vector of length two (e.g., c(-0.1, 0.2)). It can be specified
+whether the equivalence interval (i.e., \code{interval}) is given in
+standardised or unstandardised units with the \code{interval_std} argument,
+where TRUE, corresponding to standardised units, is the default.
 
-For the calculation of the Bayes factor, we chose a Cauchy prior density for
-the effect size under the alternative hypothesis. The shape of the Cauchy
-distribution can be manipulated with its location and scale parameters. The
-standard Cauchy distribution, with a location parameter of 0 and a scale
-parameter of 1, resembles a standard Normal distribution, except that the
-Cauchy distribution has less mass at the centre but heavier tails
-(Liang et al., 2008; Rouder et al., 2009). The argument \code{prior_scale}
-specifies the width of the Cauchy prior, which corresponds to half of the
-interquartile range. Thus, by adjusting the Cauchy prior scale with
-\code{prior_scale}, we can emphasise different ranges of effect sizes that
-might be expected. The default prior scale is set to r = 1 / sqrt(2).
+For the calculation of the Bayes factor, a Cauchy prior density centered on 0
+is chosen for the effect size under the alternative hypothesis. The standard
+Cauchy distribution, with a location parameter of 0 and a scale parameter of
+1, resembles a standard Normal distribution, except that the Cauchy
+distribution has less mass at the centre but heavier tails (Liang et al.,
+2008; Rouder et al., 2009). The argument \code{prior_scale} specifies the
+width of the Cauchy prior, which corresponds to half of the interquartile
+range. Thus, by adjusting the Cauchy prior scale with \code{prior_scale},
+different ranges of expected effect sizes can be emphasized. The default
+prior scale is set to r = 1 / sqrt(2).
 
 \code{\link{equiv_bf}} creates an S4 object of class
 \linkS4class{baymedrEquivalence}, which has multiple slots/entries (e.g.,
