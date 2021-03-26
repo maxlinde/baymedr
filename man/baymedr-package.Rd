@@ -11,7 +11,7 @@ common biomedical research designs.
 }
 \details{
 \tabular{ll}{ Package: \tab baymedr \cr Type: \tab Package \cr Version: \tab
-0.1.0 \cr License: \tab GPL-3 \cr Date: \tab 2019-10-17 \cr}
+0.1.1 \cr License: \tab GPL-3 \cr Date: \tab 2021-03-26 \cr}
 
 At this point in time, \code{baymedr} entails tests for the following
 research designs with a continuous outcome measure: \itemize{ \item
