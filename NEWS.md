@@ -8,3 +8,4 @@
 * Incorporated exact hypotheses when printing results.
 * Updated function documentation.
 
+# baymedr 0.1.1.9000

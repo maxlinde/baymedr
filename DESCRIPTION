@@ -1,6 +1,6 @@
 Package: baymedr
 Title: Computation of Bayes Factors for Common Biomedical Designs
-Version: 0.1.1
+Version: 0.1.1.9000
 Date: 2021-03-26
 Authors@R: c(
     person(given = "Maximilian",
@@ -38,7 +38,7 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 License: GPL-3
 Encoding: UTF-8
 Language: en-US
