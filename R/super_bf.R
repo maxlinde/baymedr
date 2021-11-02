@@ -288,11 +288,11 @@ super_bf <- function(x = NULL,
                 prior_df = 1)
   if (str_detect(direction,
                  "low")) {
-    bf <- res[[3]]
+    bf <- res$bf_min0
     h1 <- "mu_y < mu_x"
   } else if (str_detect(direction,
                         "high")) {
-    bf <- res[[2]]
+    bf <- res$bf_plus0
     h1 <- "mu_y > mu_x"
   } else {
     abort("'direction' must be one of 'low' or 'high'.")

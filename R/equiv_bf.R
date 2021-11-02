@@ -286,7 +286,7 @@ equiv_bf <- function(x = NULL,
                   prior_loc = 0,
                   prior_scale = prior_scale,
                   prior_df = 1)
-    bf <- 1 / res[[1]]
+    bf <- 1 / res$bf_10
     h0 <- "mu_y == mu_x"
     h1 <- "mu_y != mu_x"
   } else {

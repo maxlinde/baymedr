@@ -313,7 +313,7 @@ infer_bf <- function(x = NULL,
                   prior_loc = -ni_mar_std,
                   prior_scale = prior_scale,
                   prior_df = 1)
-    bf <- res[[3]] / res[[2]]
+    bf <- res$bf_min0 / res$bf_plus0
     h0 <- "mu_y - mu_x > ni_margin"
     h1 <- "mu_y - mu_x < ni_margin"
   } else if (str_detect(direction,
@@ -333,7 +333,7 @@ infer_bf <- function(x = NULL,
                   prior_loc = -ni_mar_std,
                   prior_scale = prior_scale,
                   prior_df = 1)
-    bf <- res[[2]] / res[[3]]
+    bf <- res$bf_plus0 / res$bf_min0
     h0 <- "mu_y - mu_x < -ni_margin"
     h1 <- "mu_y - mu_x > -ni_margin"
   } else {
