@@ -1,4 +1,4 @@
-#' @import rlang stats stringr
+#' @import stats stringr
 cdf_t <- function(x,
                   t,
                   n1,
@@ -21,10 +21,11 @@ cdf_t <- function(x,
                    rel.tol = rel_tol)$value
   if (out > 1) {
     out <- 1
-    warn(str_c(
+    warning(str_c(
       "Numerical integration yields a CDF value slightly larger than 1. ",
       "The CDF value has been replaced by 1."
-    ))
+    ),
+    call. = FALSE)
   }
   out
 }

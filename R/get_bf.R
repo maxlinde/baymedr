@@ -39,11 +39,12 @@ get_bf <- function(object) {
                     is(object = object,
                        class2 = x)
                   }))) {
-    abort(str_c(
+    stop(str_c(
       "Bayes factors can only be extracted from S4 objects of classes ",
       "'baymedrEquivalence', 'baymedrNonInferiority', and ",
       "'baymedrSuperiority'."
-    ))
+    ),
+    call. = FALSE)
   }
   object@bf
 }

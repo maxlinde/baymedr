@@ -104,7 +104,7 @@
 #'   object.
 #'
 #' @export
-#' @import rlang stats stringr
+#' @import stats stringr
 #'
 #' @references Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2020). Informed
 #'   Bayesian t-tests. \emph{The American Statistician}, \emph{74}(2), 137-143.
@@ -195,18 +195,20 @@ infer_bf <- function(x = NULL,
                               !is.null(sd_y),
                               !is.null(ci_margin),
                               !is.null(ci_level))) {
-    abort(str_c(
+    stop(str_c(
       "Only 'x', 'y', and 'ni_margin' OR 'n_x', 'n_y', 'mean_x', 'mean_y', ",
       "'sd_x', 'sd_y', and 'ni_margin' (or 'ci_margin' and 'ci_level' instead ",
       "of 'sd_x' and 'sd_y') must be defined."
-    ))
+    ),
+    call. = FALSE)
   }
   if (any(!is.null(x),
           !is.null(y))) {
     if (any(is.null(x),
             is.null(y),
             is.null(ni_margin))) {
-      abort("All 'x', 'y', and 'ni_margin' must be defined.")
+      stop("All 'x', 'y', and 'ni_margin' must be defined.",
+           call. = FALSE)
     }
   }
   if (any(!is.null(n_x),
@@ -220,16 +222,18 @@ infer_bf <- function(x = NULL,
             is.null(ni_margin)) ||
         ((is.null(sd_x) || is.null(sd_y)) &&
          (is.null(ci_margin) || is.null(ci_level)))) {
-      abort(str_c(
+      stop(str_c(
         "All 'n_x', 'n_y', 'mean_x', 'mean_y', 'sd_x', 'sd_y', and ",
         "'ni_margin' (or 'ci_margin' and 'ci_level' instead of 'sd_x' and ",
         "'sd_y') must be defined."
-      ))
+      ),
+      call. = FALSE)
     }
     if (!xor(!is.null(sd_x) && !is.null(sd_y),
              !is.null(ci_margin) && !is.null(ci_level))) {
-      abort(
-        "Only 'sd_x' and 'sd_y' OR 'ci_margin' and 'ci_level' must be defined."
+      stop(
+        "Only 'sd_x' and 'sd_y' OR 'ci_margin' and 'ci_level' must be defined.",
+        call. = FALSE
       )
     }
   }
@@ -242,7 +246,8 @@ infer_bf <- function(x = NULL,
           ))) {
     if (!is.null(ci_level) && (length(ci_level) > 1 || ci_level <= 0 ||
                                ci_level >= 1 || !is.numeric(ci_level))) {
-      abort("'ci_level' must be a single numeric value between 0 and 1.")
+      stop("'ci_level' must be a single numeric value between 0 and 1.",
+           call. = FALSE)
     }
     data <- list(type = "summary data",
                  data = list(n_x = n_x,
@@ -256,13 +261,16 @@ infer_bf <- function(x = NULL,
   }
   if (!is.null(x) && !is.null(y)) {
     if (any(is.na(x)) || any(is.na(y))) {
-      abort("'x' and 'y' must not contain missing values.")
+      stop("'x' and 'y' must not contain missing values.",
+           call. = FALSE)
     }
     if (any(is.infinite(x)) || any(is.infinite(y))) {
-      abort("'x' and 'y' must not contain infinite values.")
+      stop("'x' and 'y' must not contain infinite values.",
+           call. = FALSE)
     }
     if (!is.numeric(x) || !is.numeric(y)) {
-      abort("'x' and 'y' must be numeric vectors.")
+      stop("'x' and 'y' must be numeric vectors.",
+           call. = FALSE)
     }
     n_x <- length(x)
     n_y <- length(y)
@@ -275,16 +283,20 @@ infer_bf <- function(x = NULL,
                              y = y))
   }
   if (!is.numeric(prior_scale) || length(prior_scale) > 1) {
-    abort("'prior_scale' must be a single numeric value.")
+    stop("'prior_scale' must be a single numeric value.",
+         call. = FALSE)
   }
   if (!is.numeric(ni_margin) || length(ni_margin) > 1 || ni_margin < 0) {
-    abort("'ni_margin' must be a single positive numeric value.")
+    stop("'ni_margin' must be a single positive numeric value.",
+         call. = FALSE)
   }
   if (!is.logical(ni_margin_std) || length(ni_margin_std) > 1) {
-    abort("'ni_margin_std' must be a single locial value.")
+    stop("'ni_margin_std' must be a single locial value.",
+         call. = FALSE)
   }
   if (!is.character(direction) || length(direction) > 1) {
-    abort("'direction' must be a single character value.")
+    stop("'direction' must be a single character value.",
+         call. = FALSE)
   }
   if (!is.null(sd_x) && !is.null(sd_y)) {
     sd_pooled <- sqrt(((n_x - 1) * sd_x ^ 2 + (n_y - 1) * sd_y ^ 2) /
@@ -337,7 +349,8 @@ infer_bf <- function(x = NULL,
     h0 <- "mu_y - mu_x < -ni_margin"
     h1 <- "mu_y - mu_x > -ni_margin"
   } else {
-    abort("'direction' must be one of 'low' or 'high'.")
+    stop("'direction' must be one of 'low' or 'high'.",
+         call. = FALSE)
   }
   test <- "Non-inferiority analysis"
   hypotheses <- list(h0 = h0,
