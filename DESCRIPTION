@@ -27,10 +27,14 @@ Description: BAYesian inference for MEDical designs in R. Functions for the
     summary statistics (n_x, n_y, mean_x, mean_y, sd_x, sd_y [or ci_margin 
     and ci_level]).
 Depends:
-    R (>= 3.2.0)
+    R (>= 3.4.0)
 Imports: 
     methods,
+    Rcpp (>= 0.12.0),
+    RcppParallel (>= 5.0.1),
     rlang,
+    rstan (>= 2.18.1),
+    rstantools (>= 2.2.0),
     stats,
     stringr
 Suggests: 
@@ -44,3 +48,12 @@ Encoding: UTF-8
 Language: en-US
 URL: https://github.com/maxlinde/baymedr
 BugReports: https://github.com/maxlinde/baymedr/issues
+Biarch: true
+LinkingTo: 
+    BH (>= 1.66.0),
+    Rcpp (>= 0.12.0),
+    RcppEigen (>= 0.3.3.3.0),
+    RcppParallel (>= 5.0.1),
+    rstan (>= 2.18.1),
+    StanHeaders (>= 2.18.0)
+SystemRequirements: GNU make
