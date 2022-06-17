@@ -10,6 +10,7 @@
 #'
 #' @return A numeric scalar, providing the Bayes factor from an S4 object.
 #'
+#' @import survival
 #' @export
 #'
 #' @examples
@@ -31,18 +32,34 @@
 #'                       ni_margin = 1)
 #'
 #' get_bf(object = mod_infer)
+#'
+#' # Extract Bayes factor from a baymedrCoxProportionalHazards object:
+#' data <- survival::aml
+#' names(data) <- c("time", "event", "group")
+#' data$group <- ifelse(test = data$group == "Maintained",
+#'                      yes = 0,
+#'                      no = 1)
+#'
+#' mod_coxph <- coxph_bf(time = data$time,
+#'                       event = data$event,
+#'                       group = data$group)
+#'
+#' get_bf(object = mod_coxph)
 get_bf <- function(object) {
   if (all(!sapply(c("baymedrSuperiority",
                     "baymedrEquivalence",
-                    "baymedrNonInferiority"),
+                    "baymedrNonInferiority",
+                    "baymedrCoxProportionalHazards",
+                    "baymedrCoxProportionalHazardsSamples"),
                   function(x) {
                     is(object = object,
                        class2 = x)
                   }))) {
     stop(str_c(
       "Bayes factors can only be extracted from S4 objects of classes ",
-      "'baymedrEquivalence', 'baymedrNonInferiority', and ",
-      "'baymedrSuperiority'."
+      "'baymedrEquivalence', 'baymedrNonInferiority', ",
+      "'baymedrSuperiority', 'baymedrCoxProportionalHazards', and ",
+      "'baymedrCoxProportionalHazardsSamples'."
     ),
     call. = FALSE)
   }
