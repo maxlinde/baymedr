@@ -38,4 +38,17 @@ mod_infer <- infer_bf(x = rnorm(100, 10, 15),
                       ni_margin = 1)
 
 get_bf(object = mod_infer)
+
+# Extract Bayes factor from a baymedrCoxProportionalHazards object:
+data <- survival::aml
+names(data) <- c("time", "event", "group")
+data$group <- ifelse(test = data$group == "Maintained",
+                     yes = 0,
+                     no = 1)
+
+mod_coxph <- coxph_bf(time = data$time,
+                      event = data$event,
+                      group = data$group)
+
+get_bf(object = mod_coxph)
 }
