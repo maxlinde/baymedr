@@ -33,11 +33,7 @@ posterior <- function(time,
                       direction = NULL,
                       prior_mean = 0,
                       prior_sd = 1,
-                      chains = 4,
-                      iter = 21000,
-                      warmup = 1000,
-                      thin = 1,
-                      cores = 1) {
+                      ...) {
   stan_data <- list(n_time = length(time),
                     time = time,
                     event = event,
@@ -57,13 +53,7 @@ posterior <- function(time,
                                                    no = 1)))
   sampling(object = stanmodels$coxph_bf,
            data = stan_data,
-           chains = chains,
-           iter = iter,
-           warmup = warmup,
-           thin = thin,
-           cores = cores,
-           refresh = max(iter / 10, 1),
-           control = list(adapt_delta = 0.99))
+           ...)
 }
 
 marginal_likelihood <- function(object,
