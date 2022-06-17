@@ -180,3 +180,135 @@ setMethod(
         sep = "")
   }
 )
+
+setMethod(
+  f = "show",
+  signature = "baymedrCoxProportionalHazards",
+  definition = function(object) {
+    cat("******************************",
+        "\n",
+        object@test,
+        "\n",
+        rep("-",
+            times = nchar(object@test)),
+        "\n",
+        "H0:              ",
+        object@hypotheses$h0,
+        "\n",
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta <")) {
+          "H-:              "
+        },
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta >")) {
+          "H+:              "
+        },
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta !=")) {
+          "H1:              "
+        },
+        object@hypotheses$h1,
+        "\n",
+        "Normal prior:    Mean = ",
+        formatC(x = object@prior$mean,
+                digits = 3,
+                format = "f"),
+        "\n",
+        "                 SD = ",
+        formatC(x = object@prior$sd,
+                digits = 3,
+                format = "f"),
+        "\n\n",
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta <")) {
+          "    BF-0 = "
+        },
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta >")) {
+          "    BF+0 = "
+        },
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta !=")) {
+          "    BF10 = "
+        },
+        if (object@bf > 1 / 1000 && object@bf < 1000) {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "f")
+        } else {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "e")
+        },
+        "\n",
+        "******************************",
+        "\n",
+        sep = "")
+  }
+)
+
+setMethod(
+  f = "show",
+  signature = "baymedrCoxProportionalHazardsSamples",
+  definition = function(object) {
+    cat("******************************",
+        "\n",
+        object@test,
+        "\n",
+        rep("-",
+            times = nchar(object@test)),
+        "\n",
+        "H0:              ",
+        object@hypotheses$h0,
+        "\n",
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta <")) {
+          "H-:              "
+        },
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta >")) {
+          "H+:              "
+        },
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta !=")) {
+          "H1:              "
+        },
+        object@hypotheses$h1,
+        "\n",
+        "Normal prior:    Mean = ",
+        formatC(x = object@prior$mean,
+                digits = 3,
+                format = "f"),
+        "\n",
+        "                 SD = ",
+        formatC(x = object@prior$sd,
+                digits = 3,
+                format = "f"),
+        "\n\n",
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta <")) {
+          "    BF-0 = "
+        },
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta >")) {
+          "    BF+0 = "
+        },
+        if (startsWith(x = object@hypotheses$h1,
+                       prefix = "beta !=")) {
+          "    BF10 = "
+        },
+        if (object@bf > 1 / 1000 && object@bf < 1000) {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "f")
+        } else {
+          formatC(x = object@bf,
+                  digits = 2,
+                  format = "e")
+        },
+        "\n",
+        "******************************",
+        "\n",
+        sep = "")
+  }
+)
