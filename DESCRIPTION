@@ -37,7 +37,8 @@ Imports:
     rstan (>= 2.18.1),
     rstantools (>= 2.2.0),
     stats,
-    stringr
+    stringr,
+    survival
 Suggests: 
     knitr,
     rmarkdown,
