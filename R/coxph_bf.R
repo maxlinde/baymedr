@@ -73,7 +73,7 @@
 #'   model is shown by printing the object.
 #'
 #' @export
-#' @import bridgesampling rstan
+#' @import bridgesampling rstan stringr
 #'
 #' @references van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
 #'   (2019). Bayes factors for superiority, non-inferiority, and equivalence
@@ -110,6 +110,53 @@ coxph_bf <- function(time,
                      prior_sd = 1,
                      save_samples = FALSE,
                      ...) {
+  if (!is.numeric(time) || any(time < 0)) {
+    stop("'time' must be a non-negative numeric vector.",
+         call. = FALSE)
+  }
+  if (!is.numeric(event) || !all(event %in% 0:1)) {
+    stop("'event' must be a numeric vector containing only the values 0 and 1.",
+         call. = FALSE)
+  }
+  if (!is.numeric(group) || !all(group %in% 0:1)) {
+    stop("'group' must be a numeric vector containing only the values 0 and 1.",
+         call. = FALSE)
+  }
+  if (length(time) != length(event) || length(time) != length(group)) {
+    stop("'time', 'event', and 'group' must have the same length.",
+         call. = FALSE)
+  }
+  if (length(null_value) != 1 || !is.numeric(null_value)) {
+    stop("'null_value' must be a single numeric value.",
+         call. = FALSE)
+  }
+  if (length(alternative) != 1 ||
+      !(alternative %in% c("one.sided", "two.sided"))) {
+    stop("'alternative' must be one of one.sided or two.sided.",
+         call. = FALSE)
+  }
+  if (alternative == "two.sided") {
+    if (!is.null(direction)) {
+      stop("When 'alternative' is two.sided, 'direction' must be NULL.",
+           call. = FALSE)
+    }
+  } else {
+    if (length(direction) != 1 ||
+        !(direction %in% c(-1, 1))) {
+      stop("When 'alternative' is one.sided, 'direction' must be -1 or 1.",
+           call. = FALSE)
+    }
+  }
+  if (length(prior_mean) != 1 || !is.numeric(prior_mean) ||
+      length(prior_sd) != 1 || !is.numeric(prior_sd) || prior_sd < 0) {
+    stop(str_c("'prior_mean' and 'prior_sd' must be single numeric values. ",
+               "'prior_sd' must be non-negative."),
+         call. = FALSE)
+  }
+  if (length(save_samples) != 1 || !is.logical(save_samples)) {
+    stop("'save_samples' must be a single logical value.",
+         call. = FALSE)
+  }
   stan_args <- match.call(expand.dots = FALSE)$...
   if (is.null(stan_args)) {
     stan_args <- list()
@@ -147,8 +194,6 @@ coxph_bf <- function(time,
   log_bf10 <- log_marg_lik - log_lik
   if (save_samples) {
     samples <- post
-  } else {
-    samples <- NA
   }
   test <- "Cox proportional hazards analysis"
   h0 <- paste0("beta == ", null_value)
@@ -166,11 +211,11 @@ coxph_bf <- function(time,
   prior <- list(mean = prior_mean,
                 sd = prior_sd)
   if (!save_samples) {
-  new(Class = "baymedrCoxProportionalHazards",
-      test = test,
-      hypotheses = hypotheses,
-      prior = prior,
-      bf = exp(log_bf10))
+    new(Class = "baymedrCoxProportionalHazards",
+        test = test,
+        hypotheses = hypotheses,
+        prior = prior,
+        bf = exp(log_bf10))
   } else {
     new(Class = "baymedrCoxProportionalHazardsSamples",
         test = test,
