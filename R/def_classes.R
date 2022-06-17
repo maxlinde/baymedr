@@ -98,7 +98,10 @@ setClass(Class = "baymedrCoxProportionalHazards",
 
 #' @rdname model-classes
 setClass(Class = "baymedrCoxProportionalHazardsSamples",
-         contains = c("baymedrCoxProportionalHazards", "stanfit"),
-         slots = c(
+         representation = representation(
+           test = "character",
+           hypotheses = "list",
+           prior = "list",
+           bf = "numeric",
            samples = "stanfit"
          ))
