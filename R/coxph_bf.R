@@ -57,10 +57,10 @@
 #'   parameter. The default is a standard deviation of 1.
 #' @param save_samples A logical value indicating whether the posterior samples
 #'   should be saved (TRUE) or not (FALSE; the default).
-#' @param ... Arguments passed to \code{rstan::sampling} (e.g. iter, chains). Be
-#'   aware that \code{\link{coxph_bf}} uses default values that are not the
-#'   default in \code{rstan::sampling}. Specifically, \code{\link{coxph_bf}}
-#'   uses \code{chains = 5}, \code{warmup = 1000}, and
+#' @param ... Arguments passed to \code{\link[rstan]{sampling}} (e.g. iter,
+#'   chains). Be aware that \code{\link{coxph_bf}} uses default values that are not the
+#'   default in \code{\link[rstan]{sampling}}. Specifically,
+#'   \code{\link{coxph_bf}} uses \code{chains = 5}, \code{warmup = 1000}, and
 #'   \code{iter = ceiling(50000 / chains + warmup)}.
 #'
 #' @return An S4 object of class \linkS4class{baymedrCoxProportionalHazards} is
@@ -69,8 +69,8 @@
 #'   statement of the hypotheses \itemize{ \item h0: The null hypothesis
 #'   \item h1: The alternative hypothesis} \item prior: The parameters of the
 #'   Normal prior on beta \item bf: The resulting Bayes factor \item samples:
-#'   The stanfit object containing the posterior samples } A summary of the
-#'   model is shown by printing the object.
+#'   The \linkS4class{stanfit} object containing the posterior samples } A
+#'   summary of the model is shown by printing the object.
 #'
 #' @export
 #' @import bridgesampling rstan stringr
