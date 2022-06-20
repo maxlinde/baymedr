@@ -41,7 +41,7 @@
 #'
 #' @param time A numeric vector of survival/censoring times.
 #' @param event A numeric vector indicating whether an event (e.g., death) has
-#'   happened (1) or not(0).
+#'   happened (1) or not (0).
 #' @param group A numeric vector of the dummy-coded independent variable. One
 #'   group should be coded with 0 and the other group with 1.
 #' @param null_value The value of the point null hypothesis for the beta
