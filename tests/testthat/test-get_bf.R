@@ -13,22 +13,35 @@ mod_infer <- infer_bf(x = con,
                       y = exp,
                       ni_margin = 0.5)
 
-time <- survival::aml$time
-event <- survival::aml$status
-group <- survival::aml$x
-group <- ifelse(test = group == "Maintained",
-                yes = 1,
-                no = 0)
+data <- survival::aml
+names(data) <- c("time", "event", "group")
+data$group <- ifelse(test = data$group == "Maintained",
+                     yes = 0,
+                     no = 1)
 
-mod_coxph <- coxph_bf(time = time,
-                      event = event,
-                      group = group,
+mod_coxph <- coxph_bf(data = data,
                       save_samples = FALSE)
 
-mod_coxph_samples <- coxph_bf(time = time,
-                              event = event,
-                              group = group,
+mod_coxph_samples <- coxph_bf(data = data,
                               save_samples = TRUE)
+
+sim_data <- coxph_data_sim(n_data = 3,
+                           ns_c = 20,
+                           ns_e = 56,
+                           ne_c = 18,
+                           ne_e = 40,
+                           km_med_c = c(22, 12, 63),
+                           km_med_e = c(130, 66, 190),
+                           km_med_ci_level = 0.95,
+                           cox_hr = c(0.433, 0.242, 0.774),
+                           cox_hr_ci_level = 0.95,
+                           maxit = 100)
+
+mod_coxph_multi <- coxph_bf(data = sim_data,
+                            save_samples = FALSE)
+
+mod_coxph_samples_multi <- coxph_bf(data = sim_data,
+                                    save_samples = TRUE)
 
 test_that("get_bf extracts numeric Bayes factor from S4 object", {
   expect_true(
@@ -46,6 +59,12 @@ test_that("get_bf extracts numeric Bayes factor from S4 object", {
   expect_true(
     is.numeric(get_bf(mod_coxph_samples))
   )
+  expect_true(
+    is.numeric(get_bf(mod_coxph_multi))
+  )
+  expect_true(
+    is.numeric(get_bf(mod_coxph_samples_multi))
+  )
 })
 
 test_that("get_bf gives correct error messages", {
@@ -55,8 +74,10 @@ test_that("get_bf gives correct error messages", {
     str_c(
       "Bayes factors can only be extracted from S4 objects of classes ",
       "'baymedrEquivalence', 'baymedrNonInferiority', ",
-      "'baymedrSuperiority', 'baymedrCoxProportionalHazards', and ",
-      "'baymedrCoxProportionalHazardsSamples'."
+      "'baymedrSuperiority', 'baymedrCoxProportionalHazards', ",
+      "'baymedrCoxProportionalHazardsSamples', ",
+      "'baymedrCoxProportionalHazardsMulti', and ",
+      "'baymedrCoxProportionalHazardsSamplesMulti'."
     ),
     fixed = TRUE
   )
