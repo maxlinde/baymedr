@@ -105,3 +105,28 @@ setClass(Class = "baymedrCoxProportionalHazardsSamples",
            bf = "numeric",
            samples = "stanfit"
          ))
+
+#' @rdname model-classes
+setClass(Class = "baymedrCoxProportionalHazardsMulti",
+         slots = c(
+           test = "character",
+           hypotheses = "list",
+           prior = "list",
+           bf = "numeric"
+         ),
+         prototype = list(
+           test = NA_character_,
+           hypotheses = list(),
+           prior = list(),
+           bf = NA_real_
+         ))
+
+#' @rdname model-classes
+setClass(Class = "baymedrCoxProportionalHazardsSamplesMulti",
+         representation = representation(
+           test = "character",
+           hypotheses = "list",
+           prior = "list",
+           bf = "numeric",
+           samples = "list"
+         ))

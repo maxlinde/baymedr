@@ -8,6 +8,8 @@
 \alias{baymedrNonInferiority-class}
 \alias{baymedrCoxProportionalHazards-class}
 \alias{baymedrCoxProportionalHazardsSamples-class}
+\alias{baymedrCoxProportionalHazardsMulti-class}
+\alias{baymedrCoxProportionalHazardsSamplesMulti-class}
 \title{S4 classes to represent different models}
 \description{
 The S4 classes \linkS4class{baymedrSuperiority},
