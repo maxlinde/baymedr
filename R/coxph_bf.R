@@ -39,11 +39,12 @@
 #' extract solely the Bayes factor, the user can do this with
 #' \code{\link{get_bf}}, by setting the S4 object as an argument (see Examples).
 #'
-#' @param time A numeric vector of survival/censoring times.
-#' @param event A numeric vector indicating whether an event (e.g., death) has
-#'   happened (1) or not (0).
-#' @param group A numeric vector of the dummy-coded independent variable. One
-#'   group should be coded with 0 and the other group with 1.
+#' @param data A data.frame or a list resulting from calling
+#'   \code{coxph_data_sim}. In the former case, the first column represents the
+#'   survival/censoring times, the second column indicates whether an event
+#'   (e.g., death) has happened (1) or not (0), and the third column represents
+#'   the dummy-coded independent variable, where the control group is coded with
+#'   0 and the experimental group with 1.
 #' @param null_value The value of the point null hypothesis for the beta
 #'   coefficient. The default is a null value of 0.
 #' @param alternative A string specifying whether the alternative hypothesis is
@@ -83,14 +84,12 @@
 #' # Load aml dataset from the survival R package.
 #' data <- survival::aml
 #' data$x <- ifelse(test = data$x == "Maintained",
-#'                  yes = 1,
-#'                  no = 0)
+#'                  yes = 0,
+#'                  no = 1)
 #' names(data) <- c("time", "event", "group")
 #'
 #' # Assign model to variable.
-#' coxph_mod <- coxph_bf(time = data$time,
-#'                       event = data$event,
-#'                       group = data$group,
+#' coxph_mod <- coxph_bf(data = data,
 #'                       null_value = 0,
 #'                       alternative = "one.sided",
 #'                       direction = 1,
@@ -100,9 +99,7 @@
 #'
 #' # Extract Bayes factor from variable.
 #' get_bf(coxph_mod)
-coxph_bf <- function(time,
-                     event,
-                     group,
+coxph_bf <- function(data,
                      null_value = 0,
                      alternative = "two.sided",
                      direction = NULL,
@@ -110,20 +107,10 @@ coxph_bf <- function(time,
                      prior_sd = 1,
                      save_samples = FALSE,
                      ...) {
-  if (!is.numeric(time) || any(time < 0)) {
-    stop("'time' must be a non-negative numeric vector.",
-         call. = FALSE)
-  }
-  if (!is.numeric(event) || !all(event %in% 0:1)) {
-    stop("'event' must be a numeric vector containing only the values 0 and 1.",
-         call. = FALSE)
-  }
-  if (!is.numeric(group) || !all(group %in% 0:1)) {
-    stop("'group' must be a numeric vector containing only the values 0 and 1.",
-         call. = FALSE)
-  }
-  if (length(time) != length(event) || length(time) != length(group)) {
-    stop("'time', 'event', and 'group' must have the same length.",
+  if (!inherits(x = data,
+                what = c("data.frame", "list"))) {
+    stop(str_c("'data' must be either a single data.frame or a list resulting ",
+               "from coxph_data_sim()."),
          call. = FALSE)
   }
   if (length(null_value) != 1 || !is.numeric(null_value)) {
@@ -173,28 +160,6 @@ coxph_bf <- function(time,
   if (is.null(stan_args$cores)) {
     stan_args$cores <- 1
   }
-  log_lik <- likelihood(time = time,
-                        event = event,
-                        group = group,
-                        null_value = null_value,
-                        log = TRUE)
-  post <- do.call(what = posterior,
-                  args = c(list(time = time,
-                                event = event,
-                                group = group,
-                                null_value = null_value,
-                                alternative = alternative,
-                                direction = direction,
-                                prior_mean = prior_mean,
-                                prior_sd = prior_sd),
-                           stan_args))
-  log_marg_lik <- marginal_likelihood(object = post,
-                                      cores = stan_args$cores,
-                                      log = TRUE)
-  log_bf10 <- log_marg_lik - log_lik
-  if (save_samples) {
-    samples <- post
-  }
   test <- "Cox proportional hazards analysis"
   h0 <- paste0("beta == ", null_value)
   if (alternative == "two.sided") {
@@ -210,18 +175,137 @@ coxph_bf <- function(time,
                      h1 = h1)
   prior <- list(mean = prior_mean,
                 sd = prior_sd)
-  if (!save_samples) {
-    new(Class = "baymedrCoxProportionalHazards",
-        test = test,
-        hypotheses = hypotheses,
-        prior = prior,
-        bf = exp(log_bf10))
+  if (inherits(x = data,
+               what = "data.frame")) {
+    time <- data[[1]]
+    event <- data[[2]]
+    group <- data[[3]]
+    if (!is.numeric(time) || any(time < 0, na.rm = TRUE)) {
+      stop("The first column in 'data' must be a non-negative numeric vector.",
+           call. = FALSE)
+    }
+    if (!is.numeric(event) || !all(event %in% c(0:1, NA))) {
+      stop(str_c("The second column in 'data' must be a numeric vector ",
+                 "containing only the values 0 and 1."),
+           call. = FALSE)
+    }
+    if (!is.numeric(group) || !all(group %in% c(0:1, NA))) {
+      stop(str_c("The third column in 'data' must be a numeric vector ",
+                 "containing only the values 0 and 1."),
+           call. = FALSE)
+    }
+    if (any(is.na(data))) {
+      stop("'data' must not contain any missing values.",
+           call. = FALSE)
+    }
+    log_lik <- likelihood(time = time,
+                          event = event,
+                          group = group,
+                          null_value = null_value,
+                          log = TRUE)
+    post <- do.call(what = posterior,
+                    args = c(list(time = time,
+                                  event = event,
+                                  group = group,
+                                  null_value = null_value,
+                                  alternative = alternative,
+                                  direction = direction,
+                                  prior_mean = prior_mean,
+                                  prior_sd = prior_sd),
+                             stan_args))
+    log_marg_lik <- marginal_likelihood(object = post,
+                                        cores = stan_args$cores,
+                                        log = TRUE)
+    log_bf10 <- log_marg_lik - log_lik
+    if (save_samples) {
+      samples <- post
+    }
+    if (!save_samples) {
+      new(Class = "baymedrCoxProportionalHazards",
+          test = test,
+          hypotheses = hypotheses,
+          prior = prior,
+          bf = exp(log_bf10))
+    } else {
+      new(Class = "baymedrCoxProportionalHazardsSamples",
+          test = test,
+          hypotheses = hypotheses,
+          prior = prior,
+          bf = exp(log_bf10),
+          samples = samples)
+    }
   } else {
-    new(Class = "baymedrCoxProportionalHazardsSamples",
-        test = test,
-        hypotheses = hypotheses,
-        prior = prior,
-        bf = exp(log_bf10),
-        samples = samples)
+  # if (inherits(x = data,
+  #              what = "list")) {
+    n_elem <- length(data)
+    for (i in 1:n_elem) {
+      tmp_data <- data[[i]][["data"]]
+      time <- tmp_data[[1]]
+      event <- tmp_data[[2]]
+      group <- tmp_data[[3]]
+      if (!is.numeric(time) || any(time < 0, na.rm = TRUE)) {
+        stop("The first column in 'data' must be a non-negative numeric vector.",
+             call. = FALSE)
+      }
+      if (!is.numeric(event) || !all(event %in% c(0:1, NA))) {
+        stop(str_c("The second column in 'data' must be a numeric vector ",
+                   "containing only the values 0 and 1."),
+             call. = FALSE)
+      }
+      if (!is.numeric(group) || !all(group %in% c(0:1, NA))) {
+        stop(str_c("The third column in 'data' must be a numeric vector ",
+                   "containing only the values 0 and 1."),
+             call. = FALSE)
+      }
+      if (any(is.na(data))) {
+        stop("'data' must not contain any missing values.",
+             call. = FALSE)
+      }
+    }
+    log_bf10 <- vector(mode = "numeric",
+                       length = n_elem)
+    post <- list()
+    for (i in 1:n_elem) {
+      tmp_data <- data[[i]][["data"]]
+      time <- tmp_data[[1]]
+      event <- tmp_data[[2]]
+      group <- tmp_data[[3]]
+      log_lik <- likelihood(time = time,
+                            event = event,
+                            group = group,
+                            null_value = null_value,
+                            log = TRUE)
+      post[[i]] <- do.call(what = posterior,
+                           args = c(list(time = time,
+                                         event = event,
+                                         group = group,
+                                         null_value = null_value,
+                                         alternative = alternative,
+                                         direction = direction,
+                                         prior_mean = prior_mean,
+                                         prior_sd = prior_sd),
+                                    stan_args))
+      log_marg_lik <- marginal_likelihood(object = post[[i]],
+                                          cores = stan_args$cores,
+                                          log = TRUE)
+      log_bf10[i] <- log_marg_lik - log_lik
+    }
+    if (save_samples) {
+      samples <- post
+    }
+    if (!save_samples) {
+      new(Class = "baymedrCoxProportionalHazardsMulti",
+          test = test,
+          hypotheses = hypotheses,
+          prior = prior,
+          bf = exp(log_bf10))
+    } else {
+      new(Class = "baymedrCoxProportionalHazardsSamplesMulti",
+          test = test,
+          hypotheses = hypotheses,
+          prior = prior,
+          bf = exp(log_bf10),
+          samples = samples)
+    }
   }
 }

@@ -5,9 +5,7 @@
 \title{Bayes factor for Cox proportional hazards regression}
 \usage{
 coxph_bf(
-  time,
-  event,
-  group,
+  data,
   null_value = 0,
   alternative = "two.sided",
   direction = NULL,
@@ -18,13 +16,12 @@ coxph_bf(
 )
 }
 \arguments{
-\item{time}{A numeric vector of survival/censoring times.}
-
-\item{event}{A numeric vector indicating whether an event (e.g., death) has
-happened (1) or not (0).}
-
-\item{group}{A numeric vector of the dummy-coded independent variable. One
-group should be coded with 0 and the other group with 1.}
+\item{data}{A data.frame or a list resulting from calling
+\code{coxph_data_sim}. In the former case, the first column represents the
+survival/censoring times, the second column indicates whether an event
+(e.g., death) has happened (1) or not (0), and the third column represents
+the dummy-coded independent variable, where the control group is coded with
+0 and the experimental group with 1.}
 
 \item{null_value}{The value of the point null hypothesis for the beta
 coefficient. The default is a null value of 0.}
@@ -106,14 +103,12 @@ extract solely the Bayes factor, the user can do this with
 # Load aml dataset from the survival R package.
 data <- survival::aml
 data$x <- ifelse(test = data$x == "Maintained",
-                 yes = 1,
-                 no = 0)
+                 yes = 0,
+                 no = 1)
 names(data) <- c("time", "event", "group")
 
 # Assign model to variable.
-coxph_mod <- coxph_bf(time = data$time,
-                      event = data$event,
-                      group = data$group,
+coxph_mod <- coxph_bf(data = data,
                       null_value = 0,
                       alternative = "one.sided",
                       direction = 1,
