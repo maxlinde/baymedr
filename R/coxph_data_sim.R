@@ -94,7 +94,12 @@
 #' @export
 #' @import doParallel foreach parallel pso stringr survival
 #'
-#' @references Kennedy, J., & Eberhart, R. (1995). Particle swarm optimization.
+#' @references
+#'   Harrell, F. R. (2015). Regression modeling strategies: Withapplications to
+#'   linear models, logistic regression, and survival analysis (2nd ed.).
+#'   Springer.
+#'
+#'   Kennedy, J., & Eberhart, R. (1995). Particle swarm optimization.
 #'   \emph{Proceedings of ICNN'95 - International Conference on Neural
 #'   Networks}, \emph{4}, 1942-1948.
 #'

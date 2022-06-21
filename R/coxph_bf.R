@@ -76,18 +76,23 @@
 #' @export
 #' @import bridgesampling rstan stringr
 #'
-#' @references Gronau, Q. F., Sarafoglou, A., Matzke, D., Ly, A., Boehm, U.,
-#'   Marsman, M., Leslie, D. S., Forster, J. J., Wagenmakers, E.-J., &
-#'   Steingroever, H. (2017). A tutorial on bridge sampling. \emph{Journal of
-#'   Mathematical Psychology}, \emph{81}, 80-97.
+#' @references
+#'   Gronau, Q. F., Sarafoglou, A., Matzke, D., Ly, A., Boehm, U., Marsman, M.,
+#'   Leslie, D. S., Forster, J. J., Wagenmakers, E.-J., & Steingroever, H.
+#'   (2017). A tutorial on bridge sampling. \emph{Journal of Mathematical
+#'   Psychology}, \emph{81}, 80-97.
 #'
 #'   Gronau, Q. F., Singmann, H., & Wagenmakers, E.-J. (2020). bridgesampling:
 #'   An R package for estimating normalizing constants. \emph{Journal of
 #'   Statistical Software}, \emph{92}, 1-29.
 #'
+#'   Harrell, F. R. (2015). Regression modeling strategies: With applications to
+#'   linear models, logistic regression, and survival analysis (2nd ed.).
+#'   Springer.
+#'
 #'   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
 #'   (2019). Bayes factors for superiority, non-inferiority, and equivalence
-#'   designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
+#'   designs. \emph{BMC Medical Research Methodology}, \emph{19}, 71.
 #'
 #' @examples
 #' # Load aml dataset from the survival R package.

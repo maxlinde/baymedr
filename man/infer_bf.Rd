@@ -225,18 +225,18 @@ infer_sum_t2 <- infer_bf(n_x = 30,
 get_bf(infer_sum_t2)
 }
 \references{
-Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2020). Informed
-  Bayesian t-tests. \emph{The American Statistician}, \emph{74}(2), 137-143.
+Gronau, Q. F., Ly, A., & Wagenmakers, E.-J. (2020). Informed Bayesian
+  t-tests. \emph{The American Statistician}, \emph{74}, 137-143.
 
   Liang, F., Paulo, R., Molina, G., Clyde, M. A., & Berger, J. O. (2008).
   Mixtures of g priors for Bayesian variable selection. \emph{Journal of the
-  American Statistical Association}, \emph{103}(481), 410-423.
+  American Statistical Association}, \emph{103}, 410-423.
 
   Rouder, J. N., Speckman, P. L., Sun, D., Morey, R. D., & Iverson, G.
   (2009). Bayesian t tests for accepting and rejecting the null hypothesis.
-  \emph{Psychonomic Bulletin & Review}, \emph{16}(2), 225-237.
+  \emph{Psychonomic Bulletin & Review}, \emph{16}, 225-237.
 
   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
   (2019). Bayes factors for superiority, non-inferiority, and equivalence
-  designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
+  designs. \emph{BMC Medical Research Methodology}, \emph{19}, 71.
 }
