@@ -1,4 +1,4 @@
-#' @import survival
+#' @import rms survival
 # This function calculates the Kaplan-Meier median survival time and the
 # corresponding x% confidence interval.
 km_med_ci <- function(time,
@@ -20,14 +20,15 @@ cox_hr_ci <- function(time,
                       event,
                       group,
                       ci_level = 0.95) {
-  mod <- coxph(formula = Surv(time, event) ~ group,
+  mod <- cph(formula = Surv(time, event) ~ group,
                method = "efron",
-               eps = 1e-4,
-               timefix = FALSE)
-  hr_ci <- summary(object = mod,
-                   conf.int = ci_level)$conf.int[c(1, 3, 4)]
-  names(hr_ci) <- c("hr", "ci_lower", "ci_upper")
-  hr_ci
+               eps = 1e-4)
+  hr <- exp(coef(object = mod))
+  hr_ci <- exp(confint(object = mod,
+                       level = ci_level))
+  out <- c(hr, hr_ci)
+  names(out) <- c("hr", "ci_lower", "ci_upper")
+  out
 }
 
 # This is the loss function that we want to minimize for the data generation
