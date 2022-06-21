@@ -2,13 +2,20 @@
 #'
 #' \code{\link{get_bf}} extracts the Bayes factor from an S4 object (i.e.,
 #' \linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence},
-#' \linkS4class{baymedrNonInferiority}), created from the functions
-#' \code{\link{super_bf}}, \code{\link{equiv_bf}}, or \code{\link{infer_bf}}.
+#' \linkS4class{baymedrNonInferiority}),
+#' \linkS4class{baymedrCoxProportionalHazards},
+#' \linkS4class{baymedrCoxProportionalHazardsSamples},
+#' \linkS4class{baymedrCoxProportionalHazardsMulti}, and
+#' \linkS4class{baymedrCoxProportionalHazardsSamplesMulti}.
 #'
 #' @param object An S4 object of class \linkS4class{baymedrSuperiority},
-#'   \linkS4class{baymedrEquivalence}, or \linkS4class{baymedrNonInferiority}.
+#'   \linkS4class{baymedrEquivalence}, \linkS4class{baymedrNonInferiority},
+#'   \linkS4class{baymedrCoxProportionalHazards},
+#'   \linkS4class{baymedrCoxProportionalHazardsSamples},
+#'   \linkS4class{baymedrCoxProportionalHazardsMulti}, or
+#'   \linkS4class{baymedrCoxProportionalHazardsSamplesMulti}
 #'
-#' @return A numeric scalar, providing the Bayes factor from an S4 object.
+#' @return A numeric vector, providing the Bayes factor(s) from an S4 object.
 #'
 #' @import survival
 #' @export
@@ -40,9 +47,7 @@
 #'                      yes = 0,
 #'                      no = 1)
 #'
-#' mod_coxph <- coxph_bf(time = data$time,
-#'                       event = data$event,
-#'                       group = data$group)
+#' mod_coxph <- coxph_bf(data = data)
 #'
 #' get_bf(object = mod_coxph)
 get_bf <- function(object) {
@@ -50,7 +55,9 @@ get_bf <- function(object) {
                     "baymedrEquivalence",
                     "baymedrNonInferiority",
                     "baymedrCoxProportionalHazards",
-                    "baymedrCoxProportionalHazardsSamples"),
+                    "baymedrCoxProportionalHazardsSamples",
+                    "baymedrCoxProportionalHazardsMulti",
+                    "baymedrCoxProportionalHazardsSamplesMulti"),
                   function(x) {
                     is(object = object,
                        class2 = x)
@@ -58,8 +65,10 @@ get_bf <- function(object) {
     stop(str_c(
       "Bayes factors can only be extracted from S4 objects of classes ",
       "'baymedrEquivalence', 'baymedrNonInferiority', ",
-      "'baymedrSuperiority', 'baymedrCoxProportionalHazards', and ",
-      "'baymedrCoxProportionalHazardsSamples'."
+      "'baymedrSuperiority', 'baymedrCoxProportionalHazards', ",
+      "'baymedrCoxProportionalHazardsSamples', ",
+      "'baymedrCoxProportionalHazardsMulti', and ",
+      "'baymedrCoxProportionalHazardsSamplesMulti'."
     ),
     call. = FALSE)
   }

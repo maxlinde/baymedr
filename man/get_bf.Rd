@@ -8,16 +8,23 @@ get_bf(object)
 }
 \arguments{
 \item{object}{An S4 object of class \linkS4class{baymedrSuperiority},
-\linkS4class{baymedrEquivalence}, or \linkS4class{baymedrNonInferiority}.}
+\linkS4class{baymedrEquivalence}, \linkS4class{baymedrNonInferiority},
+\linkS4class{baymedrCoxProportionalHazards},
+\linkS4class{baymedrCoxProportionalHazardsSamples},
+\linkS4class{baymedrCoxProportionalHazardsMulti}, or
+\linkS4class{baymedrCoxProportionalHazardsSamplesMulti}}
 }
 \value{
-A numeric scalar, providing the Bayes factor from an S4 object.
+A numeric vector, providing the Bayes factor(s) from an S4 object.
 }
 \description{
 \code{\link{get_bf}} extracts the Bayes factor from an S4 object (i.e.,
 \linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence},
-\linkS4class{baymedrNonInferiority}), created from the functions
-\code{\link{super_bf}}, \code{\link{equiv_bf}}, or \code{\link{infer_bf}}.
+\linkS4class{baymedrNonInferiority}),
+\linkS4class{baymedrCoxProportionalHazards},
+\linkS4class{baymedrCoxProportionalHazardsSamples},
+\linkS4class{baymedrCoxProportionalHazardsMulti}, and
+\linkS4class{baymedrCoxProportionalHazardsSamplesMulti}.
 }
 \examples{
 # Extract Bayes factor from a baymedrSuperiority object using raw data:
@@ -46,9 +53,7 @@ data$group <- ifelse(test = data$group == "Maintained",
                      yes = 0,
                      no = 1)
 
-mod_coxph <- coxph_bf(time = data$time,
-                      event = data$event,
-                      group = data$group)
+mod_coxph <- coxph_bf(data = data)
 
 get_bf(object = mod_coxph)
 }
