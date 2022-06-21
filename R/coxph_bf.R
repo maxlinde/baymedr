@@ -76,7 +76,16 @@
 #' @export
 #' @import bridgesampling rstan stringr
 #'
-#' @references van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
+#' @references Gronau, Q. F., Sarafoglou, A., Matzke, D., Ly, A., Boehm, U.,
+#'   Marsman, M., Leslie, D. S., Forster, J. J., Wagenmakers, E.-J., &
+#'   Steingroever, H. (2017). A tutorial on bridge sampling. \emph{Journal of
+#'   Mathematical Psychology}, \emph{81}, 80-97.
+#'
+#'   Gronau, Q. F., Singmann, H., & Wagenmakers, E.-J. (2020). bridgesampling:
+#'   An R package for estimating normalizing constants. \emph{Journal of
+#'   Statistical Software}, \emph{92}, 1-29.
+#'
+#'   van Ravenzwaaij, D., Monden, R., Tendeiro, J. N., & Ioannidis, J. P. A.
 #'   (2019). Bayes factors for superiority, non-inferiority, and equivalence
 #'   designs. \emph{BMC Medical Research Methodology}, \emph{19}(1), 71.
 #'
