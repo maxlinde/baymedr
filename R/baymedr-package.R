@@ -18,7 +18,8 @@
 #'   \email{maximilian.linde.92@@gmail.com}
 #'
 #'   Authors: \itemize{ \item Maximilian Linde (aut, cre) \item Don van
-#'   Ravenzwaaij (aut) \item Quentin F. Gronau (ctb) }
+#'   Ravenzwaaij (aut) \item Jorge N. Tendeiro (aut)
+#'   \item Quentin F. Gronau (ctb) }
 #' @useDynLib baymedr, .registration = TRUE
 #' @import methods
 #' @import Rcpp
