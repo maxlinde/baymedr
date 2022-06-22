@@ -29,21 +29,21 @@ Description: BAYesian inference for MEDical designs in R. Functions for the
 Depends:
     R (>= 3.4.0)
 Imports: 
-    bridgesampling (>= 1.1),
-    doParallel,
-    foreach,
-    methods,
-    parallel,
-    pso,
+    bridgesampling (>= 1.1.2),
+    doParallel (>= 1.0.17),
+    foreach (>= 1.5.2),
+    methods (>= 4.2.0),
+    parallel (>= 4.2.0),
+    pso (>= 1.0.4),
     Rcpp (>= 0.12.0),
     RcppParallel (>= 5.0.1),
-    rlang,
-    rms,
+    rlang (>= 1.0.2),
+    rms (>= 6.3.0),
     rstan (>= 2.18.1),
     rstantools (>= 2.2.0),
-    stats,
-    stringr,
-    survival
+    stats (>= 4.2.0),
+    stringr (>= 1.4.0),
+    survival (>= 3.2.13)
 Suggests: 
     knitr,
     rmarkdown,
