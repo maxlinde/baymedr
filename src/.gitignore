@@ -1,0 +1,4 @@
+baymedr.so
+*.o
+*.cc
+*.h
