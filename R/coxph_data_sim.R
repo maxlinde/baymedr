@@ -167,11 +167,26 @@ coxph_data_sim <- function(n_data = 1,
          call. = FALSE)
   }
   if (length(km_med_c) != 3 || !is.numeric(km_med_c) ||
-      km_med_c[2] >= km_med_c[1] || km_med_c[3] <= km_med_c[1] ||
+      ifelse(test = all(!is.na(km_med_c[c(1, 2)])),
+             yes = km_med_c[2] >= km_med_c[1],
+             no = FALSE) ||
+      ifelse(test = all(!is.na(km_med_c[c(1, 3)])),
+             yes = km_med_c[3] <= km_med_c[1],
+             no = FALSE) ||
       length(km_med_e) != 3 || !is.numeric(km_med_e) ||
-        km_med_e[2] >= km_med_e[1] || km_med_e[3] <= km_med_e[1] ||
+      ifelse(test = all(!is.na(km_med_e[c(1, 2)])),
+             yes = km_med_e[2] >= km_med_e[1],
+             no = FALSE) ||
+      ifelse(test = all(!is.na(km_med_e[c(1, 3)])),
+             yes = km_med_e[3] <= km_med_e[1],
+             no = FALSE) ||
       length(cox_hr) != 3 || !is.numeric(cox_hr) ||
-        cox_hr[2] >= cox_hr[1] || cox_hr[3] <= cox_hr[1]) {
+      ifelse(test = all(!is.na(cox_hr[c(1, 2)])),
+             yes = cox_hr[2] >= cox_hr[1],
+             no = FALSE) ||
+      ifelse(test = all(!is.na(cox_hr[c(1, 3)])),
+             yes = cox_hr[3] <= cox_hr[1],
+             no = FALSE)) {
     stop(str_c("'km_med_c', 'km_med_e', and 'cox_hr' must be numeric vectors ",
                "of length 3 containing only positive value. The second entry ",
                "must be lower than the first entry and the third entry must ",
