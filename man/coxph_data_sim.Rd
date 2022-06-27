@@ -148,9 +148,9 @@ cox_hr_ci_level <- 0.95
 max_t <- 2 * max(km_med_c, km_med_e, na.rm = TRUE)
 
 # We want to simulate 5 datasets. We do not need a very precise match of the
-# summary statistics to the real summary statistics. Therefore, we only use
-# 1/10 of the default number of optimization iterations
-# (i.e., (1 / 10) * 5000).
+# summary statistics to the real summary statistics. Therefore, for
+# demonstration purposes we only use 1/100 of the default number of
+# optimization iterations (i.e., (1 / 100) * 5000).
 sim_data <- coxph_data_sim(n_data = 5,
                            ns_c = ns_c,
                            ns_e = ns_e,
@@ -162,7 +162,7 @@ sim_data <- coxph_data_sim(n_data = 5,
                            cox_hr = cox_hr,
                            cox_hr_ci_level = cox_hr_ci_level,
                            max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
-                           maxit = 500)
+                           maxit = 50)
 }
 \references{
 Harrell, F. R. (2015). Regression modeling strategies: Withapplications to
