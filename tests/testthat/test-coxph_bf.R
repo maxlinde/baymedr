@@ -240,7 +240,7 @@ test_that("coxph_bf gives correct error messages", {
     ),
     alternative = "one.sided",
     direction = NULL),
-    "When 'alternative' is one.sided, 'direction' must be -1 or 1.",
+    "When 'alternative' is one.sided, 'direction' must be low or high.",
     fixed = TRUE
   )
   expect_error(
@@ -257,7 +257,7 @@ test_that("coxph_bf gives correct error messages", {
     ),
     prior_sd = 1:3),
     str_c("'prior_mean' and 'prior_sd' must be single numeric values. ",
-          "'prior_sd' must be non-negative."),
+          "'prior_sd' must be positive."),
     fixed = TRUE
   )
   expect_error(
@@ -274,7 +274,7 @@ test_that("coxph_bf gives correct error messages", {
     ),
     prior_sd = -1),
     str_c("'prior_mean' and 'prior_sd' must be single numeric values. ",
-          "'prior_sd' must be non-negative."),
+          "'prior_sd' must be positive."),
     fixed = TRUE
   )
   expect_error(

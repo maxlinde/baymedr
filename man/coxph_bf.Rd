@@ -111,7 +111,7 @@ names(data) <- c("time", "event", "group")
 coxph_mod <- coxph_bf(data = data,
                       null_value = 0,
                       alternative = "one.sided",
-                      direction = 1,
+                      direction = "high",
                       prior_mean = 0,
                       prior_sd = 1,
                       save_samples = TRUE)

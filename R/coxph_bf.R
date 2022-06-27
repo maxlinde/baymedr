@@ -106,7 +106,7 @@
 #' coxph_mod <- coxph_bf(data = data,
 #'                       null_value = 0,
 #'                       alternative = "one.sided",
-#'                       direction = 1,
+#'                       direction = "high",
 #'                       prior_mean = 0,
 #'                       prior_sd = 1,
 #'                       save_samples = TRUE)
@@ -142,16 +142,16 @@ coxph_bf <- function(data,
            call. = FALSE)
     }
   } else {
-    if (length(direction) != 1 ||
-        !(direction %in% c(-1, 1))) {
-      stop("When 'alternative' is one.sided, 'direction' must be -1 or 1.",
+    if (length(direction) != 1 || is.null(direction) ||
+        !(direction %in% c("low", "high"))) {
+      stop("When 'alternative' is one.sided, 'direction' must be low or high.",
            call. = FALSE)
     }
   }
   if (length(prior_mean) != 1 || !is.numeric(prior_mean) ||
       length(prior_sd) != 1 || !is.numeric(prior_sd) || prior_sd < 0) {
     stop(str_c("'prior_mean' and 'prior_sd' must be single numeric values. ",
-               "'prior_sd' must be non-negative."),
+               "'prior_sd' must be positive."),
          call. = FALSE)
   }
   if (length(save_samples) != 1 || !is.logical(save_samples)) {
