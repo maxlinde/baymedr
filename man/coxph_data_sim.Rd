@@ -100,11 +100,12 @@ regression models with one dichotomous independent variable based on summary
 statistics.
 }
 \details{
-Particle swarm optimization, as implemented by \code{link[pso]{psoptim}} is
-used to simulate a dataset that matches certain summary statistics. The
-algorithm uses as many parameters as there cases in the dataset that is to be
-simulated. Therefore, using \code{\link{coxph_data_sim}} becomes more
-time-consuming the larger the sample size.
+Particle swarm optimization, as implemented by \code{\link[pso]{psoptim}} is
+used to simulate one or multiple datasets that match certain summary
+statistics. The algorithm uses as many parameters as there cases in the
+dataset that is to be simulated. Therefore, using
+\code{\link{coxph_data_sim}} becomes more time-consuming the larger the
+sample size.
 
 The relevant summary statistics that are used in the optimization process
 are: \itemize{ \item km_med_c: \itemize{ \item Kaplan-Meier median survival

@@ -59,8 +59,8 @@
 #' @param save_samples A logical value indicating whether the posterior samples
 #'   should be saved (TRUE) or not (FALSE; the default).
 #' @param ... Arguments passed to \code{\link[rstan]{sampling}} (e.g. iter,
-#'   chains). Be aware that \code{\link{coxph_bf}} uses default values that are not the
-#'   default in \code{\link[rstan]{sampling}}. Specifically,
+#'   chains). Be aware that \code{\link{coxph_bf}} uses default values that are
+#'   not the default in \code{\link[rstan]{sampling}}. Specifically,
 #'   \code{\link{coxph_bf}} uses \code{chains = 5}, \code{warmup = 1000}, and
 #'   \code{iter = ceiling(50000 / chains + warmup)}.
 #'
@@ -251,8 +251,8 @@ coxph_bf <- function(data,
           samples = samples)
     }
   } else {
-  # if (inherits(x = data,
-  #              what = "list")) {
+    # if (inherits(x = data,
+    #              what = "list")) {
     n_elem <- length(data)
     for (i in 1:n_elem) {
       tmp_data <- data[[i]][["data"]]
@@ -260,7 +260,8 @@ coxph_bf <- function(data,
       event <- tmp_data[[2]]
       group <- tmp_data[[3]]
       if (!is.numeric(time) || any(time < 0, na.rm = TRUE)) {
-        stop("The first column in 'data' must be a non-negative numeric vector.",
+        stop(str_c("The first column in 'data' must be a non-negative numeric ",
+                   "vector."),
              call. = FALSE)
       }
       if (!is.numeric(event) || !all(event %in% c(0:1, NA))) {

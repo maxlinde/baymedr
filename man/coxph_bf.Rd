@@ -43,8 +43,8 @@ parameter. The default is a standard deviation of 1.}
 should be saved (TRUE) or not (FALSE; the default).}
 
 \item{...}{Arguments passed to \code{\link[rstan]{sampling}} (e.g. iter,
-chains). Be aware that \code{\link{coxph_bf}} uses default values that are not the
-default in \code{\link[rstan]{sampling}}. Specifically,
+chains). Be aware that \code{\link{coxph_bf}} uses default values that are
+not the default in \code{\link[rstan]{sampling}}. Specifically,
 \code{\link{coxph_bf}} uses \code{chains = 5}, \code{warmup = 1000}, and
 \code{iter = ceiling(50000 / chains + warmup)}.}
 }
