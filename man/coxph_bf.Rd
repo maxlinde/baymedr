@@ -137,3 +137,6 @@ Gronau, Q. F., Sarafoglou, A., Matzke, D., Ly, A., Boehm, U., Marsman, M.,
   (2019). Bayes factors for superiority, non-inferiority, and equivalence
   designs. \emph{BMC Medical Research Methodology}, \emph{19}, 71.
 }
+\seealso{
+\code{\link{coxph_data_sim}} and \code{\link[rstan]{sampling}}.
+}

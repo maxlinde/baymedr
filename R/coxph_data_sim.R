@@ -91,6 +91,8 @@
 #'   condition (1). } \item optim: Results of particle swarm optimization. See
 #'   the Value section in \code{\link[pso]{psoptim}} }.
 #'
+#' @seealso \code{\link{coxph_bf}} and \code{\link[pso]{psoptim}}.
+#'
 #' @export
 #' @import doParallel foreach parallel pso stringr survival
 #'

@@ -177,3 +177,6 @@ Harrell, F. R. (2015). Regression modeling strategies: Withapplications to
   \emph{1998 IEEE International Conference on Evolutionary Computation
   Proceedings. IEEE World Congress on Computational Intelligence}, 69-73.
 }
+\seealso{
+\code{\link{coxph_bf}} and \code{\link[pso]{psoptim}}.
+}

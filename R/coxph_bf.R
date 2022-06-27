@@ -73,6 +73,8 @@
 #'   The \linkS4class{stanfit} object containing the posterior samples } A
 #'   summary of the model is shown by printing the object.
 #'
+#' @seealso \code{\link{coxph_data_sim}} and \code{\link[rstan]{sampling}}.
+#'
 #' @export
 #' @import bridgesampling rstan stringr
 #'
