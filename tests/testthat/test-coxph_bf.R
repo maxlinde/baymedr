@@ -16,28 +16,36 @@ sim_data <- coxph_data_sim(n_data = 3,
                            km_med_ci_level = 0.95,
                            cox_hr = c(0.433, 0.242, 0.774),
                            cox_hr_ci_level = 0.95,
-                           maxit = 100)
+                           maxit = 25)
 
 
 test_that("coxph_bf yields correct S4 class", {
   expect_is(
     coxph_bf(data = data,
-             save_samples = FALSE),
+             save_samples = FALSE,
+             chains = 1,
+             iter = 5000),
     "baymedrCoxProportionalHazards"
   )
   expect_is(
     coxph_bf(data = data,
-             save_samples = TRUE),
+             save_samples = TRUE,
+             chains = 1,
+             iter = 5000),
     "baymedrCoxProportionalHazardsSamples"
   )
   expect_is(
     coxph_bf(data = sim_data,
-             save_samples = FALSE),
+             save_samples = FALSE,
+             chains = 1,
+             iter = 5000),
     "baymedrCoxProportionalHazardsMulti"
   )
   expect_is(
     coxph_bf(data = sim_data,
-             save_samples = TRUE),
+             save_samples = TRUE,
+             chains = 1,
+             iter = 5000),
     "baymedrCoxProportionalHazardsSamplesMulti"
   )
 })
@@ -45,19 +53,27 @@ test_that("coxph_bf yields correct S4 class", {
 test_that("coxph_bf yields numeric Bayes factor", {
   expect_true(
     is.numeric(coxph_bf(data = data,
-                        save_samples = FALSE)@bf)
+                        save_samples = FALSE,
+                        chains = 1,
+                        iter = 5000)@bf)
   )
   expect_true(
     is.numeric(coxph_bf(data = data,
-                        save_samples = TRUE)@bf)
+                        save_samples = TRUE,
+                        chains = 1,
+                        iter = 5000)@bf)
   )
   expect_true(
     is.numeric(coxph_bf(data = sim_data,
-                        save_samples = FALSE)@bf)
+                        save_samples = FALSE,
+                        chains = 1,
+                        iter = 5000)@bf)
   )
   expect_true(
     is.numeric(coxph_bf(data = sim_data,
-                        save_samples = TRUE)@bf)
+                        save_samples = TRUE,
+                        chains = 1,
+                        iter = 5000)@bf)
   )
 })
 

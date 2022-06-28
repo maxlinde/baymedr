@@ -20,10 +20,12 @@ data$group <- ifelse(test = data$group == "Maintained",
                      no = 1)
 
 mod_coxph <- coxph_bf(data = data,
-                      save_samples = FALSE)
+                      save_samples = FALSE,
+                      iter = 5000)
 
 mod_coxph_samples <- coxph_bf(data = data,
-                              save_samples = TRUE)
+                              save_samples = TRUE,
+                              iter = 5000)
 
 sim_data <- coxph_data_sim(n_data = 3,
                            ns_c = 20,
@@ -35,13 +37,17 @@ sim_data <- coxph_data_sim(n_data = 3,
                            km_med_ci_level = 0.95,
                            cox_hr = c(0.433, 0.242, 0.774),
                            cox_hr_ci_level = 0.95,
-                           maxit = 100)
+                           maxit = 25)
 
 mod_coxph_multi <- coxph_bf(data = sim_data,
-                            save_samples = FALSE)
+                            save_samples = FALSE,
+                            chains = 1,
+                            iter = 5000)
 
 mod_coxph_samples_multi <- coxph_bf(data = sim_data,
-                                    save_samples = TRUE)
+                                    save_samples = TRUE,
+                                    chains = 1,
+                                    iter = 5000)
 
 test_that("get_bf extracts numeric Bayes factor from S4 object", {
   expect_true(

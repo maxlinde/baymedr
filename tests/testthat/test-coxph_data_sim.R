@@ -23,7 +23,7 @@ test_that("coxph_bf yields correct type", {
                    cox_hr_ci_level = cox_hr_ci_level,
                    max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
                    cores = 1,
-                   maxit = 50),
+                   maxit = 25),
     "list"
   )
 })
