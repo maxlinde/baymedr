@@ -227,6 +227,8 @@ coxph_data_sim <- function(n_data = 1,
     pso_args$maxit.stagnate <- ceiling(pso_args$maxit / 5)
   }
   if (cores == 1) {
+    message(str_c("Running in serial.\n",
+                  "Computations might take some time."))
     res <-
       foreach(
         i = 1:n_data,
@@ -266,8 +268,13 @@ coxph_data_sim <- function(n_data = 1,
     res
   } else {
     if (!getDoParRegistered()) {
+      message(str_c("Running in parallel using new parallel backend.\n",
+                    "Computations might take some time."))
       cl <- makeCluster(cores)
       registerDoParallel(cl)
+    } else {
+      message(str_c("Running in parallel using existing parallel backend.\n",
+                    "Computations might take some time."))
     }
     res <-
       foreach(
