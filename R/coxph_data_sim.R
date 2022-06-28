@@ -130,9 +130,9 @@
 #'
 #' # We want to simulate 5 datasets. We do not need a very precise match of the
 #' # summary statistics to the real summary statistics. Therefore, for
-#' # demonstration purposes we only use 1/100 of the default number of
-#' # optimization iterations (i.e., (1 / 100) * 5000).
-#' sim_data <- coxph_data_sim(n_data = 5,
+#' # demonstration purposes we only use 1/200 of the default number of
+#' # optimization iterations (i.e., (1 / 200) * 5000).
+#' sim_data <- coxph_data_sim(n_data = 3,
 #'                            ns_c = ns_c,
 #'                            ns_e = ns_e,
 #'                            ne_c = ne_c,
@@ -143,7 +143,7 @@
 #'                            cox_hr = cox_hr,
 #'                            cox_hr_ci_level = cox_hr_ci_level,
 #'                            max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
-#'                            maxit = 50)
+#'                            maxit = 25)
 coxph_data_sim <- function(n_data = 1,
                            ns_c,
                            ns_e,
