@@ -265,8 +265,10 @@ coxph_data_sim <- function(n_data = 1,
                                           flag = "0"))
     res
   } else {
-    cl <- makeCluster(cores)
-    registerDoParallel(cl)
+    if (!getDoParRegistered()) {
+      cl <- makeCluster(cores)
+      registerDoParallel(cl)
+    }
     res <-
       foreach(
         i = 1:n_data,
@@ -299,7 +301,6 @@ coxph_data_sim <- function(n_data = 1,
                                group = group),
              optim = c)
       }
-    stopCluster(cl)
     nc <- nchar(n_data)
     names(res) <- paste0("data_", formatC(x = 1:n_data,
                                           width = nc,
