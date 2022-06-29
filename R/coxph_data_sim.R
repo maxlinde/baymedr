@@ -216,10 +216,9 @@ coxph_data_sim <- function(n_data = 1,
     stop("'cores' must be a single positive integer.",
          call. = FALSE)
   }
-  pso_args <- match.call(expand.dots = FALSE)$...
-  if (is.null(pso_args)) {
-    pso_args <- list()
-  }
+  pso_args <- as.list(match.call(expand.dots = FALSE)$...)
+  pso_args <- lapply(X = pso_args,
+                     FUN = eval)
   if (is.null(pso_args$maxit)) {
     pso_args$maxit <- 5000
   }

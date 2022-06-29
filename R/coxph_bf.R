@@ -160,10 +160,9 @@ coxph_bf <- function(data,
     stop("'save_samples' must be a single logical value.",
          call. = FALSE)
   }
-  stan_args <- match.call(expand.dots = FALSE)$...
-  if (is.null(stan_args)) {
-    stan_args <- list()
-  }
+  stan_args <- as.list(match.call(expand.dots = FALSE)$...)
+  stan_args <- lapply(X = stan_args,
+                     FUN = eval)
   if (is.null(stan_args$chains)) {
     stan_args$chains <- 5
   }
