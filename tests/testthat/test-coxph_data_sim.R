@@ -4,10 +4,7 @@ ns_c <- 20
 ns_e <- 56
 ne_c <- 18
 ne_e <- 40
-km_med_c <- c(22, 15, 40)
-km_med_e <- c(130, 78, 185)
 cox_hr <- c(0.433, 0.242, 0.774)
-km_med_ci_level <- 0.9
 cox_hr_ci_level <- 0.95
 test_that("coxph_bf yields correct type", {
   expect_is(
@@ -16,12 +13,9 @@ test_that("coxph_bf yields correct type", {
                    ns_e = ns_e,
                    ne_c = ne_c,
                    ne_e = ne_e,
-                   km_med_c = km_med_c,
-                   km_med_e = km_med_e,
-                   km_med_ci_level = km_med_ci_level,
                    cox_hr = cox_hr,
                    cox_hr_ci_level = cox_hr_ci_level,
-                   max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
+                   max_t = 100,
                    cores = 1,
                    maxit = 25),
     "list"
@@ -35,14 +29,11 @@ test_that("coxph_data_sim gives correct error messages", {
                    ns_e = ns_e,
                    ne_c = ne_c,
                    ne_e = ne_e,
-                   km_med_c = km_med_c,
-                   km_med_e = km_med_e,
-                   km_med_ci_level = km_med_ci_level,
                    cox_hr = cox_hr,
                    cox_hr_ci_level = cox_hr_ci_level,
-                   max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
+                   max_t = 100,
                    cores = 1,
-                   maxit = 50),
+                   maxit = 25),
     "'n_data' must be a single positive integer.",
     fixed = TRUE
   )
@@ -52,14 +43,11 @@ test_that("coxph_data_sim gives correct error messages", {
                    ns_e = ns_e,
                    ne_c = ne_c,
                    ne_e = ne_e,
-                   km_med_c = km_med_c,
-                   km_med_e = km_med_e,
-                   km_med_ci_level = km_med_ci_level,
                    cox_hr = cox_hr,
                    cox_hr_ci_level = cox_hr_ci_level,
-                   max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
+                   max_t = 100,
                    cores = 1,
-                   maxit = 50),
+                   maxit = 25),
     "'ns_c', 'ns_e', 'ne_c', and 'ne_e' must be single positive integers.",
     fixed = TRUE
   )
@@ -69,18 +57,14 @@ test_that("coxph_data_sim gives correct error messages", {
                    ns_e = ns_e,
                    ne_c = ne_c,
                    ne_e = ne_e,
-                   km_med_c = c(2, 1),
-                   km_med_e = km_med_e,
-                   km_med_ci_level = km_med_ci_level,
-                   cox_hr = cox_hr,
+                   cox_hr = c(NA, 4, 6),
                    cox_hr_ci_level = cox_hr_ci_level,
-                   max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
+                   max_t = 100,
                    cores = 1,
-                   maxit = 50),
-    str_c("'km_med_c', 'km_med_e', and 'cox_hr' must be numeric vectors ",
-          "of length 3 containing only positive value. The second entry ",
-          "must be lower than the first entry and the third entry must ",
-          "higher than the first entry."),
+                   maxit = 25),
+    str_c("'cox_hr' must be a numeric vector of length 3 containing only ",
+          "positive values. The second entry must be lower than the first ",
+          "entry and the third entry must be higher than the first entry."),
     fixed = TRUE
   )
   expect_error(
@@ -89,15 +73,12 @@ test_that("coxph_data_sim gives correct error messages", {
                    ns_e = ns_e,
                    ne_c = ne_c,
                    ne_e = ne_e,
-                   km_med_c = km_med_c,
-                   km_med_e = km_med_e,
-                   km_med_ci_level = -0.5,
                    cox_hr = cox_hr,
-                   cox_hr_ci_level = cox_hr_ci_level,
-                   max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
+                   cox_hr_ci_level = 95,
+                   max_t = 100,
                    cores = 1,
-                   maxit = 50),
-    "'km_med_ci_level' and 'cox_hr_ci_level' must be between 0 and 1.",
+                   maxit = 25),
+    "'cox_hr_ci_level' must be between 0 and 1.",
     fixed = TRUE
   )
   expect_error(
@@ -106,16 +87,12 @@ test_that("coxph_data_sim gives correct error messages", {
                    ns_e = ns_e,
                    ne_c = ne_c,
                    ne_e = ne_e,
-                   km_med_c = km_med_c,
-                   km_med_e = km_med_e,
-                   km_med_ci_level = km_med_ci_level,
                    cox_hr = cox_hr,
                    cox_hr_ci_level = cox_hr_ci_level,
-                   max_t = 1 / 2 * max(km_med_c, km_med_e, na.rm = TRUE),
+                   max_t = c(5, 3),
                    cores = 1,
-                   maxit = 50),
-    str_c("'max_t' must be a single positive number that is higher than ",
-          "the maximum of 'km_med_c' and 'km_med_e'."),
+                   maxit = 25),
+    "'max_t' must be a single positive number.",
     fixed = TRUE
   )
   expect_error(
@@ -124,33 +101,11 @@ test_that("coxph_data_sim gives correct error messages", {
                    ns_e = ns_e,
                    ne_c = ne_c,
                    ne_e = ne_e,
-                   km_med_c = km_med_c,
-                   km_med_e = km_med_e,
-                   km_med_ci_level = km_med_ci_level,
                    cox_hr = cox_hr,
                    cox_hr_ci_level = cox_hr_ci_level,
-                   max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
-                   w = c(2, 1, 2, 1, 6, 3),
-                   cores = 1,
-                   maxit = 50),
-    str_c("'w' must be a numeric vector of length 9 containing only ",
-          "positive numbers."),
-    fixed = TRUE
-  )
-  expect_error(
-    coxph_data_sim(n_data = 2,
-                   ns_c = ns_c,
-                   ns_e = ns_e,
-                   ne_c = ne_c,
-                   ne_e = ne_e,
-                   km_med_c = km_med_c,
-                   km_med_e = km_med_e,
-                   km_med_ci_level = km_med_ci_level,
-                   cox_hr = cox_hr,
-                   cox_hr_ci_level = cox_hr_ci_level,
-                   max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
+                   max_t = 100,
                    cores = 0,
-                   maxit = 50),
+                   maxit = 25),
     "'cores' must be a single positive integer.",
     fixed = TRUE
   )

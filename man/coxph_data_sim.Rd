@@ -10,13 +10,9 @@ coxph_data_sim(
   ns_e,
   ne_c,
   ne_e,
-  km_med_c,
-  km_med_e,
-  km_med_ci_level = 0.95,
   cox_hr,
   cox_hr_ci_level = 0.95,
-  max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
-  w = c(2, 1, 1, 2, 1, 1, 6, 3, 3),
+  max_t = 100,
   cores = 1,
   ...
 )
@@ -32,24 +28,6 @@ coxph_data_sim(
 
 \item{ne_e}{Number of events (e.g., death) in the experimental condition.}
 
-\item{km_med_c}{A numeric vector of length 3, indicating the Kaplan-Meier
-median survival time of the control condition, the lower boundary of the x%
-confidence interval of the Kaplan-Meier median survival time of the control
-condition, and the upper boundary of the x% confidence interval of the
-Kaplan-Meier median survival time of the control condition, respectively.
-Insert NA for those information that are not available.}
-
-\item{km_med_e}{A numeric vector of length 3, indicating the Kaplan-Meier
-median survival time of the experimental condition, the lower boundary of
-the x% confidence interval of the Kaplan-Meier median survival time of the
-experimental condition, and the upper boundary of the x% confidence
-interval of the Kaplan-Meier median survival time of the experimental
-condition, respectively. Insert NA for those information that are not
-available.}
-
-\item{km_med_ci_level}{Confidence level of the x% confidence intervals of the
-Kaplan-Meier median survival times. The default is 0.95.}
-
 \item{cox_hr}{A numeric vector of length 3, indicating the hazard ratio
 between the experimental and control conditions based on a Cox proportional
 hazards regression model, the lower boundary of the x% confidence interval
@@ -57,20 +35,14 @@ of the hazard ratio between the experimental and control conditions based
 on a Cox proportional hazards regression model, and the upper boundary of
 the x% confidence interval of the hazard ratio between the experimental and
 control conditions based on a Cox proportional hazards regression model,
-respectively. Insert NA for those information that are not available.}
+respectively. The hazard ratio must be provided. The confidence interval
+boundaries are optional; if missing they should be given as NA.}
 
 \item{cox_hr_ci_level}{Confidence level of the x% confidence interval of the
 hazard ratio between the experimental and control conditions based on a Cox
 proportional hazards regression model. The default is 0.95.}
 
-\item{max_t}{The maximum allowed survival/censoring time. The default is a
-heuristic that uses 2 times the maximum value in \code{km_med_c} and
-\code{km_med_e}.}
-
-\item{w}{A numeric vector of length 9, indicating how summary statistics
-should be weighted in the optimization process. The relevant summary
-statistics consist of \code{km_med_c}, \code{km_med_e}, and \code{cox_hr},
-respectively. The default is \code{c(2, 1, 1, 2, 1, 1, 6, 3, 3)}.}
+\item{max_t}{The maximum allowed survival/censoring time. The default is 100.}
 
 \item{cores}{The number of cores to be used in the data simulation process.
 The default is 1. Note that it is only useful to use more than 1 core if
@@ -108,20 +80,11 @@ dataset that is to be simulated. Therefore, using
 sample size.
 
 The relevant summary statistics that are used in the optimization process
-are: \itemize{ \item km_med_c: \itemize{ \item Kaplan-Meier median survival
-time of the control condition. \item Lower boundary of the x% confidence
-interval of the Kaplan-Meier median survival time of the control condition.
-\item Upper boundary of the x% confidence interval of the Kaplan-Meier median
-survival time of the experimental condition. } \item km_med_e: \itemize{
-\item Kaplan-Meier median survival time of the experimental condition. \item
-Lower boundary of the x% confidence interval of the Kaplan-Meier median
-survival time of the experimental condition. \item Upper boundary of the x%
-confidence interval of the Kaplan-Meier median survival time of the
-experimental condition. } \item cox_hr \itemize{ \item Hazard ratio
+are: \itemize{ \item cox_hr \itemize{ \item Hazard ratio
 between the experimental and control conditions based on a Cox proportional
 hazards regression model. \item Lower boundary of the x% confidence interval
 of the hazard ratio between the experimental and control conditions based on
-a Cox proportional hazarads regression model. \item Upper boundary of the x%
+a Cox proportional hazards regression model. \item Upper boundary of the x%
 confidence interval of the hazard ratio between the experimental and control
 conditions based on a Cox proportional hazards regression model. } }
 
@@ -136,19 +99,10 @@ ns_c <- 20
 ns_e <- 56
 ne_c <- 18
 ne_e <- 40
-km_med_c <- c(22, 15, 40)
-km_med_e <- c(130, 78, 185)
 cox_hr <- c(0.433, 0.242, 0.774)
-km_med_ci_level <- 0.9
 cox_hr_ci_level <- 0.95
 
-# Unfortunately, the precise study duration (i.e., maximum possible
-# survival/censoring time) is not provided in the article. Therefore, we use
-# a heuristic to define the maximum possible survival time for the simulated
-# dataset. Note that this heuristic is the default.
-max_t <- 2 * max(km_med_c, km_med_e, na.rm = TRUE)
-
-# We want to simulate 5 datasets. We do not need a very precise match of the
+# We want to simulate 3 datasets. We do not need a very precise match of the
 # summary statistics to the real summary statistics. Therefore, for
 # demonstration purposes we only use 1/200 of the default number of
 # optimization iterations (i.e., (1 / 200) * 5000).
@@ -157,12 +111,9 @@ sim_data <- coxph_data_sim(n_data = 3,
                            ns_e = ns_e,
                            ne_c = ne_c,
                            ne_e = ne_e,
-                           km_med_c = km_med_c,
-                           km_med_e = km_med_e,
-                           km_med_ci_level = km_med_ci_level,
                            cox_hr = cox_hr,
                            cox_hr_ci_level = cox_hr_ci_level,
-                           max_t = 2 * max(km_med_c, km_med_e, na.rm = TRUE),
+                           max_t = 100,
                            maxit = 25)
 }
 \references{
