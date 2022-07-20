@@ -11,19 +11,21 @@ log_likelihood <- function(beta,
     d_set <- which(y == t[j] & c == 1)
     d <- length(d_set)
     e_set <- which(y >= t[j])
-    tmp_1 <- sum(x[d_set]) * beta
-    tmp_2 <- 0
+    a <- x[d_set]
+    f <- a * beta
     v <- x[e_set]
     q <- v * beta
+    tmp_1 <- sum(a) * beta
+    tmp_2 <- 0
     if (any(q > 0) | all(q < 0)) {
       z <- max(v) * -beta
     } else {
       z <- 0
     }
     for (i in 1:d) {
-      tmp_2a <- sum(exp(v * beta + z))
+      tmp_2a <- sum(exp(q + z))
       tmp_2b <- (i - 1) / d
-      tmp_2c <- sum(exp(x[d_set] * beta + z))
+      tmp_2c <- sum(exp(f + z))
       tmp_2 <- tmp_2 + log(tmp_2a - tmp_2b * tmp_2c)
     }
     ll <- ll + tmp_1 - (tmp_2 - d * z)
