@@ -9,10 +9,8 @@ get_bf(object)
 \arguments{
 \item{object}{An S4 object of class \linkS4class{baymedrSuperiority},
 \linkS4class{baymedrEquivalence}, \linkS4class{baymedrNonInferiority},
-\linkS4class{baymedrCoxProportionalHazards},
-\linkS4class{baymedrCoxProportionalHazardsSamples},
-\linkS4class{baymedrCoxProportionalHazardsMulti}, or
-\linkS4class{baymedrCoxProportionalHazardsSamplesMulti}}
+\linkS4class{baymedrCoxProportionalHazards}, or
+\linkS4class{baymedrCoxProportionalHazardsMulti}.}
 }
 \value{
 A numeric vector, providing the Bayes factor(s) from an S4 object.
@@ -21,10 +19,8 @@ A numeric vector, providing the Bayes factor(s) from an S4 object.
 \code{\link{get_bf}} extracts the Bayes factor from an S4 object (i.e.,
 \linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence},
 \linkS4class{baymedrNonInferiority}),
-\linkS4class{baymedrCoxProportionalHazards},
-\linkS4class{baymedrCoxProportionalHazardsSamples},
-\linkS4class{baymedrCoxProportionalHazardsMulti}, and
-\linkS4class{baymedrCoxProportionalHazardsSamplesMulti}.
+\linkS4class{baymedrCoxProportionalHazards}, and
+\linkS4class{baymedrCoxProportionalHazardsMulti}.
 }
 \examples{
 # Extract Bayes factor from a baymedrSuperiority object using raw data:

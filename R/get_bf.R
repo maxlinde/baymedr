@@ -3,17 +3,13 @@
 #' \code{\link{get_bf}} extracts the Bayes factor from an S4 object (i.e.,
 #' \linkS4class{baymedrSuperiority}, \linkS4class{baymedrEquivalence},
 #' \linkS4class{baymedrNonInferiority}),
-#' \linkS4class{baymedrCoxProportionalHazards},
-#' \linkS4class{baymedrCoxProportionalHazardsSamples},
-#' \linkS4class{baymedrCoxProportionalHazardsMulti}, and
-#' \linkS4class{baymedrCoxProportionalHazardsSamplesMulti}.
+#' \linkS4class{baymedrCoxProportionalHazards}, and
+#' \linkS4class{baymedrCoxProportionalHazardsMulti}.
 #'
 #' @param object An S4 object of class \linkS4class{baymedrSuperiority},
 #'   \linkS4class{baymedrEquivalence}, \linkS4class{baymedrNonInferiority},
-#'   \linkS4class{baymedrCoxProportionalHazards},
-#'   \linkS4class{baymedrCoxProportionalHazardsSamples},
-#'   \linkS4class{baymedrCoxProportionalHazardsMulti}, or
-#'   \linkS4class{baymedrCoxProportionalHazardsSamplesMulti}
+#'   \linkS4class{baymedrCoxProportionalHazards}, or
+#'   \linkS4class{baymedrCoxProportionalHazardsMulti}.
 #'
 #' @return A numeric vector, providing the Bayes factor(s) from an S4 object.
 #'
@@ -55,9 +51,7 @@ get_bf <- function(object) {
                     "baymedrEquivalence",
                     "baymedrNonInferiority",
                     "baymedrCoxProportionalHazards",
-                    "baymedrCoxProportionalHazardsSamples",
-                    "baymedrCoxProportionalHazardsMulti",
-                    "baymedrCoxProportionalHazardsSamplesMulti"),
+                    "baymedrCoxProportionalHazardsMulti"),
                   function(x) {
                     is(object = object,
                        class2 = x)
@@ -65,10 +59,8 @@ get_bf <- function(object) {
     stop(str_c(
       "Bayes factors can only be extracted from S4 objects of classes ",
       "'baymedrEquivalence', 'baymedrNonInferiority', ",
-      "'baymedrSuperiority', 'baymedrCoxProportionalHazards', ",
-      "'baymedrCoxProportionalHazardsSamples', ",
-      "'baymedrCoxProportionalHazardsMulti', and ",
-      "'baymedrCoxProportionalHazardsSamplesMulti'."
+      "'baymedrSuperiority', 'baymedrCoxProportionalHazards', and ",
+      "'baymedrCoxProportionalHazardsMulti'."
     ),
     call. = FALSE)
   }

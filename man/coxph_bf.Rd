@@ -10,9 +10,7 @@ coxph_bf(
   alternative = "two.sided",
   direction = NULL,
   prior_mean = 0,
-  prior_sd = 1,
-  save_samples = FALSE,
-  ...
+  prior_sd = 1
 )
 }
 \arguments{
@@ -38,15 +36,6 @@ default is a mean of 0.}
 
 \item{prior_sd}{Standard deviation of the Normal prior for the beta
 parameter. The default is a standard deviation of 1.}
-
-\item{save_samples}{A logical value indicating whether the posterior samples
-should be saved (TRUE) or not (FALSE; the default).}
-
-\item{...}{Arguments passed to \code{\link[rstan]{sampling}} (e.g. iter,
-chains). Be aware that \code{\link{coxph_bf}} uses default values that are
-not the default in \code{\link[rstan]{sampling}}. Specifically,
-\code{\link{coxph_bf}} uses \code{chains = 5}, \code{warmup = 1000}, and
-\code{iter = ceiling(50000 / chains + warmup)}.}
 }
 \value{
 An S4 object of class \linkS4class{baymedrCoxProportionalHazards} is
@@ -54,9 +43,8 @@ An S4 object of class \linkS4class{baymedrCoxProportionalHazards} is
   factor: \itemize{ \item test: The type of analysis \item hypotheses: A
   statement of the hypotheses \itemize{ \item h0: The null hypothesis
   \item h1: The alternative hypothesis} \item prior: The parameters of the
-  Normal prior on beta \item bf: The resulting Bayes factor \item samples:
-  The \linkS4class{stanfit} object containing the posterior samples } A
-  summary of the model is shown by printing the object.
+  Normal prior on beta \item bf: The resulting Bayes factor } A summary of
+  the model is shown by printing the object.
 }
 \description{
 \code{\link{coxph_bf}} computes a Bayes factor for Cox proportional hazards
@@ -113,23 +101,13 @@ coxph_mod <- coxph_bf(data = data,
                       alternative = "one.sided",
                       direction = "high",
                       prior_mean = 0,
-                      prior_sd = 1,
-                      save_samples = TRUE)
+                      prior_sd = 1)
 
 # Extract Bayes factor from variable.
 get_bf(coxph_mod)
 }
 \references{
-Gronau, Q. F., Sarafoglou, A., Matzke, D., Ly, A., Boehm, U., Marsman, M.,
-  Leslie, D. S., Forster, J. J., Wagenmakers, E.-J., & Steingroever, H.
-  (2017). A tutorial on bridge sampling. \emph{Journal of Mathematical
-  Psychology}, \emph{81}, 80-97.
-
-  Gronau, Q. F., Singmann, H., & Wagenmakers, E.-J. (2020). bridgesampling:
-  An R package for estimating normalizing constants. \emph{Journal of
-  Statistical Software}, \emph{92}, 1-29.
-
-  Harrell, F. R. (2015). Regression modeling strategies: With applications to
+Harrell, F. R. (2015). Regression modeling strategies: With applications to
   linear models, logistic regression, and survival analysis (2nd ed.).
   Springer.
 
@@ -138,5 +116,5 @@ Gronau, Q. F., Sarafoglou, A., Matzke, D., Ly, A., Boehm, U., Marsman, M.,
   designs. \emph{BMC Medical Research Methodology}, \emph{19}, 71.
 }
 \seealso{
-\code{\link{coxph_data_sim}} and \code{\link[rstan]{sampling}}.
+\code{\link{coxph_data_sim}}.
 }

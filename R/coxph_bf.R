@@ -56,38 +56,21 @@
 #'   default is a mean of 0.
 #' @param prior_sd Standard deviation of the Normal prior for the beta
 #'   parameter. The default is a standard deviation of 1.
-#' @param save_samples A logical value indicating whether the posterior samples
-#'   should be saved (TRUE) or not (FALSE; the default).
-#' @param ... Arguments passed to \code{\link[rstan]{sampling}} (e.g. iter,
-#'   chains). Be aware that \code{\link{coxph_bf}} uses default values that are
-#'   not the default in \code{\link[rstan]{sampling}}. Specifically,
-#'   \code{\link{coxph_bf}} uses \code{chains = 5}, \code{warmup = 1000}, and
-#'   \code{iter = ceiling(50000 / chains + warmup)}.
 #'
 #' @return An S4 object of class \linkS4class{baymedrCoxProportionalHazards} is
 #'   returned. Contained are a description of the model and the resulting Bayes
 #'   factor: \itemize{ \item test: The type of analysis \item hypotheses: A
 #'   statement of the hypotheses \itemize{ \item h0: The null hypothesis
 #'   \item h1: The alternative hypothesis} \item prior: The parameters of the
-#'   Normal prior on beta \item bf: The resulting Bayes factor \item samples:
-#'   The \linkS4class{stanfit} object containing the posterior samples } A
-#'   summary of the model is shown by printing the object.
+#'   Normal prior on beta \item bf: The resulting Bayes factor } A summary of
+#'   the model is shown by printing the object.
 #'
-#' @seealso \code{\link{coxph_data_sim}} and \code{\link[rstan]{sampling}}.
+#' @seealso \code{\link{coxph_data_sim}}.
 #'
 #' @export
-#' @import bridgesampling rstan stringr
+#' @import stringr
 #'
 #' @references
-#'   Gronau, Q. F., Sarafoglou, A., Matzke, D., Ly, A., Boehm, U., Marsman, M.,
-#'   Leslie, D. S., Forster, J. J., Wagenmakers, E.-J., & Steingroever, H.
-#'   (2017). A tutorial on bridge sampling. \emph{Journal of Mathematical
-#'   Psychology}, \emph{81}, 80-97.
-#'
-#'   Gronau, Q. F., Singmann, H., & Wagenmakers, E.-J. (2020). bridgesampling:
-#'   An R package for estimating normalizing constants. \emph{Journal of
-#'   Statistical Software}, \emph{92}, 1-29.
-#'
 #'   Harrell, F. R. (2015). Regression modeling strategies: With applications to
 #'   linear models, logistic regression, and survival analysis (2nd ed.).
 #'   Springer.
@@ -110,8 +93,7 @@
 #'                       alternative = "one.sided",
 #'                       direction = "high",
 #'                       prior_mean = 0,
-#'                       prior_sd = 1,
-#'                       save_samples = TRUE)
+#'                       prior_sd = 1)
 #'
 #' # Extract Bayes factor from variable.
 #' get_bf(coxph_mod)
@@ -120,9 +102,7 @@ coxph_bf <- function(data,
                      alternative = "two.sided",
                      direction = NULL,
                      prior_mean = 0,
-                     prior_sd = 1,
-                     save_samples = FALSE,
-                     ...) {
+                     prior_sd = 1) {
   if (!inherits(x = data,
                 what = c("data.frame", "list"))) {
     stop(str_c("'data' must be either a single data.frame or a list resulting ",
@@ -155,25 +135,6 @@ coxph_bf <- function(data,
     stop(str_c("'prior_mean' and 'prior_sd' must be single numeric values. ",
                "'prior_sd' must be positive."),
          call. = FALSE)
-  }
-  if (length(save_samples) != 1 || !is.logical(save_samples)) {
-    stop("'save_samples' must be a single logical value.",
-         call. = FALSE)
-  }
-  stan_args <- as.list(match.call(expand.dots = FALSE)$...)
-  stan_args <- lapply(X = stan_args,
-                     FUN = eval)
-  if (is.null(stan_args$chains)) {
-    stan_args$chains <- 5
-  }
-  if (is.null(stan_args$warmup)) {
-    stan_args$warmup <- 1000
-  }
-  if (is.null(stan_args$iter)) {
-    stan_args$iter <- ceiling(50000 / stan_args$chains + stan_args$warmup)
-  }
-  if (is.null(stan_args$cores)) {
-    stan_args$cores <- 1
   }
   test <- "Cox proportional hazards analysis"
   h0 <- paste0("beta == ", null_value)
@@ -213,46 +174,23 @@ coxph_bf <- function(data,
       stop("'data' must not contain any missing values.",
            call. = FALSE)
     }
-    log_lik <- likelihood(time = time,
-                          event = event,
-                          group = group,
-                          null_value = null_value,
-                          log = TRUE)
-    post <- do.call(what = posterior,
-                    args = c(list(time = time,
-                                  event = event,
-                                  group = group,
-                                  null_value = null_value,
-                                  alternative = alternative,
-                                  direction = direction,
-                                  prior_mean = prior_mean,
-                                  prior_sd = prior_sd),
-                             stan_args))
-    log_marg_lik <- marginal_likelihood(object = post,
-                                        cores = stan_args$cores,
-                                        log = TRUE)
-    log_bf10 <- log_marg_lik - log_lik
-    if (save_samples) {
-      samples <- post
-    }
-    if (!save_samples) {
-      new(Class = "baymedrCoxProportionalHazards",
-          test = test,
-          hypotheses = hypotheses,
-          prior = prior,
-          bf = exp(log_bf10))
-    } else {
-      new(Class = "baymedrCoxProportionalHazardsSamples",
-          test = test,
-          hypotheses = hypotheses,
-          prior = prior,
-          bf = exp(log_bf10),
-          samples = samples)
-    }
+    bf <- bf10(beta = null_value,
+               time = time,
+               event = event,
+               group = group,
+               alternative = alternative,
+               direction = direction,
+               prior_mean = prior_mean,
+               prior_sd = prior_sd)
+    new(Class = "baymedrCoxProportionalHazards",
+        test = test,
+        hypotheses = hypotheses,
+        prior = prior,
+        bf = bf)
   } else {
-    # if (inherits(x = data,
-    #              what = "list")) {
     n_elem <- length(data)
+    bf <- vector(mode = "numeric",
+                 length = n_elem)
     for (i in 1:n_elem) {
       tmp_data <- data[[i]][["data"]]
       time <- tmp_data[[1]]
@@ -277,51 +215,19 @@ coxph_bf <- function(data,
         stop("'data' must not contain any missing values.",
              call. = FALSE)
       }
+      bf[i] <- bf10(beta = null_value,
+                    time = time,
+                    event = event,
+                    group = group,
+                    alternative = alternative,
+                    direction = direction,
+                    prior_mean = prior_mean,
+                    prior_sd = prior_sd)
     }
-    log_bf10 <- vector(mode = "numeric",
-                       length = n_elem)
-    post <- list()
-    for (i in 1:n_elem) {
-      tmp_data <- data[[i]][["data"]]
-      time <- tmp_data[[1]]
-      event <- tmp_data[[2]]
-      group <- tmp_data[[3]]
-      log_lik <- likelihood(time = time,
-                            event = event,
-                            group = group,
-                            null_value = null_value,
-                            log = TRUE)
-      post[[i]] <- do.call(what = posterior,
-                           args = c(list(time = time,
-                                         event = event,
-                                         group = group,
-                                         null_value = null_value,
-                                         alternative = alternative,
-                                         direction = direction,
-                                         prior_mean = prior_mean,
-                                         prior_sd = prior_sd),
-                                    stan_args))
-      log_marg_lik <- marginal_likelihood(object = post[[i]],
-                                          cores = stan_args$cores,
-                                          log = TRUE)
-      log_bf10[i] <- log_marg_lik - log_lik
-    }
-    if (save_samples) {
-      samples <- post
-    }
-    if (!save_samples) {
-      new(Class = "baymedrCoxProportionalHazardsMulti",
-          test = test,
-          hypotheses = hypotheses,
-          prior = prior,
-          bf = exp(log_bf10))
-    } else {
-      new(Class = "baymedrCoxProportionalHazardsSamplesMulti",
-          test = test,
-          hypotheses = hypotheses,
-          prior = prior,
-          bf = exp(log_bf10),
-          samples = samples)
-    }
+    new(Class = "baymedrCoxProportionalHazardsMulti",
+        test = test,
+        hypotheses = hypotheses,
+        prior = prior,
+        bf = bf)
   }
 }

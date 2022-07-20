@@ -1,69 +1,105 @@
-#' @import bridgesampling rstan
-likelihood <- function(time,
-                       event,
-                       group,
-                       null_value = 0,
-                       log = TRUE) {
-  surv <- time[event == 1]
-  surv_ord_uniq <- unique(sort(surv))
-  res_i <- 0
-  for (i in 1:length(surv_ord_uniq)) {
-    d_set <- which(time == surv_ord_uniq[i] & event == 1)
+log_likelihood <- function(beta,
+                           time,
+                           event,
+                           group) {
+  y <- time
+  c <- event
+  x <- group
+  t <- unique(sort(y[c == 1]))
+  ll <- 0
+  for (j in 1:(length(t))) {
+    d_set <- which(y == t[j] & c == 1)
     d <- length(d_set)
-    tmp_1 <- sum(group[d_set] * null_value)
-    res_j <- 0
-    for (j in 1:d) {
-      tmp_2a <- sum(exp(group[time >= surv_ord_uniq[i]] * null_value))
-      tmp_2b <- (j - 1) / d
-      tmp_2c <- sum(exp(group[d_set] * null_value))
-      res_j <- res_j + log(tmp_2a - tmp_2b * tmp_2c)
+    e_set <- which(y >= t[j])
+    tmp_1 <- sum(x[d_set]) * beta
+    tmp_2 <- 0
+    v <- x[e_set]
+    q <- v * beta
+    if (any(q > 0) | all(q < 0)) {
+      z <- max(v) * -beta
+    } else {
+      z <- 0
     }
-    res_i <- res_i + tmp_1 - res_j
+    for (i in 1:d) {
+      tmp_2a <- sum(exp(v * beta + z))
+      tmp_2b <- (i - 1) / d
+      tmp_2c <- sum(exp(x[d_set] * beta + z))
+      tmp_2 <- tmp_2 + log(tmp_2a - tmp_2b * tmp_2c)
+    }
+    ll <- ll + tmp_1 - (tmp_2 - d * z)
   }
-  ifelse(test = log,
-         yes = res_i,
-         no = exp(res_i))
+  ll
 }
+log_likelihood <- Vectorize(FUN = log_likelihood,
+                            vectorize.args = "beta")
 
-posterior <- function(time,
-                      event,
-                      group,
-                      null_value = 0,
-                      alternative = "two.sided",
-                      direction = NULL,
-                      prior_mean = 0,
-                      prior_sd = 1,
-                      ...) {
-  stan_data <- list(n_time = length(time),
-                    time = time,
-                    event = event,
-                    group = group,
-                    n_surv = length(unique(time[event == 1])),
-                    surv_ord_uniq = unique(sort(time[event == 1])),
-                    prior_mean = prior_mean,
-                    prior_sd = prior_sd,
-                    null_hypothesis = null_value,
-                    alternative = ifelse(test = alternative == "two.sided",
-                                         yes = 0,
-                                         no = 1),
-                    direction = ifelse(test = is.null(direction),
-                                       yes = 0,
-                                       no = ifelse(test = direction == "low",
-                                                   yes = -1,
-                                                   no = 1)))
-  sampling(object = stanmodels$coxph_bf,
-           data = stan_data,
-           ...)
-}
-
-marginal_likelihood <- function(object,
-                                cores = 1,
-                                log = TRUE) {
-  log_marg_lik <- bridge_sampler(samples = object,
-                                 cores = cores,
-                                 use_neff = FALSE,
-                                 silent = TRUE)$logml
-  ifelse(test = log,
-         yes = log_marg_lik,
-         no = exp(log_marg_lik))
+bf10 <- function(beta = 0,
+                 time,
+                 event,
+                 group,
+                 alternative = "two.sided",
+                 direction = NULL,
+                 prior_mean = 0,
+                 prior_sd = 1) {
+  log_lik <- log_likelihood(beta = beta,
+                            time = time,
+                            event = event,
+                            group = group)
+  if (alternative == "two.sided") {
+    m_lower <- -100
+    m_upper <- 100
+    i_lower <- -Inf
+    i_upper <- Inf
+    prior_adj <- log(1)
+  } else if (alternative == "one.sided" & direction == "low") {
+    m_lower <- -100
+    m_upper <- beta
+    i_lower <- -Inf
+    i_upper <- beta
+    prior_adj <- pnorm(q = beta,
+                       mean = prior_mean,
+                       sd = prior_sd,
+                       lower.tail = TRUE,
+                       log.p = TRUE)
+  } else if (alternative == "one.sided" & direction == "high") {
+    m_lower <- beta
+    m_upper <- 100
+    i_lower <- beta
+    i_upper <- Inf
+    prior_adj <- pnorm(q = beta,
+                       mean = prior_mean,
+                       sd = prior_sd,
+                       lower.tail = FALSE,
+                       log.p = TRUE)
+  } else {
+    stop("Incorrect arguments for 'alternative' and 'direction' used.",
+         call. = FALSE)
+  }
+  m <- optim(par = beta,
+             fn = function(x) {
+               log_likelihood(beta = x,
+                              time = time,
+                              event = event,
+                              group = group) + dnorm(x = x,
+                                                     mean = prior_mean,
+                                                     sd = prior_sd,
+                                                     log = TRUE) - prior_adj
+             },
+             lower = m_lower,
+             upper = m_upper,
+             method = "Brent",
+             control = list(fnscale = -1))$value
+  i <- integrate(f = function(x) {
+    exp(log_likelihood(beta = x,
+                       time = time,
+                       event = event,
+                       group = group) + dnorm(x = x,
+                                              mean = prior_mean,
+                                              sd = prior_sd,
+                                              log = TRUE) - prior_adj - m)
+  },
+  lower = i_lower,
+  upper = i_upper)$value
+  r <- m + log(i)
+  exp(r - log_lik)
 }

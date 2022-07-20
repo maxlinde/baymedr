@@ -7,20 +7,16 @@
 \alias{baymedrEquivalence-class}
 \alias{baymedrNonInferiority-class}
 \alias{baymedrCoxProportionalHazards-class}
-\alias{baymedrCoxProportionalHazardsSamples-class}
 \alias{baymedrCoxProportionalHazardsMulti-class}
-\alias{baymedrCoxProportionalHazardsSamplesMulti-class}
 \title{S4 classes to represent different models}
 \description{
 The S4 classes \linkS4class{baymedrSuperiority},
-\linkS4class{baymedrEquivalence}, \linkS4class{baymedrNonInferiority}, and
-\linkS4class{baymedrCoxProportionalHazards} represent models for the
+\linkS4class{baymedrEquivalence}, \linkS4class{baymedrNonInferiority},
+\linkS4class{baymedrCoxProportionalHazards}, and
+\linkS4class{baymedrCoxProportionalHazardsMulti} represent models for the
 superiority (\code{\link{super_bf}}), equivalence (\code{\link{equiv_bf}}),
 non-inferiority (\code{\link{infer_bf}}), and Cox proportional hazards
-(\code{\link{coxph_bf}}) models, respectively. In addition, there is the class
-\linkS4class{baymedrCoxProportionalHazardsSamples}, which is used when
-posterior samples are saved for Cox proportional hazards
-(\code{\link{coxph_bf}}) models.
+(\code{\link{coxph_bf}}) models, respectively.
 }
 \section{Slots}{
 
@@ -41,7 +37,5 @@ posterior samples are saved for Cox proportional hazards
 
 \item{\code{prior}}{The mean and standard deviation of the Normal prior in case of
 \code{\link{coxph_bf}}.}
-
-\item{\code{samples}}{Posterior samples in case of \code{\link{coxph_bf}}.}
 }}
 

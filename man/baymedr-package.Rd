@@ -18,9 +18,6 @@ research designs with a continuous outcome measure: \itemize{ \item
 Equivalence: \code{\link{equiv_bf}} \item Non-Inferiority:
 \code{\link{infer_bf}} \item Superiority: \code{\link{super_bf}} }
 }
-\references{
-Stan Development Team (NA). RStan: the R interface to Stan. R package version 2.26.9. https://mc-stan.org
-}
 \seealso{
 Useful links: \itemize{ \item
   \url{https://github.com/maxlinde/baymedr} \item Report bugs at

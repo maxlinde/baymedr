@@ -18,59 +18,21 @@ sim_data <- coxph_data_sim(n_data = 3,
 
 test_that("coxph_bf yields correct S4 class", {
   expect_is(
-    coxph_bf(data = data,
-             save_samples = FALSE,
-             chains = 1,
-             iter = 5000),
+    coxph_bf(data = data),
     "baymedrCoxProportionalHazards"
   )
   expect_is(
-    coxph_bf(data = data,
-             save_samples = TRUE,
-             chains = 1,
-             iter = 5000),
-    "baymedrCoxProportionalHazardsSamples"
-  )
-  expect_is(
-    coxph_bf(data = sim_data,
-             save_samples = FALSE,
-             chains = 1,
-             iter = 5000),
+    coxph_bf(data = sim_data),
     "baymedrCoxProportionalHazardsMulti"
-  )
-  expect_is(
-    coxph_bf(data = sim_data,
-             save_samples = TRUE,
-             chains = 1,
-             iter = 5000),
-    "baymedrCoxProportionalHazardsSamplesMulti"
   )
 })
 
 test_that("coxph_bf yields numeric Bayes factor", {
   expect_true(
-    is.numeric(coxph_bf(data = data,
-                        save_samples = FALSE,
-                        chains = 1,
-                        iter = 5000)@bf)
+    is.numeric(coxph_bf(data = data)@bf)
   )
   expect_true(
-    is.numeric(coxph_bf(data = data,
-                        save_samples = TRUE,
-                        chains = 1,
-                        iter = 5000)@bf)
-  )
-  expect_true(
-    is.numeric(coxph_bf(data = sim_data,
-                        save_samples = FALSE,
-                        chains = 1,
-                        iter = 5000)@bf)
-  )
-  expect_true(
-    is.numeric(coxph_bf(data = sim_data,
-                        save_samples = TRUE,
-                        chains = 1,
-                        iter = 5000)@bf)
+    is.numeric(coxph_bf(data = sim_data)@bf)
   )
 })
 
@@ -288,22 +250,6 @@ test_that("coxph_bf gives correct error messages", {
     prior_sd = -1),
     str_c("'prior_mean' and 'prior_sd' must be single numeric values. ",
           "'prior_sd' must be positive."),
-    fixed = TRUE
-  )
-  expect_error(
-    coxph_bf(data = data.frame(
-      time = runif(n = 100,
-                   min = 0,
-                   max = 100),
-      event = sample(x = 0:1,
-                     size = 100,
-                     replace = TRUE),
-      group = sample(x = 0:1,
-                     size = 100,
-                     replace = TRUE)
-    ),
-    save_samples = "yes"),
-    "'save_samples' must be a single logical value.",
     fixed = TRUE
   )
   expect_error(
