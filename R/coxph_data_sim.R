@@ -151,7 +151,7 @@ coxph_data_sim <- function(n_data = 1,
   pso_args <- lapply(X = pso_args,
                      FUN = eval)
   if (is.null(pso_args$maxit)) {
-    pso_args$maxit <- 5000
+    pso_args$maxit <- 300
   }
   if (is.null(pso_args$maxit.stagnate)) {
     pso_args$maxit.stagnate <- ceiling(pso_args$maxit / 5)
