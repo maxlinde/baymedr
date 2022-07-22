@@ -6,11 +6,15 @@ cox_hr_ci <- function(time,
                       event,
                       group,
                       ci_level = 0.95) {
-  mod <- coxph(formula = Surv(time, event) ~ group,
-               method = "efron")
-  hr_ci <- summary(mod)$conf.int[c(1, 3, 4)]
-  names(hr_ci) <- c("hr", "ci_lower", "ci_upper")
-  hr_ci
+  mod <- cph(formula = Surv(time, event) ~ group,
+             method = "efron",
+             eps = 1e-4)
+  hr <- exp(coef(object = mod))
+  hr_ci <- exp(confint(object = mod,
+                       level = ci_level))
+  out <- c(hr, hr_ci)
+  names(out) <- c("hr", "ci_lower", "ci_upper")
+  out
 }
 
 # This is the loss function that we want to minimize for the data generation
@@ -31,7 +35,7 @@ loss <- function(par,
                           event = event,
                           group = group,
                           ci_level = cox_hr_ci_level)
-  act <- log(cox_hr)
+  act <- cox_hr
   sim <- sim_cox_hr
   if (is.na(act[1]) || is.na(sim[1])) {
     stop("The hazard ratio must be provided.",
@@ -43,7 +47,7 @@ loss <- function(par,
   w <- c(2, 1, 1)
   w <- w[idx]
   w <- w / sum(w)
-  # Mean squared of the weighted errors.
-  ms_weighted_error <- crossprod((sim - act) * w) / length(act)
-  log(ms_weighted_error)
+  # Mean squared of the scaled weighted errors.
+  ms_scaled_weighted_error <- crossprod((sim - act) / act * w) / length(act)
+  log(ms_scaled_weighted_error)
 }
