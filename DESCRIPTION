@@ -1,7 +1,7 @@
 Package: baymedr
 Title: Computation of Bayes Factors for Common Biomedical Designs
 Version: 0.1.1.9000
-Date: 2021-03-26
+Date: 2022-09-01
 Authors@R: c(
     person(given = "Maximilian",
            family = "Linde",
@@ -27,10 +27,10 @@ Description: BAYesian inference for MEDical designs in R. Functions for the
     computation of Bayes factors for common biomedical research designs. 
     Implemented are functions to test the equivalence (equiv_bf), 
     non-inferiority (infer_bf), and superiority (super_bf) of an experimental 
-    group compared to a control group on a continuous outcome measure. Bayes 
-    factors for these three tests can be computed based on raw data (x, y) or 
-    summary statistics (n_x, n_y, mean_x, mean_y, sd_x, sd_y [or ci_margin 
-    and ci_level]).
+    group compared to a control group on a continuous outcome measure, as well 
+    as functions for simulating survival data and calculating a Bayes factor 
+    for Cox proportional hazards models. Bayes factors for these tests can be 
+    computed based on raw data or summary statistics.
 Depends:
     R (>= 3.4.0)
 Imports: 
@@ -48,7 +48,7 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 License: GPL-3
 Encoding: UTF-8
 Language: en-US
