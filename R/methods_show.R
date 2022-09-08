@@ -37,11 +37,11 @@ setMethod(
         },
         if (object@bf > 1 / 1000 && object@bf < 1000) {
           formatC(x = object@bf,
-                  digits = 2,
+                  digits = 3,
                   format = "f")
         } else {
           formatC(x = object@bf,
-                  digits = 2,
+                  digits = 3,
                   format = "e")
         },
         "\n",
@@ -99,11 +99,11 @@ setMethod(
         "    BF01 (equivalence) = ",
         if (object@bf > 1 / 1000 && object@bf < 1000) {
           formatC(x = object@bf,
-                  digits = 2,
+                  digits = 3,
                   format = "f")
         } else {
           formatC(x = object@bf,
-                  digits = 2,
+                  digits = 3,
                   format = "e")
         },
         "\n",
@@ -167,11 +167,11 @@ setMethod(
         },
         if (object@bf > 1 / 1000 && object@bf < 1000) {
           formatC(x = object@bf,
-                  digits = 2,
+                  digits = 3,
                   format = "f")
         } else {
           formatC(x = object@bf,
-                  digits = 2,
+                  digits = 3,
                   format = "e")
         },
         "\n",
@@ -233,11 +233,11 @@ setMethod(
         },
         if (object@bf > 1 / 1000 && object@bf < 1000) {
           formatC(x = object@bf,
-                  digits = 2,
+                  digits = 3,
                   format = "f")
         } else {
           formatC(x = object@bf,
-                  digits = 2,
+                  digits = 3,
                   format = "e")
         },
         "\n",
@@ -287,45 +287,46 @@ setMethod(
         "\n\n",
         if (startsWith(x = object@hypotheses$h1,
                        prefix = "beta <")) {
-          "    Mean BF-0 = "
+          "    Median BF-0 = "
         },
         if (startsWith(x = object@hypotheses$h1,
                        prefix = "beta >")) {
-          "    Mean BF+0 = "
+          "    Median BF+0 = "
         },
         if (startsWith(x = object@hypotheses$h1,
                        prefix = "beta !=")) {
-          "    Mean BF10 = "
+          "    Median BF10 = "
         },
-        if (mean(object@bf) > 1 / 1000 && mean(object@bf) < 1000) {
-          formatC(x = mean(object@bf),
-                  digits = 2,
+        if (median(object@bf) > 1 / 1000 && median(object@bf) < 1000) {
+          formatC(x = median(object@bf),
+                  digits = 3,
                   format = "f")
         } else {
-          formatC(x = mean(object@bf),
-                  digits = 2,
+          formatC(x = median(object@bf),
+                  digits = 3,
                   format = "e")
         },
         "\n",
         if (startsWith(x = object@hypotheses$h1,
                        prefix = "beta <")) {
-          "      SD BF-0 = "
+          "    MAD SD BF-0 = "
         },
         if (startsWith(x = object@hypotheses$h1,
                        prefix = "beta >")) {
-          "      SD BF+0 = "
+          "    MAD SD BF+0 = "
         },
         if (startsWith(x = object@hypotheses$h1,
                        prefix = "beta !=")) {
-          "      SD BF10 = "
+          "    MAD SD BF10 = "
         },
-        if (sd(object@bf) > 1 / 1000 && sd(object@bf) < 1000) {
-          formatC(x = sd(object@bf),
-                  digits = 2,
+        if (1 / qnorm(3 / 4) * median(abs(object@bf - median(object@bf))) > 1 / 1000 &&
+            1 / qnorm(3 / 4) * median(abs(object@bf - median(object@bf))) < 1000) {
+          formatC(x = 1 / qnorm(3 / 4) * median(abs(object@bf - median(object@bf))),
+                  digits = 3,
                   format = "f")
         } else {
-          formatC(x = sd(object@bf),
-                  digits = 2,
+          formatC(x = 1 / qnorm(3 / 4) * median(abs(object@bf - median(object@bf))),
+                  digits = 3,
                   format = "e")
         },
         "\n",
