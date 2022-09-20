@@ -131,8 +131,8 @@ coxph_data_sim <- function(n_data = 1,
              yes = cox_hr[3] <= cox_hr[1],
              no = FALSE)) {
     stop(str_c("'cox_hr' must be a numeric vector of length 3 containing only ",
-    "positive values. The second entry must be lower than the first entry and ",
-    "the third entry must be higher than the first entry."),
+               "positive values. The second entry must be lower than the first entry and ",
+               "the third entry must be higher than the first entry."),
          call. = FALSE)
   }
   if (cox_hr_ci_level <= 0 || cox_hr_ci_level >= 1) {
@@ -198,42 +198,80 @@ coxph_data_sim <- function(n_data = 1,
                     "Computations might take some time."))
       cl <- makeCluster(cores)
       registerDoParallel(cl)
+      res <-
+        foreach(
+          i = 1:n_data,
+          .packages = c("pso", "survival")
+        ) %dopar% {
+          time <- runif(n = ns_c + ns_e,
+                        min = 1,
+                        max = max_t)
+          event <- c(rep(c(0, 1), c(ns_c - ne_c, ne_c)),
+                     rep(c(0, 1), c(ns_e - ne_e, ne_e)))
+          group <- rep(c(0, 1), c(ns_c, ns_e))
+          c <- do.call(what = psoptim,
+                       args = list(par = rep(NA, length(time)),
+                                   fn = loss,
+                                   cox_hr = cox_hr,
+                                   time = time,
+                                   event = event,
+                                   group = group,
+                                   cox_hr_ci_level = cox_hr_ci_level,
+                                   lower = log(1 / time),
+                                   upper = log(max_t / time),
+                                   control = pso_args))
+          time <- time * exp(c$par)
+          list(data = data.frame(time = time,
+                                 event = event,
+                                 group = group),
+               optim = c)
+        }
+      nc <- nchar(n_data)
+      names(res) <- paste0("data_", formatC(x = 1:n_data,
+                                            width = nc,
+                                            flag = "0"))
+      stopCluster(cl)
+      # env <- foreach:::.foreachGlobals
+      # rm(list = ls(name = env),
+      #    pos = env)
+      setDoSeq()
+      res
     } else {
       message(str_c("Running in parallel using existing parallel backend.\n",
                     "Computations might take some time."))
-    }
-    res <-
-      foreach(
-        i = 1:n_data,
-        .packages = c("pso", "survival")
-      ) %dopar% {
-        time <- runif(n = ns_c + ns_e,
-                      min = 1,
-                      max = max_t)
-        event <- c(rep(c(0, 1), c(ns_c - ne_c, ne_c)),
-                   rep(c(0, 1), c(ns_e - ne_e, ne_e)))
-        group <- rep(c(0, 1), c(ns_c, ns_e))
-        c <- do.call(what = psoptim,
-                     args = list(par = rep(NA, length(time)),
-                                 fn = loss,
-                                 cox_hr = cox_hr,
-                                 time = time,
+      res <-
+        foreach(
+          i = 1:n_data,
+          .packages = c("pso", "survival")
+        ) %dopar% {
+          time <- runif(n = ns_c + ns_e,
+                        min = 1,
+                        max = max_t)
+          event <- c(rep(c(0, 1), c(ns_c - ne_c, ne_c)),
+                     rep(c(0, 1), c(ns_e - ne_e, ne_e)))
+          group <- rep(c(0, 1), c(ns_c, ns_e))
+          c <- do.call(what = psoptim,
+                       args = list(par = rep(NA, length(time)),
+                                   fn = loss,
+                                   cox_hr = cox_hr,
+                                   time = time,
+                                   event = event,
+                                   group = group,
+                                   cox_hr_ci_level = cox_hr_ci_level,
+                                   lower = log(1 / time),
+                                   upper = log(max_t / time),
+                                   control = pso_args))
+          time <- time * exp(c$par)
+          list(data = data.frame(time = time,
                                  event = event,
-                                 group = group,
-                                 cox_hr_ci_level = cox_hr_ci_level,
-                                 lower = log(1 / time),
-                                 upper = log(max_t / time),
-                                 control = pso_args))
-        time <- time * exp(c$par)
-        list(data = data.frame(time = time,
-                               event = event,
-                               group = group),
-             optim = c)
-      }
-    nc <- nchar(n_data)
-    names(res) <- paste0("data_", formatC(x = 1:n_data,
-                                          width = nc,
-                                          flag = "0"))
-    res
+                                 group = group),
+               optim = c)
+        }
+      nc <- nchar(n_data)
+      names(res) <- paste0("data_", formatC(x = 1:n_data,
+                                            width = nc,
+                                            flag = "0"))
+      res
+    }
   }
 }
