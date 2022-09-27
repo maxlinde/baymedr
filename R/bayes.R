@@ -3,47 +3,47 @@ log_likelihood <- function(beta,
                            event,
                            group) {
   y <- time
-  c <- event
+  delta <- event
   x <- group
-  t <- unique(sort(y[c == 1]))
+  t <- unique(sort(y[delta == 1]))
   ll <- 0
   for (j in 1:(length(t))) {
-    d_set <- which(y == t[j] & c == 1)
-    d <- length(d_set)
-    e_set <- which(y >= t[j])
-    a <- x[d_set]
+    n_set <- which(y == t[j] & delta == 1)
+    n <- length(n_set)
+    s_set <- which(y >= t[j])
+    a <- x[n_set]
     f <- a * beta
-    v <- x[e_set]
+    v <- x[s_set]
     q <- v * beta
     tmp_1 <- sum(a) * beta
     tmp_2 <- 0
     if (any(q > 0) | all(q < 0)) {
-      z <- max(v) * -beta
+      z <- -max(v) * beta
     } else {
       z <- 0
     }
-    for (i in 1:d) {
+    for (i in 1:n) {
       tmp_2a <- sum(exp(q + z))
-      tmp_2b <- (i - 1) / d
+      tmp_2b <- (i - 1) / n
       tmp_2c <- sum(exp(f + z))
       tmp_2 <- tmp_2 + log(tmp_2a - tmp_2b * tmp_2c)
     }
-    ll <- ll + tmp_1 - (tmp_2 - d * z)
+    ll <- ll + tmp_1 - (tmp_2 - n * z)
   }
   ll
 }
 log_likelihood <- Vectorize(FUN = log_likelihood,
                             vectorize.args = "beta")
 
-bf10 <- function(beta = 0,
-                 time,
+bf10 <- function(time,
                  event,
                  group,
+                 null_value = 0,
                  alternative = "two.sided",
                  direction = NULL,
                  prior_mean = 0,
                  prior_sd = 1) {
-  log_lik <- log_likelihood(beta = beta,
+  log_lik <- log_likelihood(beta = null_value,
                             time = time,
                             event = event,
                             group = group)
@@ -55,20 +55,20 @@ bf10 <- function(beta = 0,
     prior_adj <- log(1)
   } else if (alternative == "one.sided" & direction == "low") {
     m_lower <- -100
-    m_upper <- beta
+    m_upper <- null_value
     i_lower <- -Inf
-    i_upper <- beta
-    prior_adj <- pnorm(q = beta,
+    i_upper <- null_value
+    prior_adj <- pnorm(q = null_value,
                        mean = prior_mean,
                        sd = prior_sd,
                        lower.tail = TRUE,
                        log.p = TRUE)
   } else if (alternative == "one.sided" & direction == "high") {
-    m_lower <- beta
+    m_lower <- null_value
     m_upper <- 100
-    i_lower <- beta
+    i_lower <- null_value
     i_upper <- Inf
-    prior_adj <- pnorm(q = beta,
+    prior_adj <- pnorm(q = null_value,
                        mean = prior_mean,
                        sd = prior_sd,
                        lower.tail = FALSE,
@@ -77,7 +77,7 @@ bf10 <- function(beta = 0,
     stop("Incorrect arguments for 'alternative' and 'direction' used.",
          call. = FALSE)
   }
-  m <- optim(par = beta,
+  m <- optim(par = null_value,
              fn = function(x) {
                log_likelihood(beta = x,
                               time = time,
