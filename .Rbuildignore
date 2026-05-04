@@ -4,3 +4,5 @@
 ^\.Rproj\.user$
 ^cran-comments\.md$
 ^baymedr\_todo\.txt$
+^\.positai$
+^\.claude$
