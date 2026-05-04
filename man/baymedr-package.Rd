@@ -11,7 +11,7 @@ common biomedical research designs.
 }
 \details{
 \tabular{ll}{ Package: \tab baymedr \cr Type: \tab Package \cr Version: \tab
-0.1.1.9000 \cr License: \tab GPL-3 \cr Date: \tab 2022-09-01 \cr}
+0.2 \cr License: \tab GPL-3 \cr Date: \tab 2022-09-01 \cr}
 }
 \seealso{
 Useful links: \itemize{ \item
