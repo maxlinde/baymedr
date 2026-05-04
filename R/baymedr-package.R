@@ -19,4 +19,4 @@
 #' @seealso Useful links: \itemize{ \item
 #'   \url{https://github.com/maxlinde/baymedr} \item Report bugs at
 #'   \url{https://github.com/maxlinde/baymedr/issues}}
-NULL
+"_PACKAGE"

@@ -47,10 +47,9 @@ Suggests:
     knitr,
     rmarkdown,
     testthat
-VignetteBuilder: knitr
-RoxygenNote: 7.2.1
 License: GPL-3
 Encoding: UTF-8
 Language: en-US
 URL: https://github.com/maxlinde/baymedr
 BugReports: https://github.com/maxlinde/baymedr/issues
+Config/roxygen2/version: 8.0.0
