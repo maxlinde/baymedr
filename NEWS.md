@@ -1,3 +1,12 @@
+# baymedr 0.2.1
+
+* Fixed issue about name conflict between survival::cluster() and rms::cluster().
+
+# baymedr 0.2
+
+* Added functionality for simulating data for Cox regression; coxph_data_sim().
+* Added functionality for computing Bayes factor for Cox regression; coxph_bf().
+
 # baymedr 0.1.1
 
 * Added a `NEWS.md` file to track changes to the package.
@@ -7,12 +16,3 @@
 * Removed argument "alternative" for super_bf().
 * Incorporated exact hypotheses when printing results.
 * Updated function documentation.
-
-# baymedr 0.2
-
-* Added functionality for simulating data for Cox regression; coxph_data_sim().
-* Added functionality for computing Bayes factor for Cox regression; coxph_bf().
-
-# baymedr 0.2.1
-
-* Fixed issue about name conflict between survival::cluster() and rms::cluster().
