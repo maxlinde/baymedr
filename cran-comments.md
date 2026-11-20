@@ -1,5 +1,8 @@
+This is a resubmission. Changes made in response to review:
+* Solved the name conflict regarding survival::cluster() and rms::cluster().
+
 ## Test environments
-* local: macos Tahoe 26.4.1, R 4.6.0
+* local: macos Golden Gate 27.2.1, R 4.6.2
 * win-builder (devel, release, oldrelease)
 
 ## R CMD check results
