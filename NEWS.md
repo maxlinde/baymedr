@@ -12,3 +12,7 @@
 
 * Added functionality for simulating data for Cox regression; coxph_data_sim().
 * Added functionality for computing Bayes factor for Cox regression; coxph_bf().
+
+# baymedr 0.2.1
+
+* Fixed issue about name conflict between survival::cluster() and rms::cluster().
