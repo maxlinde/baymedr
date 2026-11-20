@@ -1,4 +1,5 @@
-#' @import rms survival
+#' @importFrom rms cph
+#' @import survival
 # This function calculates the hazard ratio and the corresponding x% confidence
 # interval for a Cox proportional hazards regression model that is fit using the
 # Efron likelihood (cf. Harrell, 2015, p. 477, eq. 20.7).
